@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SSDI Benefits — Samora Legal</title>
+<meta name="description" content="Find out if you qualify for Social Security Disability Insurance. Free eligibility check, expert legal guidance, no upfront costs."/>
+<style>
+@font-face{font-family:'General Sans';src:url('/fonts/GeneralSans-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('/fonts/GeneralSans-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('/fonts/GeneralSans-Semibold.otf') format('opentype');font-weight:600;font-style:normal;font-display:swap}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --primary:#36233a;
+  --primary-light:rgba(54,35,58,.06);
+  --purple:#7f0ca6;
+  --purple-light:#ce9ffc;
+  --gradient-text:linear-gradient(135deg,#7f0ca6,#bc68c0);
+  --gradient-cta:linear-gradient(135deg,#ce9ffc,#9b5cf6);
+  --gradient-hero:linear-gradient(135deg,#2a1a2d,#3d2442);
+  --bg-dark:#2a1a2d;
+  --white:#fff;
+  --gray-50:#faf9fb;
+  --gray-100:#f3f0f5;
+  --gray-200:#e8e3ec;
+  --gray-400:#9b8fa0;
+  --gray-600:#6b5870;
+  --orange:#e07a2f;
+  --font:'General Sans',Arial,sans-serif;
+  --radius:16px;
+  --radius-sm:12px;
+  --radius-xs:8px;
+  --shadow:0 4px 24px rgba(54,35,58,.08);
+  --shadow-lg:0 12px 48px rgba(54,35,58,.12);
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--primary);font-size:18px;line-height:1.5;background:var(--white);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer;border:none;outline:none}
+
+/* ── Layout ── */
+.container{max-width:1200px;margin:0 auto;padding:0 40px}
+section{padding:96px 0}
+
+/* ── Nav (floating pill) ── */
+.nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;width:auto;max-width:900px}
+.nav-inner{display:flex;align-items:center;gap:0;height:auto;background:var(--white);border:1px solid var(--gray-200);border-radius:72px;padding:6px 6px 6px 20px;box-shadow:0 4px 32px rgba(54,35,58,.08),0 1px 4px rgba(54,35,58,.04)}
+.nav-logo{display:flex;align-items:center;gap:0;flex-shrink:0;padding-right:20px}
+.nav-logo img{height:32px}
+.nav-center{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-center a{font-size:14px;font-weight:500;color:var(--gray-600);padding:10px 18px;border-radius:60px;transition:all .2s;white-space:nowrap}
+.nav-center a:hover{color:var(--primary);background:var(--primary-light)}
+.nav-right{display:flex;align-items:center;flex-shrink:0;margin-left:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:60px;font-weight:600;font-size:15px;transition:all .3s}
+.btn-nav{background:var(--gradient-hero);color:var(--white);padding:12px 24px;border-radius:60px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:all .3s;white-space:nowrap}
+.btn-nav:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 16px rgba(54,35,58,.2)}
+.btn-outline{background:var(--primary-light);color:var(--primary)}
+.btn-outline:hover{background:var(--gray-200)}
+.btn-cta{background:var(--gradient-cta);color:var(--white);font-size:17px;padding:16px 36px;box-shadow:0 4px 20px rgba(155,92,246,.3);border-radius:60px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .3s}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(155,92,246,.4)}
+
+/* ── Hero ── */
+.hero{padding:140px 0 60px;position:relative;overflow:hidden;background:#f8f5fb}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 10% 90%,rgba(127,12,166,.15),transparent 60%),
+  radial-gradient(ellipse 60% 50% at 90% 10%,rgba(206,159,252,.18),transparent 60%),
+  radial-gradient(ellipse 40% 30% at 50% 40%,rgba(155,92,246,.08),transparent 60%),
+  radial-gradient(ellipse 30% 40% at 70% 70%,rgba(188,104,192,.1),transparent 50%);
+  pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(54,35,58,.12) 1px,transparent 1px);
+  background-size:20px 20px;
+  pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+.hero-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:60px;background:var(--white);border:1px solid var(--gray-200);font-size:13px;font-weight:500;color:var(--gray-600);box-shadow:0 1px 4px rgba(54,35,58,.06)}
+.hero-badge svg{width:16px;height:16px}
+.hero-badge.yc svg{color:#f26625}
+.hero-badge.trust svg{color:var(--purple)}
+.hero h1{font-size:52px;line-height:1.15;letter-spacing:-.02em;font-weight:600;margin-bottom:24px}
+.hero h1 .grad{background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;color:var(--gray-600);line-height:1.6;margin-bottom:36px;max-width:500px}
+.hero-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hero-image{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg)}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.hero-image-overlay{position:absolute;bottom:0;left:0;right:0;padding:28px;background:linear-gradient(transparent,rgba(42,26,45,.85));color:var(--white)}
+.hero-image-overlay p{font-size:15px;opacity:.9;margin-bottom:4px}
+.hero-image-overlay .stat{font-size:28px;font-weight:600}
+
+/* ── Logo marquee ── */
+.logo-marquee{padding:40px 0;background:var(--white);border-bottom:1px solid var(--gray-200);overflow:hidden}
+.logo-marquee-label{text-align:center;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-bottom:24px}
+.marquee-track{display:flex;gap:48px;animation:marquee 30s linear infinite;width:max-content}
+.marquee-track img{height:28px;opacity:.55;filter:grayscale(100%);transition:opacity .3s,filter .3s;flex-shrink:0;object-fit:contain}
+.marquee-track img[src$=".svg"]{filter:grayscale(100%) brightness(0);opacity:.5}
+.marquee-track img:hover{opacity:.85;filter:grayscale(0%)}
+.marquee-track img:hover{opacity:.8;filter:grayscale(0%)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── Stats bar ── */
+.stats-bar{background:var(--gradient-hero);padding:48px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;color:var(--white)}
+.stat-item .stat-number{font-size:40px;font-weight:600;background:var(--gradient-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-item .stat-label{font-size:15px;opacity:.7;margin-top:6px}
+
+/* ── How it works ── */
+.how-it-works{background:var(--white)}
+.section-label{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.section-title{font-size:40px;font-weight:600;letter-spacing:-.01em;line-height:1.2;margin-bottom:16px}
+.section-sub{font-size:18px;color:var(--gray-600);max-width:560px;margin-bottom:56px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.step-card{background:var(--gray-50);border-radius:var(--radius);padding:36px 28px;position:relative;transition:transform .3s,box-shadow .3s}
+.step-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.step-num{font-size:48px;font-weight:700;background:var(--gradient-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:16px}
+.step-card h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.step-card p{font-size:15px;color:var(--gray-600);line-height:1.6}
+
+/* ── Eligibility Tool ── */
+.eligibility{background:var(--gray-50);position:relative;overflow:hidden}
+.eligibility::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(206,159,252,.15),transparent 70%);pointer-events:none}
+.elig-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.elig-left{position:sticky;top:120px}
+.elig-left .section-title{font-size:36px}
+.elig-features{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.elig-feature{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:var(--gray-600)}
+.elig-feature svg{flex-shrink:0;width:22px;height:22px;color:var(--purple);margin-top:2px}
+
+/* ── Form ── */
+.form-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:40px;border:1px solid var(--gray-200)}
+.form-progress{display:flex;gap:6px;margin-bottom:32px}
+.form-progress .bar{flex:1;height:4px;border-radius:4px;background:var(--gray-200);transition:background .4s}
+.form-progress .bar.active{background:var(--gradient-cta)}
+.form-step{display:none;animation:fadeUp .35s ease}
+.form-step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.form-step h3{font-size:22px;font-weight:600;margin-bottom:8px}
+.form-step .form-hint{font-size:14px;color:var(--gray-400);margin-bottom:24px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:15px;font-weight:500;margin-bottom:8px}
+.form-input{width:100%;padding:14px 16px;border:1.5px solid var(--gray-200);border-radius:var(--radius-xs);font-size:16px;font-family:var(--font);transition:border-color .2s;background:var(--white)}
+.form-input:focus{outline:none;border-color:var(--purple-light)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239b8fa0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+textarea.form-input{resize:vertical;min-height:100px}
+.radio-group{display:flex;flex-direction:column;gap:10px}
+.radio-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--gray-200);border-radius:var(--radius-xs);cursor:pointer;transition:all .2s;font-size:15px}
+.radio-option:hover{border-color:var(--purple-light);background:rgba(206,159,252,.04)}
+.radio-option.selected{border-color:var(--purple);background:rgba(127,12,166,.04)}
+.radio-option input{display:none}
+.radio-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--gray-200);position:relative;flex-shrink:0;transition:border-color .2s}
+.radio-option.selected .radio-dot{border-color:var(--purple)}
+.radio-option.selected .radio-dot::after{content:'';position:absolute;top:4px;left:4px;width:8px;height:8px;border-radius:50%;background:var(--purple)}
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
+.btn-back{background:none;color:var(--gray-600);font-size:15px;font-weight:500;padding:12px 0}
+.btn-back:hover{color:var(--primary)}
+.btn-next{background:var(--gradient-hero);color:var(--white);padding:14px 32px;border-radius:60px;font-size:15px;font-weight:600;transition:all .3s}
+.btn-next:hover{opacity:.9;transform:translateY(-1px)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.form-step-count{font-size:13px;color:var(--gray-400)}
+
+/* ── Success ── */
+.success-view{display:none;text-align:center;padding:48px 20px}
+.success-view.active{display:block;animation:fadeUp .4s ease}
+.success-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#d4fc79,#96e6a1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success-view h3{font-size:24px;font-weight:600;margin-bottom:10px}
+.success-view p{font-size:16px;color:var(--gray-600);max-width:360px;margin:0 auto}
+
+/* ── FAQ ── */
+.faq{background:var(--white)}
+.faq-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.faq-list{display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--gray-200);border-radius:var(--radius-sm);overflow:hidden;transition:box-shadow .3s}
+.faq-item:hover{box-shadow:var(--shadow)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;font-size:17px;font-weight:500;gap:16px}
+.faq-q svg{flex-shrink:0;width:20px;height:20px;transition:transform .3s;color:var(--gray-400)}
+.faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--purple)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-item.open .faq-a{max-height:300px;padding:0 24px 20px}
+.faq-a p{font-size:15px;color:var(--gray-600);line-height:1.7}
+
+/* ── CTA ── */
+.final-cta{background:var(--gradient-hero);padding:96px 0;text-align:center;color:var(--white);position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(206,159,252,.08) 1px,transparent 1px);
+  background-size:24px 24px;pointer-events:none}
+.final-cta::after{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(206,159,252,.12),transparent 70%);pointer-events:none}
+.final-cta h2{font-size:44px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;position:relative}
+.final-cta p{font-size:18px;opacity:.7;margin-bottom:36px;position:relative}
+
+/* ── Footer ── */
+.footer{background:var(--bg-dark);color:var(--white);padding:48px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:start;gap:40px;flex-wrap:wrap}
+.footer-col h4{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;opacity:.5;margin-bottom:12px}
+.footer-col a{display:block;font-size:15px;opacity:.7;margin-bottom:8px;transition:opacity .2s}
+.footer-col a:hover{opacity:1}
+.footer-bottom{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;opacity:.4}
+.footer-disclaimer{font-size:12px;opacity:.35;margin-top:16px;max-width:700px;line-height:1.6}
+
+/* ── Responsive ── */
+@media(max-width:991px){
+  .container{padding:0 24px}
+  section{padding:72px 0}
+  .hero{padding:110px 0 48px}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero h1{font-size:40px}
+  .hero-image{max-width:400px}
+  .stats-grid{grid-template-columns:repeat(3,1fr);gap:24px}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .elig-grid{grid-template-columns:1fr}
+  .elig-left{position:static}
+  .faq-grid{grid-template-columns:1fr}
+  .nav{max-width:calc(100% - 32px);top:12px}
+  .nav-center{display:none}
+}
+@media(max-width:600px){
+  .hero h1{font-size:32px}
+  .section-title{font-size:30px}
+  .steps-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr;gap:20px}
+  .hero-cta-row{flex-direction:column;align-items:stretch}
+  .hero-cta-row .btn-cta{text-align:center;justify-content:center}
+  .final-cta h2{font-size:30px}
+  .form-card{padding:28px 20px}
+  .hero-badges{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav (floating pill) ── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo-1.png" alt="Samora AI" style="height:32px"/>
+    </a>
+    <div class="nav-center">
+      <a href="#how-it-works">Problem</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#eligibility">Eligibility</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <a href="#eligibility" class="btn-nav">Check Eligibility</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badges">
+          <div class="hero-badge yc">
+            <img src="/images/image-4921_1image 4921.png" alt="YC" style="width:20px;height:20px;object-fit:contain"/>
+            Backed by Y Combinator
+          </div>
+          <div class="hero-badge trust">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Trusted SSDI Advocates
+          </div>
+        </div>
+        <h1>You deserve the <span class="grad">disability benefits</span> you've earned.</h1>
+        <p class="hero-sub">Navigating SSDI shouldn't be overwhelming. We cut through the complexity to help you secure the benefits you're entitled to — fast, free guidance with no upfront costs.</p>
+        <div class="hero-cta-row">
+          <a href="#eligibility" class="btn-cta">Check Your Eligibility</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&auto=format" alt="Client receiving benefits"/>
+        <div class="hero-image-overlay">
+          <p>Average monthly SSDI benefit</p>
+          <div class="stat">$1,537/mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Logo Marquee ── -->
+<div class="logo-marquee">
+  <div class="logo-marquee-label">Trusted by teams at</div>
+  <div style="overflow:hidden">
+    <div class="marquee-track" id="marqueeTrack">
+      <img src="/get-started/logos/google.png" alt="Google" style="height:36px"/>
+      <img src="/get-started/logos/microsoft.png" alt="Microsoft" style="height:24px"/>
+      <img src="/get-started/logos/pfizer.png" alt="Pfizer" style="height:32px"/>
+      <img src="/get-started/logos/morgan-stanley.svg" alt="Morgan Stanley" style="height:28px"/>
+      <img src="/get-started/logos/cvs.png" alt="CVS Health" style="height:40px"/>
+      <img src="/get-started/logos/unicef.svg" alt="UNICEF" style="height:28px"/>
+      <img src="/get-started/logos/capgemini.svg" alt="Capgemini" style="height:24px"/>
+      <img src="/get-started/logos/philips.png" alt="Philips" style="height:36px"/>
+      <!-- duplicated for seamless loop -->
+      <img src="/get-started/logos/google.png" alt="Google" style="height:36px"/>
+      <img src="/get-started/logos/microsoft.png" alt="Microsoft" style="height:24px"/>
+      <img src="/get-started/logos/pfizer.png" alt="Pfizer" style="height:32px"/>
+      <img src="/get-started/logos/morgan-stanley.svg" alt="Morgan Stanley" style="height:28px"/>
+      <img src="/get-started/logos/cvs.png" alt="CVS Health" style="height:40px"/>
+      <img src="/get-started/logos/unicef.svg" alt="UNICEF" style="height:28px"/>
+      <img src="/get-started/logos/capgemini.svg" alt="Capgemini" style="height:24px"/>
+      <img src="/get-started/logos/philips.png" alt="Philips" style="height:36px"/>
+    </div>
+  </div>
+</div>
+
+<!-- ── Stats Bar ── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">93%</div>
+        <div class="stat-label">Approval rate with legal representation</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">$0</div>
+        <div class="stat-label">Upfront cost — pay only if you win</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2 min</div>
+        <div class="stat-label">Free eligibility check</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── How It Works ── -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <div class="section-title">Four simple steps to your benefits.</div>
+    <div class="section-sub">Our streamlined process takes the stress out of your SSDI claim. We handle the paperwork so you can focus on your health.</div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Check eligibility</h3>
+        <p>Answer a few quick questions to see if you qualify for SSDI benefits. No email required.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Free consultation</h3>
+        <p>Speak with an experienced disability advocate who will review your case and explain your options.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Get matched</h3>
+        <p>We connect you with a top-rated SSDI attorney in your area who specializes in cases like yours.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Receive benefits</h3>
+        <p>Your lawyer handles everything — filings, hearings, appeals. You pay nothing unless you win.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Eligibility Tool ── -->
+<section class="eligibility" id="eligibility">
+  <div class="container">
+    <div class="elig-grid">
+      <div class="elig-left">
+        <div class="section-label">Eligibility Tool</div>
+        <div class="section-title">Find out if you qualify in under 2 minutes.</div>
+        <p class="section-sub" style="margin-bottom:0">Our free screening tool helps you understand your eligibility for SSDI benefits. No commitment, no email required.</p>
+        <div class="elig-features">
+          <div class="elig-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Built by experienced disability attorneys
+          </div>
+          <div class="elig-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            100% confidential — your data is never shared
+          </div>
+          <div class="elig-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Personalized recommendation in minutes
+          </div>
+        </div>
+      </div>
+
+      <div class="elig-right">
+        <div class="form-card" id="eligForm">
+          <div class="form-progress" id="progressBar"></div>
+
+          <div class="form-step active" data-step="1">
+            <h3>What is your date of birth?</h3>
+            <p class="form-hint">Your age helps us determine which programs you may qualify for.</p>
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input type="date" class="form-input" id="dob" required/>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="2">
+            <h3>Is this your first time applying for SSDI?</h3>
+            <p class="form-hint">This helps us understand where you are in the process.</p>
+            <div class="radio-group" data-field="firstTime">
+              <label class="radio-option"><input type="radio" name="firstTime" value="yes"/><span class="radio-dot"></span>Yes, this is my first application</label>
+              <label class="radio-option"><input type="radio" name="firstTime" value="no_denied"/><span class="radio-dot"></span>No, I've applied before and was denied</label>
+              <label class="radio-option"><input type="radio" name="firstTime" value="no_appealing"/><span class="radio-dot"></span>No, I'm currently appealing a decision</label>
+              <label class="radio-option"><input type="radio" name="firstTime" value="unsure"/><span class="radio-dot"></span>I'm not sure</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="3">
+            <h3>When were you last able to work?</h3>
+            <p class="form-hint">SSDI is based on your work history and when your disability began.</p>
+            <div class="radio-group" data-field="lastWorked">
+              <label class="radio-option"><input type="radio" name="lastWorked" value="currently"/><span class="radio-dot"></span>I'm still working but struggling</label>
+              <label class="radio-option"><input type="radio" name="lastWorked" value="6mo"/><span class="radio-dot"></span>Within the last 6 months</label>
+              <label class="radio-option"><input type="radio" name="lastWorked" value="1yr"/><span class="radio-dot"></span>6 months to 1 year ago</label>
+              <label class="radio-option"><input type="radio" name="lastWorked" value="over1yr"/><span class="radio-dot"></span>More than 1 year ago</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="4">
+            <h3>What type of work did you do?</h3>
+            <p class="form-hint">This helps us assess the physical or mental demands of your job.</p>
+            <div class="form-group">
+              <label>Job title or description</label>
+              <input type="text" class="form-input" id="workType" placeholder="e.g. Construction worker, Nurse, Office clerk" required/>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="5">
+            <h3>How long did you work in total?</h3>
+            <p class="form-hint">You generally need 5-10 years of work history to qualify for SSDI.</p>
+            <div class="radio-group" data-field="workDuration">
+              <label class="radio-option"><input type="radio" name="workDuration" value="under5"/><span class="radio-dot"></span>Less than 5 years</label>
+              <label class="radio-option"><input type="radio" name="workDuration" value="5to10"/><span class="radio-dot"></span>5 to 10 years</label>
+              <label class="radio-option"><input type="radio" name="workDuration" value="10to20"/><span class="radio-dot"></span>10 to 20 years</label>
+              <label class="radio-option"><input type="radio" name="workDuration" value="over20"/><span class="radio-dot"></span>More than 20 years</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="6">
+            <h3>What is your highest level of education?</h3>
+            <p class="form-hint">Education level can factor into SSDI eligibility decisions.</p>
+            <div class="radio-group" data-field="education">
+              <label class="radio-option"><input type="radio" name="education" value="no_hs"/><span class="radio-dot"></span>Did not finish high school</label>
+              <label class="radio-option"><input type="radio" name="education" value="hs"/><span class="radio-dot"></span>High school diploma / GED</label>
+              <label class="radio-option"><input type="radio" name="education" value="some_college"/><span class="radio-dot"></span>Some college or associate's degree</label>
+              <label class="radio-option"><input type="radio" name="education" value="bachelors_plus"/><span class="radio-dot"></span>Bachelor's degree or higher</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="7">
+            <h3>What health conditions are you dealing with?</h3>
+            <p class="form-hint">Select all that apply — many conditions qualify for SSDI.</p>
+            <div class="form-group">
+              <textarea class="form-input" id="healthConditions" placeholder="Describe your conditions, e.g. chronic back pain, depression, diabetes, heart disease..." rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="8">
+            <h3>When did your condition start affecting your ability to work?</h3>
+            <p class="form-hint">An approximate date is fine — this helps establish your disability onset.</p>
+            <div class="radio-group" data-field="conditionOnset">
+              <label class="radio-option"><input type="radio" name="conditionOnset" value="under6mo"/><span class="radio-dot"></span>Less than 6 months ago</label>
+              <label class="radio-option"><input type="radio" name="conditionOnset" value="6to12mo"/><span class="radio-dot"></span>6 to 12 months ago</label>
+              <label class="radio-option"><input type="radio" name="conditionOnset" value="1to3yr"/><span class="radio-dot"></span>1 to 3 years ago</label>
+              <label class="radio-option"><input type="radio" name="conditionOnset" value="over3yr"/><span class="radio-dot"></span>More than 3 years ago</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="9">
+            <h3>What types of doctors do you see and how often?</h3>
+            <p class="form-hint">Medical evidence from treating physicians is critical for SSDI claims.</p>
+            <div class="form-group">
+              <textarea class="form-input" id="doctorVisits" placeholder="e.g. Primary care doctor monthly, Neurologist every 3 months, Physical therapist weekly..." rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="10">
+            <h3>When was your last prescription or medical treatment?</h3>
+            <p class="form-hint">Recent medical records strengthen your SSDI application.</p>
+            <div class="radio-group" data-field="lastPrescription">
+              <label class="radio-option"><input type="radio" name="lastPrescription" value="thisMonth"/><span class="radio-dot"></span>Within the last month</label>
+              <label class="radio-option"><input type="radio" name="lastPrescription" value="3mo"/><span class="radio-dot"></span>1 to 3 months ago</label>
+              <label class="radio-option"><input type="radio" name="lastPrescription" value="6mo"/><span class="radio-dot"></span>3 to 6 months ago</label>
+              <label class="radio-option"><input type="radio" name="lastPrescription" value="over6mo"/><span class="radio-dot"></span>More than 6 months ago</label>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="11">
+            <h3>Almost done! How can we reach you?</h3>
+            <p class="form-hint">We'll send your personalized eligibility report and connect you with an attorney if you qualify.</p>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-input" id="fullName" placeholder="Your full name" required/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-input" id="email" placeholder="you@example.com" required/>
+            </div>
+            <div class="form-group">
+              <label>Phone (optional)</label>
+              <input type="tel" class="form-input" id="phone" placeholder="(555) 123-4567"/>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn-back" id="btnBack" style="visibility:hidden">&larr; Back</button>
+            <span class="form-step-count" id="stepCount">Step 1 of 11</span>
+            <button class="btn-next" id="btnNext">Continue &rarr;</button>
+          </div>
+
+          <div class="success-view" id="successView">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2a6e3f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>You may qualify for SSDI benefits!</h3>
+            <p>Thank you for completing the screening. A member of our team will review your information and reach out within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div>
+        <div class="section-label">FAQ</div>
+        <div class="section-title">Got questions? Get answers.</div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">What is SSDI?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="faq-a"><p>Social Security Disability Insurance (SSDI) is a federal program that provides monthly income to people who can no longer work due to a medical condition expected to last at least 12 months. If you've worked and paid Social Security taxes, you may be eligible.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How much does it cost?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="faq-a"><p>Our eligibility screening is completely free. If we connect you with a lawyer, they work on a contingency basis — you pay nothing unless your claim is approved. Attorney fees are capped by law at 25% of back pay, with a maximum of $7,200.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What happens after I complete the screening?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="faq-a"><p>We'll review your responses and reach out within 24 hours to discuss your case. If you qualify, we'll connect you with a vetted SSDI attorney in your area who will guide you through the application or appeal process.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if I've already been denied?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="faq-a"><p>Don't give up. Over 50% of SSDI claims are initially denied, but many are overturned on appeal — especially with legal representation. An experienced attorney can help strengthen your case and represent you at hearings.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How long does the SSDI process take?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="faq-a"><p>Initial applications typically take 3-6 months. If an appeal is needed, it can take 12-18 months. Having an attorney from the start often speeds things up and increases your chances of approval.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Final CTA ── -->
+<section class="final-cta">
+  <div class="container" style="position:relative;z-index:1">
+    <h2>You've earned these benefits.<br/>Let us help you claim them.</h2>
+    <p>Free eligibility check. No obligation. Takes under 2 minutes.</p>
+    <a href="#eligibility" class="btn-cta">Check Your Eligibility &rarr;</a>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Samora Legal</h4>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#eligibility">Eligibility Tool</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">SSDI Guide</a>
+        <a href="#">Appeal Process</a>
+        <a href="#">Qualifying Conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="#">support@samora.ai</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Samora AI. All rights reserved.</div>
+    <div class="footer-disclaimer">This website is for informational purposes only and does not constitute legal advice. No attorney-client relationship is formed by using this site. Results vary based on individual circumstances. This is lawyer advertising.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var TOTAL=11;
+  var current=1;
+  var data={};
+
+  var progBar=document.getElementById('progressBar');
+  for(var i=0;i<TOTAL;i++){var b=document.createElement('div');b.className='bar';if(i===0)b.classList.add('active');progBar.appendChild(b)}
+
+  var steps=document.querySelectorAll('.form-step');
+  var bars=progBar.querySelectorAll('.bar');
+  var btnNext=document.getElementById('btnNext');
+  var btnBack=document.getElementById('btnBack');
+  var stepCount=document.getElementById('stepCount');
+  var successView=document.getElementById('successView');
+
+  function show(n){
+    steps.forEach(function(s){s.classList.remove('active')});
+    document.querySelector('[data-step="'+n+'"]').classList.add('active');
+    bars.forEach(function(b,i){b.classList.toggle('active',i<n)});
+    btnBack.style.visibility=n===1?'hidden':'visible';
+    stepCount.textContent='Step '+n+' of '+TOTAL;
+    btnNext.textContent=n===TOTAL?'Submit':'Continue →';
+  }
+
+  function getVal(n){
+    var step=document.querySelector('[data-step="'+n+'"]');
+    var radio=step.querySelector('input[type=radio]:checked');
+    if(radio)return radio.value;
+    var inp=step.querySelector('input:not([type=radio]),textarea');
+    if(inp)return inp.value.trim();
+    return'';
+  }
+
+  document.querySelectorAll('.radio-option').forEach(function(opt){
+    opt.addEventListener('click',function(){
+      var grp=this.closest('.radio-group');
+      grp.querySelectorAll('.radio-option').forEach(function(o){o.classList.remove('selected')});
+      this.classList.add('selected');
+      this.querySelector('input').checked=true;
+    });
+  });
+
+  btnNext.addEventListener('click',function(){
+    var val=getVal(current);
+    if(!val){
+      var inp=document.querySelector('[data-step="'+current+'"]').querySelector('input,textarea');
+      if(inp){inp.style.borderColor='#e53e3e';setTimeout(function(){inp.style.borderColor=''},1500)}
+      return;
+    }
+    var fields=['','dob','firstTime','lastWorked','workType','workDuration','education','healthConditions','conditionOnset','doctorVisits','lastPrescription','contact'];
+    data[fields[current]]=val;
+
+    if(current===TOTAL){
+      data.fullName=document.getElementById('fullName').value.trim();
+      data.email=document.getElementById('email').value.trim();
+      data.phone=document.getElementById('phone').value.trim();
+      if(!data.fullName||!data.email)return;
+      document.querySelectorAll('.form-step,.form-nav,.form-progress').forEach(function(el){el.style.display='none'});
+      successView.classList.add('active');
+      return;
+    }
+    current++;
+    show(current);
+  });
+
+  btnBack.addEventListener('click',function(){
+    if(current>1){current--;show(current)}
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&document.activeElement.tagName!=='TEXTAREA')btnNext.click();
+  });
+
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=this.closest('.faq-item');
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>
