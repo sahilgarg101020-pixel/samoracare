@@ -179,6 +179,13 @@ textarea.form-input{resize:vertical;min-height:100px}
 .success-view h3{font-size:22px;font-weight:600;margin-bottom:8px}
 .success-view p{font-size:15px;color:var(--gray-600);max-width:340px;margin:0 auto}
 
+/* ── Ineligible ── */
+.ineligible-view{display:none;text-align:center;padding:48px 20px}
+.ineligible-view.active{display:block;animation:fadeUp .4s ease}
+.ineligible-icon{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(229,62,62,.15),rgba(229,62,62,.08));display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.ineligible-view h3{font-size:22px;font-weight:600;margin-bottom:8px}
+.ineligible-view p{font-size:15px;color:var(--gray-600);max-width:400px;margin:0 auto;line-height:1.7}
+
 /* ── Why us ── */
 .why-us{background:var(--gray-50);position:relative;overflow:hidden}
 .why-us::before{content:'';position:absolute;bottom:-100px;left:-50px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(155,92,246,.08),transparent 70%);pointer-events:none}
@@ -308,10 +315,10 @@ textarea.form-input{resize:vertical;min-height:100px}
 </div>
 
 <!-- ── Services ── -->
-<section class="services" id="services">
+<section class="services" id="services" aria-labelledby="services-heading">
   <div class="container">
     <div class="services-header reveal">
-      <div class="section-eyebrow">What We Help With</div>
+      <h2 id="services-heading" class="section-eyebrow">What We Help With</h2>
       <div class="section-title">Four programs. One place to start.</div>
       <p class="section-desc">We guide you through the complexity of federal and state disability programs so you can focus on what matters.</p>
     </div>
@@ -341,10 +348,10 @@ textarea.form-input{resize:vertical;min-height:100px}
 </section>
 
 <!-- ── How It Works ── -->
-<section class="how-it-works" id="how-it-works">
+<section class="how-it-works" id="how-it-works" aria-labelledby="how-heading">
   <div class="container">
     <div class="how-header reveal">
-      <div class="section-eyebrow">How It Works</div>
+      <h2 id="how-heading" class="section-eyebrow">How It Works</h2>
       <div class="section-title">Four steps to your benefits</div>
       <p class="section-desc">We handle the complexity so you can focus on your health.</p>
     </div>
@@ -374,17 +381,17 @@ textarea.form-input{resize:vertical;min-height:100px}
 </section>
 
 <!-- ── Eligibility Tool ── -->
-<section class="eligibility" id="eligibility">
+<section class="eligibility" id="eligibility" aria-labelledby="elig-heading">
   <div class="container">
     <div class="elig-grid">
       <div class="elig-left reveal">
-        <div class="section-eyebrow">Eligibility Tool</div>
+        <h2 id="elig-heading" class="section-eyebrow">Eligibility Tool</h2>
         <div class="section-title">Find out if you qualify in under 2 minutes</div>
         <p class="section-desc" style="margin-bottom:0">Free screening tool — no commitment, no email required.</p>
         <div class="elig-features">
           <div class="elig-feature">
             <div class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            Built by experienced disability attorneys
+            Built by disability advocates and activists who have lived it themselves
           </div>
           <div class="elig-feature">
             <div class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -531,6 +538,14 @@ textarea.form-input{resize:vertical;min-height:100px}
             <h3>You may qualify for benefits</h3>
             <p>Thank you for completing the screening. A member of our team will review your information and reach out within 24 hours.</p>
           </div>
+
+          <div class="ineligible-view" id="ineligibleView">
+            <div class="ineligible-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <h3 id="ineligibleTitle">You may not be eligible for SSDI</h3>
+            <p id="ineligibleMsg"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -538,11 +553,11 @@ textarea.form-input{resize:vertical;min-height:100px}
 </section>
 
 <!-- ── Why Us ── -->
-<section class="why-us">
+<section class="why-us" id="why-us" aria-labelledby="why-heading">
   <div class="container">
     <div class="why-grid">
       <div class="why-left reveal">
-        <div class="section-eyebrow">Why Us</div>
+        <h2 id="why-heading" class="section-eyebrow">Why Us</h2>
         <div class="section-title">Fast, responsive, and built around you</div>
         <p class="section-desc" style="margin-bottom:0">We know waiting for answers is the hardest part. Our process moves at your pace — not the government's.</p>
         <div class="why-features">
@@ -582,11 +597,11 @@ textarea.form-input{resize:vertical;min-height:100px}
 </section>
 
 <!-- ── FAQ ── -->
-<section class="faq" id="faq">
+<section class="faq" id="faq" aria-labelledby="faq-heading">
   <div class="container">
     <div class="faq-layout">
       <div class="reveal">
-        <div class="section-eyebrow">FAQ</div>
+        <h2 id="faq-heading" class="section-eyebrow">FAQ</h2>
         <div class="section-title">Common questions</div>
       </div>
       <div class="faq-list reveal reveal-delay-1">
@@ -685,6 +700,23 @@ textarea.form-input{resize:vertical;min-height:100px}
     });
   });
 
+  var ineligibleView=document.getElementById('ineligibleView');
+  var ineligibleMsg=document.getElementById('ineligibleMsg');
+
+  function showIneligible(msg){
+    document.querySelectorAll('.form-step,.form-nav,.form-progress').forEach(function(el){el.style.display='none'});
+    ineligibleMsg.textContent=msg;
+    ineligibleView.classList.add('active');
+  }
+
+  function getAge(dob){
+    var today=new Date(),birth=new Date(dob);
+    var age=today.getFullYear()-birth.getFullYear();
+    var m=today.getMonth()-birth.getMonth();
+    if(m<0||(m===0&&today.getDate()<birth.getDate()))age--;
+    return age;
+  }
+
   btnNext.addEventListener('click',function(){
     var val=getVal(current);
     if(!val){
@@ -694,6 +726,38 @@ textarea.form-input{resize:vertical;min-height:100px}
     }
     var fields=['','dob','firstTime','lastWorked','workType','workDuration','education','healthConditions','conditionOnset','doctorVisits','lastPrescription','contact'];
     data[fields[current]]=val;
+
+    // Step 1: Age gating
+    if(current===1){
+      var age=getAge(val);
+      if(age<18){
+        showIneligible('SSDI requires applicants to be at least 18 years old. If you have a disability, you may qualify for Supplemental Security Income (SSI) instead — contact your local Social Security office for more information.');
+        return;
+      }
+      if(age>=67){
+        showIneligible('At age 67 or older, you are eligible for full Social Security retirement benefits rather than SSDI. Please contact your local Social Security office to apply for retirement benefits.');
+        return;
+      }
+    }
+
+    // Step 3: Currently working full-time (SGA)
+    if(current===3&&val==='currently'){
+      showIneligible('SSDI requires that your condition prevents you from performing substantial gainful activity (SGA). If you are currently working, you may not meet this requirement. Consider consulting with a disability advocate once you are no longer able to work.');
+      return;
+    }
+
+    // Step 5: Work history too short
+    if(current===5&&val==='under5'){
+      showIneligible('SSDI requires sufficient work credits, which typically means at least 5 years of work history where you paid Social Security taxes. You may qualify for Supplemental Security Income (SSI) instead — contact your local Social Security office.');
+      return;
+    }
+
+    // Step 8: Condition onset too recent (under 6 months)
+    if(current===8&&val==='under6mo'){
+      showIneligible('SSDI requires your condition to last or be expected to last at least 12 months. Since your condition began less than 6 months ago, you may need to wait before applying. If your condition is expected to last 12+ months, consult with a disability advocate.');
+      return;
+    }
+
     if(current===TOTAL){
       data.fullName=document.getElementById('fullName').value.trim();
       data.email=document.getElementById('email').value.trim();
