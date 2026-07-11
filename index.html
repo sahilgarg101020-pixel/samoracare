@@ -798,6 +798,7 @@ textarea.form-input{resize:vertical;min-height:100px}
   var SHEET_URL='https://script.google.com/macros/s/AKfycbzVtL6LMXb2bSR4Gdqo0sO6ByN6WzfckwiSOadxy5dnc8OCKsPjSFvwYfwv1g4Gi9vVPg/exec';
   var lastGateTitle='',lastGateReason='';
   function submitToSheet(payload){fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})}
+  function trackLead(leadType){if(typeof gtag==='function')gtag('event','eligibility_lead_submitted',{lead_type:leadType})}
 
   function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
   function isValidPhone(p){return !p||/^[\d\s()+-]{7,}$/.test(p)}
@@ -816,6 +817,7 @@ textarea.form-input{resize:vertical;min-height:100px}
     if(!isValidPhone(phone)){showFieldError('softPhone','Please enter a valid phone number');valid=false}
     if(!valid)return;
     submitToSheet({type:'soft_gate',fullName:name,email:email,phone:phone,gateTitle:lastGateTitle,gateReason:lastGateReason});
+    trackLead('soft_gate');
     softForm.style.display='none';
     softThanks.classList.add('active');
   });
@@ -890,6 +892,7 @@ textarea.form-input{resize:vertical;min-height:100px}
       if(data.phone&&!isValidPhone(data.phone)){showFieldError('phone','Please enter a valid phone number');formValid=false}
       if(!formValid)return;
       submitToSheet({type:'eligible',fullName:data.fullName,email:data.email,phone:data.phone,dob:data.dob,firstTime:data.firstTime,lastWorked:data.lastWorked,workType:data.workType,workDuration:data.workDuration,education:data.education,healthConditions:data.healthConditions,conditionOnset:data.conditionOnset,doctorVisits:data.doctorVisits,lastPrescription:data.lastPrescription});
+      trackLead('eligible');
       document.querySelectorAll('.form-step,.form-nav,.form-progress').forEach(function(el){el.style.display='none'});
       successView.classList.add('active');
       return;
