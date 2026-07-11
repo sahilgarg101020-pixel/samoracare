@@ -1,0 +1,21 @@
+# Samora Legal
+
+> Samora Legal helps people find out if they qualify for Social Security Disability Insurance (SSDI) and other disability benefits through a free 2-minute eligibility screening. We are a private company and are not affiliated with the Social Security Administration or any government agency.
+
+## About
+
+- Free SSDI eligibility screening — no upfront costs, no obligation.
+- Connects qualifying applicants with vetted disability benefits advocates and attorneys.
+- Built by disability advocates and activists who have lived it themselves.
+
+## Key Pages
+
+- [Home / Eligibility Check](https://samoracare.com/): Free 2-minute SSDI eligibility screening.
+- [Privacy Policy](https://samoracare.com/privacy-policy/): How we handle your data.
+- [Terms and Conditions](https://samoracare.com/terms-and-conditions/): Terms of use.
+- [Accessibility Statement](https://samoracare.com/accessibility-statement/): Our accessibility commitment.
+
+## Notes
+
+- SSDI is a federal program administered by the Social Security Administration (https://www.ssa.gov/benefits/disability/).
+- Eligibility generally requires being between 18 and full retirement age, having a qualifying work history, earnings below the Substantial Gainful Activity threshold, and a medical condition expected to last at least 12 months.
