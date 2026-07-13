@@ -35,6 +35,10 @@
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ73CHC4VW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MZ73CHC4VW');</script>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1549812953598958');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1549812953598958&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 <style>
 @font-face{font-family:'General Sans';src:url('/fonts/GeneralSans-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'General Sans';src:url('/fonts/GeneralSans-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
@@ -825,7 +829,7 @@ textarea.form-input{resize:vertical;min-height:100px}
   var SHEET_URL='https://script.google.com/macros/s/AKfycbzVtL6LMXb2bSR4Gdqo0sO6ByN6WzfckwiSOadxy5dnc8OCKsPjSFvwYfwv1g4Gi9vVPg/exec';
   var lastGateTitle='',lastGateReason='';
   function submitToSheet(payload){fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})}
-  function trackLead(leadType){if(typeof gtag==='function')gtag('event','eligibility_lead_submitted',{lead_type:leadType})}
+  function trackLead(leadType){if(typeof gtag==='function')gtag('event','eligibility_lead_submitted',{lead_type:leadType});if(typeof fbq==='function')fbq('track','Lead');}
 
   function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
   function isValidPhone(p){return !p||/^[\d\s()+-]{7,}$/.test(p)}
