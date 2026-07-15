@@ -151,24 +151,24 @@ textarea.text-input{min-height:120px}
 
 <!-- Progress -->
 <div class="progress-wrap">
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Form progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 </div>
 
 <!-- Main -->
-<div class="main" id="main">
+<main class="main" id="main" aria-label="Disability benefits screening form">
 
   <!-- Screen 1: first_time_applying -->
-  <div class="screen active" data-screen="1">
-    <h1>Have you applied for Social Security Disability before?</h1>
+  <div class="screen active" data-screen="1" role="group" aria-labelledby="q1-label">
+    <h1 id="q1-label">Have you applied for Social Security Disability before?</h1>
     <p class="sub">Wherever you are in the process — first try, denied, mid-appeal — there's a path from here.</p>
-    <div class="option-list" data-field="first_time_applying">
+    <div class="option-list" data-field="first_time_applying" role="radiogroup" aria-labelledby="q1-label">
       <label class="option"><input type="radio" name="first_time_applying" value="first_time"/><span class="option-dot"></span><span class="option-text">No, this is my first time</span></label>
       <label class="option"><input type="radio" name="first_time_applying" value="denied"/><span class="option-dot"></span><span class="option-text">Yes, and I was denied</span></label>
       <label class="option"><input type="radio" name="first_time_applying" value="appealing"/><span class="option-dot"></span><span class="option-text">Yes, I'm appealing right now</span></label>
       <label class="option"><input type="radio" name="first_time_applying" value="not_sure"/><span class="option-dot"></span><span class="option-text">I'm not sure</span></label>
     </div>
     <div class="expander">
-      <button class="expander-toggle" id="expanderToggle1">Not sure?
+      <button class="expander-toggle" id="expanderToggle1" aria-expanded="false" aria-controls="expanderBody1">Not sure?
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="expander-body" id="expanderBody1">
@@ -178,19 +178,19 @@ textarea.text-input{min-height:120px}
   </div>
 
   <!-- Screen 2: conditions -->
-  <div class="screen" data-screen="2">
-    <h1>What health conditions are you dealing with?</h1>
+  <div class="screen" data-screen="2" role="group" aria-labelledby="q2-label">
+    <h1 id="q2-label">What health conditions are you dealing with?</h1>
     <p class="sub">Write it in your own words — plain language is fine. You don't need the diagnosis code, and nothing you say here gets judged. Far more conditions qualify than people think, including mental health and chronic pain.</p>
     <div class="field">
-      <textarea class="text-input" id="conditions" placeholder="e.g. back injury, depression, vision loss, chronic fatigue..."></textarea>
+      <textarea class="text-input" id="conditions" aria-labelledby="q2-label" placeholder="e.g. back injury, depression, vision loss, chronic fatigue..."></textarea>
     </div>
   </div>
 
   <!-- Screen 3: seeing_doctors -->
-  <div class="screen" data-screen="3">
-    <h1>Are you currently seeing doctors for this?</h1>
+  <div class="screen" data-screen="3" role="group" aria-labelledby="q3-label">
+    <h1 id="q3-label">Are you currently seeing doctors for this?</h1>
     <p class="sub">Honest answer, please — this isn't a test. It just tells us how much of your story is already on paper.</p>
-    <div class="option-list" data-field="seeing_doctors">
+    <div class="option-list" data-field="seeing_doctors" role="radiogroup" aria-labelledby="q3-label">
       <label class="option"><input type="radio" name="seeing_doctors" value="regularly"/><span class="option-dot"></span><span class="option-text">Yes, regularly</span></label>
       <label class="option"><input type="radio" name="seeing_doctors" value="sometimes"/><span class="option-dot"></span><span class="option-text">Sometimes, when I can</span></label>
       <label class="option"><input type="radio" name="seeing_doctors" value="not_easy"/><span class="option-dot"></span><span class="option-text">Not right now — care hasn't been easy to get</span></label>
@@ -207,10 +207,10 @@ textarea.text-input{min-height:120px}
   </div>
 
   <!-- Screen 4: last_able_to_work -->
-  <div class="screen" data-screen="5">
-    <h1>When were you last able to work?</h1>
+  <div class="screen" data-screen="5" role="group" aria-labelledby="q5-label">
+    <h1 id="q5-label">When were you last able to work?</h1>
     <p class="sub">However long it's been — that's information, not a verdict.</p>
-    <div class="option-list" data-field="last_able_to_work">
+    <div class="option-list" data-field="last_able_to_work" role="radiogroup" aria-labelledby="q5-label">
       <label class="option"><input type="radio" name="last_able_to_work" value="still_working"/><span class="option-dot"></span><span class="option-text">I'm still working, but struggling</span></label>
       <label class="option"><input type="radio" name="last_able_to_work" value="within_6mo"/><span class="option-dot"></span><span class="option-text">Within the last 6 months</span></label>
       <label class="option"><input type="radio" name="last_able_to_work" value="6mo_to_1yr"/><span class="option-dot"></span><span class="option-text">6 months to a year ago</span></label>
@@ -220,11 +220,11 @@ textarea.text-input{min-height:120px}
   </div>
 
   <!-- Screen 5: job_title -->
-  <div class="screen" data-screen="6">
-    <h1>What kind of work did you do?</h1>
+  <div class="screen" data-screen="6" role="group" aria-labelledby="q6-label">
+    <h1 id="q6-label">What kind of work did you do?</h1>
     <p class="sub">Your job's demands — physical and mental — are a big part of your claim. What you could no longer do matters as much as what's wrong.</p>
     <div class="field">
-      <input type="text" class="text-input" id="job_title" placeholder="e.g. warehouse worker, teacher, home health aide..."/>
+      <input type="text" class="text-input" id="job_title" aria-labelledby="q6-label" placeholder="e.g. warehouse worker, teacher, home health aide..."/>
     </div>
   </div>
 
@@ -241,8 +241,8 @@ textarea.text-input{min-height:120px}
   </div>
 
   <!-- Screen 6: Contact -->
-  <div class="screen" data-screen="8">
-    <h1>Last step — how should we reach you?</h1>
+  <div class="screen" data-screen="8" role="group" aria-labelledby="q8-label">
+    <h1 id="q8-label">Last step — how should we reach you?</h1>
     <p class="sub">A real person follows up, and many of us on this team live with disabilities too. Free, no obligation, and you set the pace.</p>
     <div class="name-row">
       <div class="field">
@@ -270,7 +270,7 @@ textarea.text-input{min-height:120px}
   </div>
 
   <!-- Success -->
-  <div class="success-screen" id="successScreen">
+  <div class="success-screen" id="successScreen" role="status" aria-live="polite">
     <div class="success-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7f0ca6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
@@ -278,7 +278,7 @@ textarea.text-input{min-height:120px}
     <p>A real person from our team will review your information and reach out within 24 hours. No robots, no runaround.</p>
     <div class="note">If phone calls are difficult, just let us know — we're happy to work over email or text instead.</div>
   </div>
-</div>
+</main>
 
 <!-- Footer nav -->
 <div class="footer-nav" id="footerNav">
@@ -316,6 +316,7 @@ textarea.text-input{min-height:120px}
 
     var pct = Math.round((n / SCREENS) * 100);
     progressFill.style.width = pct + '%';
+    progressFill.parentElement.setAttribute('aria-valuenow', pct);
 
     btnBack.classList.toggle('hidden', n === 1);
 
@@ -347,6 +348,7 @@ textarea.text-input{min-height:120px}
     toggle1.addEventListener('click', function() {
       this.classList.toggle('open');
       body1.classList.toggle('open');
+      this.setAttribute('aria-expanded', body1.classList.contains('open'));
     });
   }
 
