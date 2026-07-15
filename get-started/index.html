@@ -454,8 +454,8 @@ textarea.text-input{min-height:120px}
       var fn = getTextVal('firstName');
       var ln = getTextVal('lastName');
       var em = getTextVal('emailField');
-      var phRaw = getTextVal('phoneField');
-      var ph = phRaw ? document.getElementById('countryCode').value + ' ' + phRaw : '';
+      var ph = getTextVal('phoneField');
+      var cc = document.getElementById('countryCode').value;
       clearError('firstName'); clearError('lastName'); clearError('emailField'); clearError('phoneField');
       var ok = true;
       if (!fn) { showError('firstName', 'First name is required'); ok = false }
@@ -477,7 +477,8 @@ textarea.text-input{min-height:120px}
         conditions: data.conditions,
         seeing_doctors: data.seeing_doctors,
         last_able_to_work: data.last_able_to_work,
-        job_title: data.job_title
+        job_title: data.job_title,
+        countryCode: cc
       });
       trackLead();
 
