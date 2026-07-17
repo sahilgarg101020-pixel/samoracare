@@ -11,6 +11,7 @@
 ## Key Pages
 
 - [Home / Eligibility Check](https://samoracare.com/): Free 2-minute SSDI eligibility screening.
+- [Get Started](https://samoracare.com/get-started/): Detailed intake form for disability benefits applicants.
 - [Privacy Policy](https://samoracare.com/privacy-policy/): How we handle your data.
 - [Terms and Conditions](https://samoracare.com/terms-and-conditions/): Terms of use.
 - [Accessibility Statement](https://samoracare.com/accessibility-statement/): Our accessibility commitment.
