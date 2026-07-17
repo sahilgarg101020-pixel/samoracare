@@ -94,6 +94,9 @@ a{color:inherit;text-decoration:none}
 .text-input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(127,12,166,.08)}
 textarea.text-input{min-height:120px}
 .field-hint{font-size:12px;color:var(--gray-400);margin-top:6px;line-height:1.5}
+.char-count{font-size:12px;color:var(--gray-400);margin-top:4px;text-align:right}
+.char-count.warn{color:#e07a2f}
+.char-count.over{color:#e53e3e}
 .field-error{color:#e53e3e;font-size:13px;margin-top:4px;display:none}
 .field-error.active{display:block}
 
@@ -194,7 +197,9 @@ textarea.text-input{min-height:120px}
     <h1 id="q2-label">What health conditions are you dealing with?</h1>
     <p class="sub">Write it in your own words - plain language is fine. You don't need the diagnosis code, and nothing you say here gets judged. Far more conditions qualify than people think, including mental health and chronic pain.</p>
     <div class="field">
-      <textarea class="text-input" id="conditions" aria-labelledby="q2-label" placeholder="e.g. back injury, depression, vision loss, chronic fatigue..."></textarea>
+      <textarea class="text-input" id="conditions" aria-labelledby="q2-label" placeholder="e.g. back injury, depression, vision loss, chronic fatigue..." minlength="10" maxlength="500"></textarea>
+      <div class="char-count" id="conditions-count">0 / 500 (min 10)</div>
+      <div class="field-error" id="conditions-error"></div>
     </div>
   </div>
 
@@ -236,7 +241,9 @@ textarea.text-input{min-height:120px}
     <h1 id="q6-label">What kind of work did you do?</h1>
     <p class="sub">Your job's demands - physical and mental - are a big part of your claim. What you could no longer do matters as much as what's wrong.</p>
     <div class="field">
-      <input type="text" class="text-input" id="job_title" aria-labelledby="q6-label" placeholder="e.g. warehouse worker, teacher, home health aide..."/>
+      <input type="text" class="text-input" id="job_title" aria-labelledby="q6-label" placeholder="e.g. warehouse worker, teacher, home health aide..." minlength="3" maxlength="100"/>
+      <div class="char-count" id="job_title-count">0 / 100 (min 3)</div>
+      <div class="field-error" id="job_title-error"></div>
     </div>
   </div>
 
@@ -420,37 +427,47 @@ textarea.text-input{min-height:120px}
     }
   }
 
+  function updateCharCount(inputId, min, max) {
+    var el = document.getElementById(inputId);
+    var counter = document.getElementById(inputId + '-count');
+    if (!el || !counter) return;
+    var len = el.value.length;
+    counter.textContent = len + ' / ' + max + ' (min ' + min + ')';
+    counter.className = 'char-count' + (len > 0 && len < min ? ' warn' : len >= max ? ' over' : '');
+  }
+
+  var conditionsEl = document.getElementById('conditions');
+  var jobTitleEl = document.getElementById('job_title');
+  if (conditionsEl) conditionsEl.addEventListener('input', function() { updateCharCount('conditions', 10, 500) });
+  if (jobTitleEl) jobTitleEl.addEventListener('input', function() { updateCharCount('job_title', 3, 100) });
+
   btnNext.addEventListener('click', function() {
-    // Validate current screen
     if (current === 1) {
-      var v = getRadioVal('first_time_applying');
-      if (!v) return;
-      data.first_time_applying = v;
+      data.first_time_applying = getRadioVal('first_time_applying') || 'skipped';
     } else if (current === 2) {
       var v = getTextVal('conditions');
-      if (!v) { document.getElementById('conditions').style.borderColor = '#e53e3e'; setTimeout(function() { document.getElementById('conditions').style.borderColor = '' }, 1500); return }
+      clearError('conditions');
+      if (!v) { showError('conditions', 'Please describe your conditions'); return }
+      if (v.length < 10) { showError('conditions', 'Please enter at least 10 characters'); return }
       data.conditions = v;
     } else if (current === 3) {
-      var v = getRadioVal('seeing_doctors');
-      if (!v) return;
-      data.seeing_doctors = v;
+      data.seeing_doctors = getRadioVal('seeing_doctors') || 'skipped';
     } else if (current === 4) {
-      // Interstitial A — just proceed
+      // Interstitial A
     } else if (current === 5) {
-      var v = getRadioVal('last_able_to_work');
-      if (!v) return;
-      data.last_able_to_work = v;
-      skipJobTitle = v === 'never';
+      data.last_able_to_work = getRadioVal('last_able_to_work') || 'skipped';
+      skipJobTitle = data.last_able_to_work === 'never';
       if (skipJobTitle) data.job_title = 'N/A - never worked';
       updateInterstitialB();
     } else if (current === 6) {
       var v = getTextVal('job_title');
-      if (!v) { document.getElementById('job_title').style.borderColor = '#e53e3e'; setTimeout(function() { document.getElementById('job_title').style.borderColor = '' }, 1500); return }
+      clearError('job_title');
+      if (!v) { showError('job_title', 'Please enter your job title'); return }
+      if (v.length < 3) { showError('job_title', 'Please enter at least 3 characters'); return }
       data.job_title = v;
     } else if (current === 7) {
-      // Interstitial B — just proceed
+      // Interstitial B
     } else if (current === 8) {
-      // Contact — validate and submit
       var fn = getTextVal('firstName');
       var ln = getTextVal('lastName');
       var em = getTextVal('emailField');
@@ -482,7 +499,6 @@ textarea.text-input{min-height:120px}
       });
       trackLead();
 
-      // Show success
       screens.forEach(function(s) { s.classList.remove('active') });
       successScreen.classList.add('active');
       footerNav.style.display = 'none';
