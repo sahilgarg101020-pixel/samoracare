@@ -443,7 +443,9 @@ textarea.text-input{min-height:120px}
 
   btnNext.addEventListener('click', function() {
     if (current === 1) {
-      data.first_time_applying = getRadioVal('first_time_applying') || 'skipped';
+      var v = getRadioVal('first_time_applying');
+      if (!v) return;
+      data.first_time_applying = v;
     } else if (current === 2) {
       var v = getTextVal('conditions');
       clearError('conditions');
@@ -451,12 +453,16 @@ textarea.text-input{min-height:120px}
       if (v.length < 10) { showError('conditions', 'Please enter at least 10 characters'); return }
       data.conditions = v;
     } else if (current === 3) {
-      data.seeing_doctors = getRadioVal('seeing_doctors') || 'skipped';
+      var v = getRadioVal('seeing_doctors');
+      if (!v) return;
+      data.seeing_doctors = v;
     } else if (current === 4) {
       // Interstitial A
     } else if (current === 5) {
-      data.last_able_to_work = getRadioVal('last_able_to_work') || 'skipped';
-      skipJobTitle = data.last_able_to_work === 'never';
+      var v = getRadioVal('last_able_to_work');
+      if (!v) return;
+      data.last_able_to_work = v;
+      skipJobTitle = v === 'never';
       if (skipJobTitle) data.job_title = 'N/A - never worked';
       updateInterstitialB();
     } else if (current === 6) {
