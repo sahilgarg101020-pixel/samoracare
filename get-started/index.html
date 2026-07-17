@@ -182,6 +182,7 @@ textarea.text-input{min-height:120px}
       <label class="option"><input type="radio" name="first_time_applying" value="appealing"/><span class="option-dot"></span><span class="option-text">Yes, I'm appealing right now</span></label>
       <label class="option"><input type="radio" name="first_time_applying" value="not_sure"/><span class="option-dot"></span><span class="option-text">I'm not sure</span></label>
     </div>
+    <div class="field-error" id="first_time_applying-error"></div>
     <div class="expander">
       <button class="expander-toggle" id="expanderToggle1" aria-expanded="false" aria-controls="expanderBody1">Not sure?
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -213,6 +214,7 @@ textarea.text-input{min-height:120px}
       <label class="option"><input type="radio" name="seeing_doctors" value="not_easy"/><span class="option-dot"></span><span class="option-text">Not right now - care hasn't been easy to get</span></label>
       <label class="option"><input type="radio" name="seeing_doctors" value="no"/><span class="option-dot"></span><span class="option-text">No</span></label>
     </div>
+    <div class="field-error" id="seeing_doctors-error"></div>
   </div>
 
   <!-- Interstitial A -->
@@ -234,6 +236,7 @@ textarea.text-input{min-height:120px}
       <label class="option"><input type="radio" name="last_able_to_work" value="over_1yr"/><span class="option-dot"></span><span class="option-text">More than a year ago</span></label>
       <label class="option"><input type="radio" name="last_able_to_work" value="never"/><span class="option-dot"></span><span class="option-text">I've never been able to work</span></label>
     </div>
+    <div class="field-error" id="last_able_to_work-error"></div>
   </div>
 
   <!-- Screen 5: job_title -->
@@ -367,6 +370,8 @@ textarea.text-input{min-height:120px}
       list.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected') });
       this.classList.add('selected');
       this.querySelector('input').checked = true;
+      var field = list.getAttribute('data-field');
+      if (field) clearError(field);
     });
   });
 
@@ -444,7 +449,8 @@ textarea.text-input{min-height:120px}
   btnNext.addEventListener('click', function() {
     if (current === 1) {
       var v = getRadioVal('first_time_applying');
-      if (!v) return;
+      clearError('first_time_applying');
+      if (!v) { showError('first_time_applying', 'Please select an option to continue'); return }
       data.first_time_applying = v;
     } else if (current === 2) {
       var v = getTextVal('conditions');
@@ -454,13 +460,15 @@ textarea.text-input{min-height:120px}
       data.conditions = v;
     } else if (current === 3) {
       var v = getRadioVal('seeing_doctors');
-      if (!v) return;
+      clearError('seeing_doctors');
+      if (!v) { showError('seeing_doctors', 'Please select an option to continue'); return }
       data.seeing_doctors = v;
     } else if (current === 4) {
       // Interstitial A
     } else if (current === 5) {
       var v = getRadioVal('last_able_to_work');
-      if (!v) return;
+      clearError('last_able_to_work');
+      if (!v) { showError('last_able_to_work', 'Please select an option to continue'); return }
       data.last_able_to_work = v;
       skipJobTitle = v === 'never';
       if (skipJobTitle) data.job_title = 'N/A - never worked';
