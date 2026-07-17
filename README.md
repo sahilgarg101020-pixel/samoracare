@@ -1,28 +1,41 @@
 # Samora Legal
 
-Disability benefits eligibility screening and intake platform. Deployed on Cloudflare Pages at [samoracare.com](https://samoracare.com).
+Disability benefits eligibility screening and intake platform.
 
-## Structure
+**Live:** [samoracare.com](https://samoracare.com)
+
+## Overview
+
+Samora Legal helps people determine if they qualify for Social Security Disability Insurance (SSDI) and other disability benefits through a free screening tool. Qualifying applicants are connected with vetted disability benefits attorneys.
+
+## Project Structure
 
 ```
-index.html              Landing page with 11-step eligibility form
-get-started/            Multi-step intake form (8 screens)
-privacy-policy/         Privacy policy
-terms-and-conditions/   Terms of use
-accessibility-statement/ Accessibility commitment
-404.html                Custom 404 page
-sitemap.xml             XML sitemap
-robots.txt              Crawler directives
-llms.txt                AI crawler context
+├── index.html                    # Landing page with eligibility screening form
+├── get-started/                  # Multi-step intake form
+├── privacy-policy/               # Privacy policy
+├── terms-and-conditions/         # Terms of use
+├── accessibility-statement/      # Accessibility commitment
+├── 404.html                      # Custom error page
+├── images/                       # Static assets
+├── fonts/                        # General Sans typeface
+├── sitemap.xml                   # XML sitemap
+├── robots.txt                    # Crawler directives
+└── llms.txt                      # AI crawler context
 ```
 
-## Integrations
+## Tech Stack
 
-- **Google Sheets** via Apps Script for form submissions
-- **n8n** workflow automation (columns J-P in Get Started sheet)
-- **Google Analytics** (G-MZ73CHC4VW)
-- **Meta Pixel** (1549812953598958)
+- **Hosting:** Cloudflare Pages
+- **Backend:** Google Apps Script (form submissions to Google Sheets)
+- **Automation:** n8n workflow integration
+- **Analytics:** Google Analytics, Meta Pixel
+- **Fonts:** General Sans (self-hosted)
 
 ## Deployment
 
-Push to `main` triggers Cloudflare Pages deployment automatically.
+Push to `main` triggers automatic deployment via Cloudflare Pages.
+
+## License
+
+Proprietary. All rights reserved.
