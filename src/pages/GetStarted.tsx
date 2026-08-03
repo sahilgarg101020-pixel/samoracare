@@ -27,11 +27,23 @@ type Step =
       max: number;
       min: number;
     }
+  | { key: string; title: string; sub: string; type: 'intro'; points: string[] }
   | { key: string; title: string; sub: string; type: 'interstitial' }
   | { key: string; title: string; sub: string; type: 'note'; note: string }
   | { key: string; title: string; sub: string; type: 'contact' };
 
 const STEPS: Step[] = [
+  {
+    key: 'intro',
+    title: 'This takes about two minutes.',
+    sub: 'A few short questions about your health, the work you used to do, and how to reach you. Answer in your own words. There are no wrong answers here, and nothing is sent until the very last step.',
+    type: 'intro',
+    points: [
+      'Free, with no obligation and no payment details.',
+      'A real person reads every answer, and many of us on this team live with disabilities too.',
+      'We never sell your information.',
+    ],
+  },
   {
     key: 'applied',
     title: 'Have you applied for Social Security Disability before?',
@@ -127,7 +139,11 @@ export default function GetStarted() {
 
   const step = STEPS[stepIndex];
   const isLast = stepIndex === STEPS.length - 1;
-  const progress = Math.round(((stepIndex + 1) / STEPS.length) * 100);
+  const isIntro = step.type === 'intro';
+  // The intro is a welcome screen, not a step, so it sits at 0% and the bar
+  // fills across the steps that actually ask something.
+  const stepCount = STEPS.length - 1;
+  const progress = isIntro ? 0 : Math.round((stepIndex / stepCount) * 100);
 
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
@@ -243,12 +259,12 @@ export default function GetStarted() {
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label={`Step ${stepIndex + 1} of ${STEPS.length}`}
+          aria-label={isIntro ? 'Not started' : `Step ${stepIndex} of ${stepCount}`}
         >
           <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
         <span aria-live="polite" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>
-          Step {stepIndex + 1} of {STEPS.length}
+          {isIntro ? 'Introduction' : `Step ${stepIndex} of ${stepCount}`}
         </span>
       </header>
 
@@ -316,6 +332,17 @@ export default function GetStarted() {
                 </p>
               )}
             </div>
+          )}
+
+          {step.type === 'intro' && (
+            <ul className="intro-points">
+              {step.points.map((point) => (
+                <li key={point}>
+                  <span className="intro-dot" aria-hidden="true" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           )}
 
           {step.type === 'note' && (
@@ -440,7 +467,7 @@ export default function GetStarted() {
           ‹ Back
         </button>
         <button type="button" className="next-btn" onClick={goNext} disabled={submitting}>
-          {isLast ? (submitting ? 'Sending…' : 'Submit') : 'Next'}
+          {isIntro ? 'Start' : isLast ? (submitting ? 'Sending…' : 'Submit') : 'Next'}
         </button>
       </footer>
     </div>
