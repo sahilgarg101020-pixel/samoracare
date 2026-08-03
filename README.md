@@ -14,8 +14,17 @@ Disability benefits marketing site and eligibility screener.
 ## Tech stack
 
 - React + TypeScript + Vite, client-side routed with React Router
-- No backend: the screener's final step only shows a local confirmation
-  screen. It is **not** wired to any lead-capture backend, analytics, or CRM.
+- One Cloudflare Pages Function, `functions/api/lead.ts`, which receives the
+  completed screener and forwards it to the Google Apps Script endpoint that
+  feeds the leads Sheet and the n8n workflow. Analytics and CRM are still
+  unwired.
+
+### Screener option values
+
+Each choice option in `src/pages/GetStarted.tsx` carries an explicit `value`
+next to its label — `first_time`, `never`, and so on. The Sheet columns and
+the n8n branching key off those slugs, so **edit the labels freely but do not
+change the values** without updating the downstream workflow.
 
 ## Local development
 
@@ -26,23 +35,26 @@ npm run dev
 
 ## Deployment (Cloudflare Pages)
 
-This replaces the previous static-HTML build of this repo. If the Cloudflare
-Pages project for this repo still has build settings from the old static
-site, update them in the Cloudflare dashboard:
-
-- Build command: `npm run build`
-- Build output directory: `dist`
+The `samora-care` Pages project builds `main` automatically. Because the repo
+contains a `wrangler.toml`, that file — not the dashboard — is the source of
+truth for build output, vars, and bindings; the dashboard's own fields are
+displayed but ignored. Add any future binding to `wrangler.toml` or it will
+silently not exist at runtime. (The `LEADS` KV namespace, currently unused, is
+`c879fa3a5a32405093ae64d1ead422e3`.)
 
 `public/_redirects` is included so client-side routes (e.g. `/get-started`)
 resolve correctly on direct load/refresh.
+
+Live at `samoracare.com` and `samora.health`; `www.samoracare.com` 301s to the
+apex via a Cloudflare redirect rule.
 
 ## Known gaps vs. the previous production site
 
 The previous version of this repo (static HTML) had integrations that this
 rewrite does **not** carry over yet:
 
-- Google Analytics (GA4) and Meta Pixel conversion tracking
-- Intake form backend (Google Apps Script → Google Sheets → n8n)
+- Google Analytics (GA4) and Meta Pixel conversion tracking. The old site also
+  fired a `get_started_lead` / `Lead` event on submit; that hook is gone.
 - Privacy Policy, Terms and Conditions, Accessibility Statement pages
   (footer links to these were removed until the pages exist again)
 - SEO infra: sitemap.xml, robots.txt, llms.txt, JSON-LD structured data
