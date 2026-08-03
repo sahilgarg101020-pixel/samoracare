@@ -172,6 +172,9 @@ export default function GetStarted() {
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        // The server answers as soon as the lead is stored, so this only has to
+        // cover a bad connection rather than a slow Sheet write.
+        signal: AbortSignal.timeout(15_000),
         body: JSON.stringify({
           ...answers,
           ...texts,
@@ -467,7 +470,8 @@ export default function GetStarted() {
           ‹ Back
         </button>
         <button type="button" className="next-btn" onClick={goNext} disabled={submitting}>
-          {isIntro ? 'Start' : isLast ? (submitting ? 'Sending…' : 'Submit') : 'Next'}
+          {submitting && <span className="btn-spinner" aria-hidden="true" />}
+          {isIntro ? 'Start' : isLast ? (submitting ? 'Sending' : 'Submit') : 'Next'}
         </button>
       </footer>
     </div>

@@ -6,3 +6,11 @@ compatibility_date = "2026-06-21"
 # because a project with a wrangler.toml ignores dashboard-defined vars.
 [vars]
 LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzVtL6LMXb2bSR4Gdqo0sO6ByN6WzfckwiSOadxy5dnc8OCKsPjSFvwYfwv1g4Gi9vVPg/exec"
+
+# Durable landing spot for a submission, written before the visitor is told the
+# form went through. Forwarding to Apps Script then happens after the response,
+# so a slow Sheet write no longer holds anyone on the last screen. Declared here
+# because a project with a wrangler.toml ignores dashboard bindings.
+[[kv_namespaces]]
+binding = "LEADS"
+id = "c879fa3a5a32405093ae64d1ead422e3"

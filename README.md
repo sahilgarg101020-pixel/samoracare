@@ -39,8 +39,20 @@ The `samora-care` Pages project builds `main` automatically. Because the repo
 contains a `wrangler.toml`, that file — not the dashboard — is the source of
 truth for build output, vars, and bindings; the dashboard's own fields are
 displayed but ignored. Add any future binding to `wrangler.toml` or it will
-silently not exist at runtime. (The `LEADS` KV namespace, currently unused, is
-`c879fa3a5a32405093ae64d1ead422e3`.)
+silently not exist at runtime.
+
+### Recovering a lead that never reached the Sheet
+
+Every submission is written to the `LEADS` KV namespace under
+`lead:<timestamp>:<uuid>` before the visitor is told the form went through, and
+is rewritten with `delivered: true` once Apps Script accepts it. Anything left
+with `delivered: false` is a lead that never made it to the Sheet and needs
+chasing by hand:
+
+```
+npx wrangler kv key list --namespace-id c879fa3a5a32405093ae64d1ead422e3
+npx wrangler kv key get "<key>" --namespace-id c879fa3a5a32405093ae64d1ead422e3
+```
 
 `public/_redirects` is included so client-side routes (e.g. `/get-started`)
 resolve correctly on direct load/refresh.

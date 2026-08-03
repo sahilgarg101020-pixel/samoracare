@@ -10,7 +10,17 @@
 
 interface Env {
   LEAD_ENDPOINT: string;
+  LEADS: KVNamespace;
 }
+
+/**
+ * Apps Script needs a second or more just to acknowledge a request, and longer
+ * again to write the row. Waiting on it before answering the browser put that
+ * delay in front of someone who had already finished the form, so the lead is
+ * recorded in KV first and forwarded after the response goes out.
+ */
+const UPSTREAM_TIMEOUT_MS = 10_000;
+const MAX_ATTEMPTS = 3;
 
 /** Field names the existing Sheet columns and n8n workflow expect. */
 interface SheetPayload {
@@ -67,13 +77,40 @@ async function forward(endpoint: string, payload: SheetPayload): Promise<boolean
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(payload),
+    // Without this a hung upstream holds the request open indefinitely.
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   return res.ok;
 }
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const endpoint = env.LEAD_ENDPOINT;
-  if (!endpoint) {
+/**
+ * Runs after the response has been sent. Marks the stored lead as delivered so
+ * anything still flagged pending in KV is a lead that needs chasing by hand.
+ */
+async function deliver(env: Env, key: string, payload: SheetPayload): Promise<void> {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      if (await forward(env.LEAD_ENDPOINT, payload)) {
+        try {
+          await env.LEADS.put(key, JSON.stringify({ ...payload, delivered: true }));
+        } catch (err) {
+          // The row landed in the Sheet, which is what matters. Losing the
+          // flag only costs accuracy in the pending-leads audit.
+          console.error(`lead: delivered but could not update ${key}`, err);
+        }
+        return;
+      }
+      // Never log the payload itself — it is health and contact information.
+      console.error(`lead: upstream rejected ${key} (attempt ${attempt}/${MAX_ATTEMPTS})`);
+    } catch (err) {
+      console.error(`lead: upstream failed for ${key} (attempt ${attempt}/${MAX_ATTEMPTS})`, err);
+    }
+  }
+  console.error(`lead: giving up on ${key}; it stays pending in KV for recovery`);
+}
+
+export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
+  if (!env.LEAD_ENDPOINT) {
     console.error('lead: LEAD_ENDPOINT is not configured');
     return Response.json({ ok: false, error: 'not_configured' }, { status: 500 });
   }
@@ -90,17 +127,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return Response.json({ ok: false, error: 'invalid' }, { status: 400 });
   }
 
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    try {
-      if (await forward(endpoint, payload)) {
-        return Response.json({ ok: true });
-      }
-      // Never log the payload itself — it is health and contact information.
-      console.error(`lead: upstream rejected submission (attempt ${attempt})`);
-    } catch (err) {
-      console.error(`lead: upstream request failed (attempt ${attempt})`, err);
-    }
+  // Timestamp first so the key sorts chronologically when listing pending leads.
+  const key = `lead:${new Date().toISOString()}:${crypto.randomUUID()}`;
+
+  try {
+    await env.LEADS.put(key, JSON.stringify({ ...payload, delivered: false }));
+  } catch (err) {
+    // KV is the thing that makes an early confirmation honest. Without it,
+    // fall back to forwarding inline rather than claiming a lead was captured.
+    console.error('lead: KV write failed, forwarding inline instead', err);
+    const ok = await forward(env.LEAD_ENDPOINT, payload).catch(() => false);
+    return ok
+      ? Response.json({ ok: true })
+      : Response.json({ ok: false, error: 'upstream' }, { status: 502 });
   }
 
-  return Response.json({ ok: false, error: 'upstream' }, { status: 502 });
+  waitUntil(deliver(env, key, payload));
+  return Response.json({ ok: true });
 };
