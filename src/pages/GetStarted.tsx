@@ -27,7 +27,16 @@ type Step =
       max: number;
       min: number;
     }
-  | { key: string; title: string; sub: string; type: 'intro'; points: string[] }
+  | {
+      key: string;
+      title: string;
+      sub: string;
+      type: 'intro';
+      /** Spoken by Maya in a bubble above the heading. */
+      greeting: string;
+      greetingStrong: string;
+      points: string[];
+    }
   | { key: string; title: string; sub: string; type: 'interstitial' }
   | { key: string; title: string; sub: string; type: 'note'; note: string }
   | { key: string; title: string; sub: string; type: 'contact' };
@@ -35,9 +44,12 @@ type Step =
 const STEPS: Step[] = [
   {
     key: 'intro',
-    title: 'This takes about two minutes.',
+    title: 'Let us find what you are owed.',
     sub: 'A few short questions about your health, the work you used to do, and how to reach you. Answer in your own words. There are no wrong answers here, and nothing is sent until the very last step.',
     type: 'intro',
+    greeting:
+      'Hi, I am Maya, one of the advocates here. We will work out what you qualify for, then sort out how to claim it.',
+    greetingStrong: 'It takes about two minutes.',
     points: [
       'Free, with no obligation and no payment details.',
       'A real person reads every answer, and many of us on this team live with disabilities too.',
@@ -273,6 +285,22 @@ export default function GetStarted() {
 
       <main className="screener-main">
         <form className="screener-content" onSubmit={handleFormSubmit}>
+          {step.type === 'intro' && (
+            <div className="intro-greeting">
+              <img
+                className="intro-avatar"
+                src="/assets/maya-portrait.jpg"
+                alt="Maya, benefits advocate"
+              />
+              <div className="intro-bubble">
+                <span className="intro-bubble-name">Maya · benefits advocate</span>
+                <p className="intro-bubble-text">
+                  {step.greeting} <strong>{step.greetingStrong}</strong>
+                </p>
+              </div>
+            </div>
+          )}
+
           <h1 className="screener-h1">{step.title}</h1>
           <p className="screener-sub">{step.sub}</p>
 

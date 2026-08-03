@@ -172,6 +172,80 @@
 }
 
 /* intro step */
+
+/*
+ * Maya introduces the form before it starts asking. Mirrors the chat card on
+ * the landing page so she reads as the same person, with the avatar on the left
+ * and the tail pointing back at her.
+ */
+.intro-greeting {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 660px;
+  margin-bottom: 38px;
+}
+.intro-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 22%;
+  flex: none;
+  display: block;
+}
+.intro-bubble {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--input-border);
+  border-radius: 18px;
+  padding: 18px 22px;
+}
+.intro-bubble::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background: var(--white);
+  border-left: 1px solid var(--input-border);
+  border-bottom: 1px solid var(--input-border);
+  transform: rotate(45deg);
+}
+.intro-bubble-name {
+  display: block;
+  font-size: 14.5px;
+  color: var(--text-muted-2);
+  margin-bottom: 6px;
+}
+.intro-bubble-text {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #3A2B47;
+}
+.intro-bubble-text strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .intro-greeting {
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .intro-avatar {
+    width: 44px;
+    height: 44px;
+  }
+  .intro-bubble {
+    padding: 15px 18px;
+  }
+  .intro-bubble-text {
+    font-size: 16px;
+  }
+}
+
 .intro-points {
   list-style: none;
   margin: 30px 0 0;
