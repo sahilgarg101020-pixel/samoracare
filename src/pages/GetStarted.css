@@ -381,9 +381,20 @@
 }
 
 /* footer */
+/*
+ * Pinned to the bottom of the viewport rather than the bottom of the document.
+ * The taller steps — contact, or any step showing an error — run past a single
+ * screen, which left the only way forward below the fold. Sticky keeps it in
+ * normal flow, so the last of the content still clears it instead of hiding
+ * underneath.
+ */
 .screener-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
   background: var(--screener-bg);
   border-top: 1px solid var(--footer-border);
+  box-shadow: 0 -6px 18px rgba(43, 17, 64, 0.05);
   padding: 26px 48px;
   display: flex;
   align-items: center;
