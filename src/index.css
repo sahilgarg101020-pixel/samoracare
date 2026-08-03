@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* purple scale */
+  --purple-950: #1E0B2E;
+  --purple-900: #2A0F41;
+  --purple-800: #2B1140;
+  --purple-700: #341551;
+  --purple-600: #3D1862;
+  --purple-500: #43195F;
+  --purple-400: #5B2288;
+  --primary-hover: #7430E6;
+  --primary: #8A3EFA;
+  --accent-bright: #AF5BFC;
+  --gradient-start: #C79CF5;
+  --on-dark-accent: #C9A7F0;
+  --dot-color: #CA42FF;
+  --chip-selected: #DCCBF2;
+
+  /* neutrals */
+  --white: #FFFFFF;
+  --screener-bg: #FAF9FC;
+  --landing-bg: #F6F3FA;
+  --tint-1: #EDE7F3;
+  --tint-2: #EDE6F5;
+  --tint-3: #EAE3F3;
+  --tint-4: #EDE8F2;
+  --progress-track: #E7E2EE;
+  --border-light: #E9E4F0;
+  --input-border: #E2DCEC;
+  --footer-border: #ECE7F2;
+  --near-black: #171018;
+
+  /* text */
+  --text-primary: #2B1140;
+  --text-secondary: #5B4A6B;
+  --text-muted-1: #857C90;
+  --text-muted-2: #7A6E88;
+  --text-muted-3: #6C6377;
+  --text-placeholder: #9A93A6;
+  --text-disabled: #C4BDD0;
+  --on-dark-body-1: #CBBBDE;
+  --on-dark-body-2: #A797BC;
+  --on-dark-body-3: #D3C6E6;
+
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+}
+
+html, body { margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; }
+input, textarea, button { font-family: inherit; }
+input::placeholder, textarea::placeholder { color: var(--text-placeholder); }
+
+/* visible focus rings everywhere, per accessibility requirement */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--accent-bright);
+  outline-offset: 2px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-bright) !important;
+}
+
+#root { width: 100%; }
