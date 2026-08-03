@@ -9,7 +9,12 @@ type Step =
       title: string;
       sub: string;
       type: 'choice';
-      options: string[];
+      /**
+       * `value` is what the leads Sheet and the n8n workflow key off. It is
+       * paired with the label here so rewording a question cannot silently
+       * change the data written downstream.
+       */
+      options: { label: string; value: string }[];
       hasHelp?: boolean;
     }
   | {
@@ -34,10 +39,10 @@ const STEPS: Step[] = [
     type: 'choice',
     hasHelp: true,
     options: [
-      'No, this is my first time',
-      'Yes, and I was denied',
-      "Yes, I'm appealing right now",
-      "I'm not sure",
+      { label: 'No, this is my first time', value: 'first_time' },
+      { label: 'Yes, and I was denied', value: 'denied' },
+      { label: "Yes, I'm appealing right now", value: 'appealing' },
+      { label: "I'm not sure", value: 'not_sure' },
     ],
   },
   {
@@ -56,10 +61,10 @@ const STEPS: Step[] = [
     sub: 'Honest answer, please. This is not a test. It just tells us how much of your story is already on paper.',
     type: 'choice',
     options: [
-      'Yes, regularly',
-      'Sometimes, when I can',
-      'Not right now, care has not been easy to get',
-      'No',
+      { label: 'Yes, regularly', value: 'regularly' },
+      { label: 'Sometimes, when I can', value: 'sometimes' },
+      { label: 'Not right now, care has not been easy to get', value: 'not_easy' },
+      { label: 'No', value: 'no' },
     ],
   },
   {
@@ -75,11 +80,11 @@ const STEPS: Step[] = [
     sub: 'However long it has been, that is information, not a verdict.',
     type: 'choice',
     options: [
-      "I'm still working, but struggling",
-      'Within the last 6 months',
-      '6 months to a year ago',
-      'More than a year ago',
-      "I've never been able to work",
+      { label: "I'm still working, but struggling", value: 'still_working' },
+      { label: 'Within the last 6 months', value: 'within_6mo' },
+      { label: '6 months to a year ago', value: '6mo_to_1yr' },
+      { label: 'More than a year ago', value: 'over_1yr' },
+      { label: "I've never been able to work", value: 'never' },
     ],
   },
   {
@@ -117,6 +122,8 @@ export default function GetStarted() {
   const [contact, setContact] = useState({ firstName: '', lastName: '', email: '', phone: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
 
   const step = STEPS[stepIndex];
   const isLast = stepIndex === STEPS.length - 1;
@@ -142,7 +149,36 @@ export default function GetStarted() {
     return next;
   }
 
+  async function submit() {
+    setSubmitting(true);
+    setSubmitFailed(false);
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...answers,
+          ...texts,
+          firstName: contact.firstName.trim(),
+          lastName: contact.lastName.trim(),
+          email: contact.email.trim(),
+          phone: contact.phone.trim(),
+          countryCode: '+1',
+        }),
+      });
+      if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
+      setSubmitted(true);
+    } catch {
+      // Surface the failure instead of showing a confirmation for a lead that
+      // never arrived. Their answers stay on screen so retrying costs nothing.
+      setSubmitFailed(true);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   function goNext() {
+    if (submitting) return;
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -150,7 +186,7 @@ export default function GetStarted() {
     }
     setErrors({});
     if (isLast) {
-      setSubmitted(true);
+      void submit();
       return;
     }
     setStepIndex((i) => Math.min(STEPS.length - 1, i + 1));
@@ -225,24 +261,24 @@ export default function GetStarted() {
             <>
               <fieldset className="option-fieldset">
                 <legend className="option-legend">{step.title}</legend>
-                {step.options.map((label) => {
-                  const selected = answers[step.key] === label;
+                {step.options.map((option) => {
+                  const selected = answers[step.key] === option.value;
                   return (
                     <label
-                      key={label}
+                      key={option.value}
                       className={`option-row${selected ? ' option-row--selected' : ''}`}
                     >
                       <input
                         type="radio"
                         className="option-radio"
                         name={step.key}
-                        value={label}
+                        value={option.value}
                         checked={selected}
                         onChange={() =>
-                          setAnswers((a) => ({ ...a, [step.key]: label }))
+                          setAnswers((a) => ({ ...a, [step.key]: option.value }))
                         }
                       />
-                      <span className="option-label">{label}</span>
+                      <span className="option-label">{option.label}</span>
                     </label>
                   );
                 })}
@@ -363,6 +399,15 @@ export default function GetStarted() {
             </div>
           )}
 
+          {submitFailed && (
+            <p className="submit-error" role="alert">
+              We could not send your answers just now. Nothing you entered was lost, please
+              press Submit again. If it keeps failing, email us at{' '}
+              <a href="mailto:hello@samoracare.com">hello@samoracare.com</a> and we will pick
+              it up from there.
+            </p>
+          )}
+
           {step.type === 'choice' && step.hasHelp && (
             <div className="help-disclosure">
               <button
@@ -386,11 +431,16 @@ export default function GetStarted() {
       </main>
 
       <footer className="screener-footer">
-        <button type="button" className="back-btn" onClick={goBack} disabled={stepIndex === 0}>
+        <button
+          type="button"
+          className="back-btn"
+          onClick={goBack}
+          disabled={stepIndex === 0 || submitting}
+        >
           ‹ Back
         </button>
-        <button type="button" className="next-btn" onClick={goNext}>
-          {isLast ? 'Submit' : 'Next'}
+        <button type="button" className="next-btn" onClick={goNext} disabled={submitting}>
+          {isLast ? (submitting ? 'Sending…' : 'Submit') : 'Next'}
         </button>
       </footer>
     </div>

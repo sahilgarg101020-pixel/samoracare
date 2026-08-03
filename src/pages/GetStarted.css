@@ -207,6 +207,20 @@
   font-size: 15px;
   color: #D64545;
 }
+.submit-error {
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid #D64545;
+  border-radius: 12px;
+  background: rgba(214, 69, 69, 0.06);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #D64545;
+}
+.submit-error a {
+  color: inherit;
+  font-weight: 600;
+}
 .phone-grid {
   display: grid;
   grid-template-columns: 150px 1fr;
@@ -301,6 +315,11 @@
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(138, 62, 250, 0.28);
   border: none;
+}
+.next-btn:disabled,
+.back-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 @media (max-width: 700px) {

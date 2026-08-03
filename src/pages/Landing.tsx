@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.css';
 
+/** Cal.com booking page used by both "Talk to someone" CTAs. */
+const BOOKING_URL = 'https://cal.com/samoraai/quick-chat-benefits';
+
 const FAQS = [
   {
     q: 'What is SSDI?',
@@ -126,7 +129,12 @@ export default function Landing() {
               <Link to="/get-started" className="btn-primary">
                 See if you qualify <span aria-hidden="true">→</span>
               </Link>
-              <a href="#how" className="btn-secondary">
+              <a
+                href={BOOKING_URL}
+                className="btn-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Talk to someone
               </a>
             </div>
@@ -376,7 +384,12 @@ export default function Landing() {
             <Link to="/get-started" className="cta-primary">
               Check your eligibility <span aria-hidden="true">→</span>
             </Link>
-            <a href="#how" className="cta-ghost">
+            <a
+              href={BOOKING_URL}
+              className="cta-ghost"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Talk to someone
             </a>
           </div>

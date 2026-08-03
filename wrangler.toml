@@ -1,3 +1,8 @@
 name = "samora-care"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-06-21"
+
+# Consumed by functions/api/lead.ts. Declared here rather than in the dashboard
+# because a project with a wrangler.toml ignores dashboard-defined vars.
+[vars]
+LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzVtL6LMXb2bSR4Gdqo0sO6ByN6WzfckwiSOadxy5dnc8OCKsPjSFvwYfwv1g4Gi9vVPg/exec"
