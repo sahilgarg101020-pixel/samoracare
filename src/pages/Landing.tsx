@@ -27,10 +27,6 @@ const FAQS = [
     a: 'It varies by case and by state, and the government moves slowly. We cannot change their timeline, but we can make sure your case is filed correctly and moving, and keep you informed the whole way.',
   },
   {
-    q: 'Are you a law firm?',
-    a: 'No. SamoraCare is a disability benefits service. Our team represents you and guides you through the claims process directly, from screening through appeals.',
-  },
-  {
     q: 'Are you affiliated with the government?',
     a: 'No. We are a private company and are not affiliated with, endorsed by, or sponsored by the Social Security Administration or any other government agency.',
   },
@@ -118,7 +114,7 @@ export default function Landing() {
         />
         <div className="hero-content">
           <span className="eyebrow-badge">Disability owned and led</span>
-          <h1 className="hero-h1">When everything is going wrong, you still have rights.</h1>
+          <h1 className="hero-h1">Access benefits that you deserve.</h1>
           <p className="hero-p">
             You have been doubted, delayed, and denied. We know that feeling because we have
             lived it. We help you claim the SSDI, SSI, Workers' Comp, and VA benefits you have
