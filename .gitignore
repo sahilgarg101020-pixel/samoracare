@@ -25,3 +25,6 @@ dist-ssr
 
 # Vite dep-optimizer cache
 .vite
+
+# Prerender intermediate output
+.ssr-dist
