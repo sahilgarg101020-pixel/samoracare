@@ -23,9 +23,13 @@ for (const route of ROUTES) {
     // whatever reads the page without running scripts.
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
-  const outDir = join(dist, route.path.replace(/^\//, ''));
-  await mkdir(outDir, { recursive: true });
-  await writeFile(join(outDir, 'index.html'), page);
+  // Written flat as <route>.html rather than <route>/index.html. Pages serves
+  // the former at /<route> with a 200, but 308-redirects to a trailing slash
+  // for the latter, and these URLs get submitted to carriers that may not
+  // follow redirects.
+  const outFile = join(dist, `${route.path.replace(/^\//, '')}.html`);
+  await mkdir(dirname(outFile), { recursive: true });
+  await writeFile(outFile, page);
   console.log(`prerendered ${route.path} (${html.length} bytes of markup)`);
 }
 
