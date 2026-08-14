@@ -146,6 +146,7 @@ export default function GetStarted() {
   const [contact, setContact] = useState({ firstName: '', lastName: '', email: '', phone: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitFailed, setSubmitFailed] = useState(false);
 
@@ -195,6 +196,9 @@ export default function GetStarted() {
           email: contact.email.trim(),
           phone: contact.phone.trim(),
           countryCode: '+1',
+          // Recorded either way. Proof that consent was given matters, but so
+          // does proof that it was declined.
+          smsConsent: smsConsent ? 'yes' : 'no',
         }),
       });
       if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
@@ -454,6 +458,35 @@ export default function GetStarted() {
                   do.
                 </span>
               </div>
+
+              {/*
+                Consent must be a deliberate act, so this starts unticked and is
+                never required to submit. Carriers ask to see the disclosure at
+                the point of collection, which is why the rates, frequency, and
+                opt-out wording sit here rather than only in the terms.
+              */}
+              <label className="sms-consent">
+                <input
+                  type="checkbox"
+                  className="sms-consent-box"
+                  checked={smsConsent}
+                  onChange={(e) => setSmsConsent(e.target.checked)}
+                />
+                <span className="sms-consent-text">
+                  I agree to receive text messages from SamoraCare about my benefits claim at the
+                  number above. Message and data rates may apply. Up to 4 messages per month. Reply{' '}
+                  <strong>STOP</strong> to opt out or <strong>HELP</strong> for help. Consent is not
+                  a condition of any purchase. See our{' '}
+                  <Link to="/terms-and-conditions" target="_blank" rel="noopener noreferrer">
+                    Terms
+                  </Link>{' '}
+                  and{' '}
+                  <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                    Privacy Policy
+                  </Link>
+                  .
+                </span>
+              </label>
             </div>
           )}
 

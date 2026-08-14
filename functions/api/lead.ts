@@ -34,6 +34,11 @@ interface SheetPayload {
   seeing_doctors: string;
   last_able_to_work: string;
   job_title: string;
+  /**
+   * 'yes' or 'no'. Kept for every submission, not just the opt-ins — carriers
+   * and the TCPA care about being able to show what someone actually chose.
+   */
+  sms_consent: string;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,6 +72,7 @@ function build(body: Record<string, unknown>): SheetPayload | null {
     seeing_doctors: str(body.doctors, 40),
     last_able_to_work: lastAbleToWork,
     job_title: job || (lastAbleToWork === 'never' ? NEVER_WORKED_JOB : ''),
+    sms_consent: body.smsConsent === 'yes' ? 'yes' : 'no',
   };
 }
 

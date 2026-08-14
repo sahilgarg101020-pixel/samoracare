@@ -1,0 +1,206 @@
+.legal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--screener-bg);
+  color: var(--text-primary);
+}
+
+.legal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  border-bottom: 1px solid var(--footer-border);
+}
+.legal-logo img {
+  height: 30px;
+  display: block;
+}
+.legal-back {
+  font-size: 16.5px;
+  color: var(--primary);
+}
+.legal-back:hover {
+  color: var(--primary-hover);
+}
+
+.legal-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 64px 32px 88px;
+}
+/* Roughly 70 characters per line, which is the comfortable range for reading
+   a long document rather than skimming marketing copy. */
+.legal-article {
+  width: 100%;
+  max-width: 720px;
+}
+
+.legal-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+}
+.legal-intro {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 0 26px;
+}
+.legal-effective {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  margin: 0 0 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  background: var(--white);
+  font-size: 16px;
+}
+.legal-effective span {
+  color: var(--text-muted-2);
+}
+
+.legal-section {
+  margin-top: 40px;
+}
+.legal-h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 14px;
+}
+.legal-h3 {
+  font-size: 18.5px;
+  font-weight: 600;
+  margin: 26px 0 10px;
+}
+.legal-section p {
+  font-size: 17.5px;
+  line-height: 1.68;
+  color: var(--text-secondary);
+  margin: 0 0 14px;
+}
+.legal-section p:last-child {
+  margin-bottom: 0;
+}
+.legal-section strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.legal-section a {
+  color: var(--primary);
+}
+.legal-section a:hover {
+  color: var(--primary-hover);
+}
+.legal-section ul {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.legal-section li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 17.5px;
+  line-height: 1.62;
+  color: var(--text-secondary);
+}
+.legal-section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* The block carriers look for when vetting an SMS campaign. Set apart so it is
+   findable without reading the whole document. */
+.legal-callout {
+  border: 1px solid var(--input-border);
+  border-left: 3px solid var(--primary);
+  border-radius: 12px;
+  background: var(--white);
+  padding: 22px 24px;
+  margin: 0 0 16px;
+}
+.legal-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-dl {
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.legal-dl div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 17.5px;
+  line-height: 1.6;
+}
+.legal-dl dt {
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 190px;
+}
+.legal-dl dd {
+  margin: 0;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 240px;
+}
+
+.legal-footer {
+  border-top: 1px solid var(--footer-border);
+  padding: 26px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.legal-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  font-size: 16px;
+}
+.legal-copyright {
+  font-size: 15px;
+  color: var(--text-muted-2);
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .legal-header {
+    padding: 18px 20px;
+  }
+  .legal-main {
+    padding: 40px 20px 64px;
+  }
+  .legal-h1 {
+    font-size: 36px;
+  }
+  .legal-h2 {
+    font-size: 21px;
+  }
+  .legal-footer {
+    padding: 22px 20px 32px;
+  }
+  .legal-dl dt {
+    min-width: 100%;
+  }
+}

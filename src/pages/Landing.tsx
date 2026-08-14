@@ -396,6 +396,10 @@ export default function Landing() {
         <div className="footer-row">
           <img src="/assets/samora-logo.svg" alt="Samora" />
         </div>
+        <nav className="footer-legal">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-and-conditions">Terms and Conditions</Link>
+        </nav>
         <div className="footer-copyright">© 2026 Samora AI, Inc. All rights reserved.</div>
         <p className="footer-disclaimer">
           This website is for informational purposes only. Results vary based on individual

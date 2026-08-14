@@ -807,6 +807,12 @@
 .footer-row a {
   color: var(--text-secondary);
 }
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 14.5px;
+}
 .footer-copyright {
   font-size: 14.5px;
   color: var(--text-muted-1);

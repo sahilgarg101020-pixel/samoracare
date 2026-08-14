@@ -308,6 +308,34 @@
   font-size: 15px;
   color: #D64545;
 }
+.sms-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  background: var(--white);
+  cursor: pointer;
+}
+.sms-consent-box {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-top: 2px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.sms-consent-text {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.sms-consent-text strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .submit-error {
   margin-top: 24px;
   padding: 16px 20px;
