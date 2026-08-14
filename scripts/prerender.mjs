@@ -10,7 +10,12 @@ const { ROUTES, render } = await import(join(ssrDist, 'prerender.js'));
 const template = await readFile(join(dist, 'index.html'), 'utf8');
 
 for (const route of ROUTES) {
-  const html = render(route.path, route.element);
+  // Cloudflare's Email Address Obfuscation rewrites addresses in served HTML
+  // into /cdn-cgi/l/email-protection links that only resolve once its script
+  // runs. On these pages the support address has to survive a fetch that never
+  // executes JavaScript, since that is how carriers vet an SMS campaign.
+  // email_off is Cloudflare's documented opt-out for a region of the page.
+  const html = `<!--email_off-->${render(route.path, route.element)}<!--/email_off-->`;
 
   const page = template
     .replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`)
