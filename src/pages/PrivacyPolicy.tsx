@@ -49,7 +49,32 @@ export default function PrivacyPolicy() {
           Our hosting provider records standard technical information when you visit, such as your IP
           address, the pages requested, the time of the request, and basic browser and device
           information. This is used to serve the site, keep it secure, and understand aggregate
-          traffic. We do not use advertising cookies or third-party tracking pixels on this site.
+          traffic.
+        </p>
+
+        <h3 className="legal-h3">Analytics and advertising measurement</h3>
+        <p>
+          This site uses Google Analytics and the Meta pixel. They set cookies and similar
+          identifiers to record which pages are visited, how visitors arrive, and whether a visit
+          ends in a completed screener or a booked call. We use this to understand which of our ads
+          and pages actually help people find us.
+        </p>
+        <p>
+          <strong>
+            We never send your name, email address, phone number, or anything you told us about your
+            health or your work to these services.
+          </strong>{' '}
+          Our conversion events record only that a form was completed or a booking link was opened,
+          never who completed it or what they said. You can opt out using your browser's privacy
+          settings, a tracking blocker, or Google's{' '}
+          <a
+            href="https://tools.google.com/dlpage/gaoptout"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            opt-out browser add-on
+          </a>
+          .
         </p>
       </LegalSection>
 
@@ -99,6 +124,12 @@ export default function PrivacyPolicy() {
             submissions, deliver messages, and route your inquiry to the right person. They may only
             process your information on our instructions and for the purposes described here, not for
             their own purposes.
+          </li>
+          <li>
+            <strong>Analytics and advertising providers.</strong> Google and Meta receive the
+            browsing signals described above, and unlike our other vendors they may also use that
+            data for their own purposes under their own policies. They never receive your name,
+            contact details, or anything you told us about your health or your work.
           </li>
           <li>
             <strong>People working on your claim.</strong> If you ask us to help with a claim, your

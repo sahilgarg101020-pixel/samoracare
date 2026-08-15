@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { trackSchedule } from '../lib/analytics';
 import './Landing.css';
 
 /** Cal.com booking page used by both "Talk to someone" CTAs. */
@@ -130,6 +131,7 @@ export default function Landing() {
                 className="btn-secondary"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackSchedule}
               >
                 Talk to someone
               </a>
@@ -385,6 +387,7 @@ export default function Landing() {
               className="cta-ghost"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackSchedule}
             >
               Talk to someone
             </a>

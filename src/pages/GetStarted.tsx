@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { trackLead } from '../lib/analytics';
 import './GetStarted.css';
 
 type Step =
@@ -202,6 +203,9 @@ export default function GetStarted() {
         }),
       });
       if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
+      // Only once the lead is actually captured. Firing before this point would
+      // count submissions that failed and were never recorded anywhere.
+      trackLead();
       setSubmitted(true);
     } catch {
       // Surface the failure instead of showing a confirmation for a lead that
