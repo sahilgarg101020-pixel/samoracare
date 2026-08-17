@@ -1,5 +1,6 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
+import Connect from './pages/Connect';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import './index.css';
@@ -11,6 +12,13 @@ import './index.css';
  * build time. The client bundle still boots and takes over as normal.
  */
 export const ROUTES = [
+  {
+    path: '/connect',
+    title: 'Connect with SamoraCare',
+    description:
+      'Contact SamoraCare and optionally consent to receive text messages about your disability benefits inquiry.',
+    element: <Connect />,
+  },
   {
     path: '/privacy-policy',
     title: 'Privacy Policy — SamoraCare',
