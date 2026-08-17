@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { trackLead } from '../lib/analytics';
+import { trackLead, trackLeadConfirmed } from '../lib/analytics';
 import './GetStarted.css';
 
 type Step =
@@ -203,9 +203,9 @@ export default function GetStarted() {
         }),
       });
       if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
-      // Only once the lead is actually captured. Firing before this point would
-      // count submissions that failed and were never recorded anywhere.
-      trackLead();
+      // Separate from the Lead fired on the button, so a completed submission
+      // is not counted twice under one name.
+      trackLeadConfirmed();
       setSubmitted(true);
     } catch {
       // Surface the failure instead of showing a confirmation for a lead that
@@ -225,6 +225,9 @@ export default function GetStarted() {
     }
     setErrors({});
     if (isLast) {
+      // On the button, once validation has passed. Firing on a click that only
+      // surfaced "First name is required" would report a lead that never was.
+      trackLead();
       void submit();
       return;
     }

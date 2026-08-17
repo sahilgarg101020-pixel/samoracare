@@ -42,10 +42,25 @@ export function trackPageView() {
   fbq('track', 'PageView');
 }
 
-/** A completed screener submission. */
+/**
+ * Submit pressed on the last step, with validation passed. This is the standard
+ * event ad platforms expect on the button, so it is what campaigns optimise
+ * against. It counts intent: a submission that fails on the way to the server
+ * still counts here.
+ */
 export function trackLead() {
   fbq('track', 'Lead');
   gtag('event', 'generate_lead');
+}
+
+/**
+ * The lead actually reached us and was stored. Deliberately a different name
+ * from Lead: firing both under one name would count every completed submission
+ * twice. Compare the two to see how many submissions are being lost in transit.
+ */
+export function trackLeadConfirmed() {
+  fbq('trackCustom', 'LeadConfirmed');
+  gtag('event', 'generate_lead_confirmed');
 }
 
 /** A click through to the Cal.com booking page. */
