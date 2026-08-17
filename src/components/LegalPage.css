@@ -18,8 +18,8 @@
   display: block;
 }
 .legal-back {
-  font-size: 16.5px;
-  color: var(--primary);
+  font-size: 15px;
+  color: var(--primary-text);
 }
 .legal-back:hover {
   color: var(--primary-hover);
@@ -47,7 +47,7 @@
   margin: 0 0 20px;
 }
 .legal-intro {
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 0 26px;
@@ -61,7 +61,7 @@
   border: 1px solid var(--input-border);
   border-radius: 12px;
   background: var(--white);
-  font-size: 16px;
+  font-size: 15px;
 }
 .legal-effective span {
   color: var(--text-muted-2);
@@ -71,19 +71,20 @@
   margin-top: 40px;
 }
 .legal-h2 {
+  font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.3;
   margin: 0 0 14px;
 }
 .legal-h3 {
-  font-size: 18.5px;
+  font-size: 16px;
   font-weight: 600;
   margin: 26px 0 10px;
 }
 .legal-section p {
-  font-size: 17.5px;
-  line-height: 1.68;
+  font-size: 15.5px;
+  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 0 14px;
 }
@@ -95,7 +96,7 @@
   font-weight: 600;
 }
 .legal-section a {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 .legal-section a:hover {
   color: var(--primary-hover);
@@ -111,8 +112,8 @@
 .legal-section li {
   position: relative;
   padding-left: 22px;
-  font-size: 17.5px;
-  line-height: 1.62;
+  font-size: 15.5px;
+  line-height: 1.6;
   color: var(--text-secondary);
 }
 .legal-section li::before {
@@ -150,7 +151,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px 10px;
-  font-size: 17.5px;
+  font-size: 15.5px;
   line-height: 1.6;
 }
 .legal-dl dt {
@@ -176,10 +177,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
-  font-size: 16px;
+  font-size: 15px;
 }
 .legal-copyright {
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--text-muted-2);
   margin: 0;
 }

@@ -1,4 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+/*
+ * Self-hosted rather than loaded from Google's CDN. A CDN font request sends
+ * every visitor's IP to a third party on page load, which the privacy policy
+ * says we do not do, and it costs a DNS lookup and connection to another host
+ * before any text can paint.
+ */
+@font-face {
+  font-family: 'DM Serif Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-serif-display-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  /* Variable font: one file covers every weight the site uses. */
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-variable.woff2') format('woff2');
+}
 
 :root {
   /* purple scale */
@@ -10,7 +30,11 @@
   --purple-500: #43195F;
   --purple-400: #5B2288;
   --primary-hover: #7430E6;
-  --primary: #8A3EFA;
+  /* Brand Violet. At 4.75:1 on white the guidelines restrict it to large text
+     and fills, so anything at body size uses --primary-text instead. */
+  --primary: #973FFB;
+  /* Brand Deep Violet — the accessible tint for violet carrying body copy. */
+  --primary-text: #5E1DA8;
   --accent-bright: #AF5BFC;
   --gradient-start: #C79CF5;
   --on-dark-accent: #C9A7F0;
@@ -32,7 +56,8 @@
   --near-black: #171018;
 
   /* text */
-  --text-primary: #2B1140;
+  /* Brand Ink. */
+  --text-primary: #141019;
   --text-secondary: #5B4A6B;
   --text-muted-1: #857C90;
   --text-muted-2: #7A6E88;
@@ -43,8 +68,8 @@
   --on-dark-body-2: #A797BC;
   --on-dark-body-3: #D3C6E6;
 
-  --font-display: 'Newsreader', Georgia, serif;
-  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Geist', system-ui, sans-serif;
   --font-mono: ui-monospace, Menlo, monospace;
 }
 
