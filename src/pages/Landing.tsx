@@ -4,7 +4,7 @@ import { trackSchedule } from '../lib/analytics';
 import './Landing.css';
 
 /** Cal.com booking page used by both "Talk to someone" CTAs. */
-const BOOKING_URL = 'https://cal.com/samoraai/quick-chat-benefits';
+const BOOKING_URL = 'https://cal.com/kartiksawhney/quick-chat-benefits';
 
 const FAQS = [
   {
