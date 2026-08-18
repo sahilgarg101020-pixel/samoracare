@@ -504,18 +504,6 @@
   background: var(--accent-bright);
   flex: none;
 }
-.card-continue {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--primary);
-  color: var(--white);
-  font-weight: 600;
-  font-size: 15px;
-  padding: 13px 22px;
-  border-radius: 6px;
-  margin-top: 22px;
-}
 
 /* step 2 card (chat) */
 .card-chat {

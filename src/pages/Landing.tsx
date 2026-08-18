@@ -237,9 +237,6 @@ export default function Landing() {
               <span className="dot" aria-hidden="true" />
               Most people finish this in under two minutes.
             </div>
-            <div className="card-continue">
-              Continue <span aria-hidden="true">→</span>
-            </div>
           </div>
         </div>
       </section>
