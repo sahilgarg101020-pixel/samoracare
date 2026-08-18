@@ -94,7 +94,14 @@ export default function Landing() {
     <div className="landing">
       <header className="site-header">
         <Link to="/" className="logo-link">
-          <img src="/assets/samora-logo.svg" alt="Samora" />
+          {/*
+            The full lockup is 5.6:1, wide enough on a phone to push the call to
+            action off screen. Narrow screens get the mark on its own.
+          */}
+          <picture>
+            <source media="(max-width: 640px)" srcSet="/assets/samora-mark.svg" />
+            <img src="/assets/samora-logo.svg" alt="Samora Care" />
+          </picture>
         </Link>
         <nav className="site-nav" aria-label="Primary">
           <a href="#programs">Programs</a>

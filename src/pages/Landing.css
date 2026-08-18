@@ -828,6 +828,23 @@
 }
 
 /* ============ Responsive ============ */
+@media (max-width: 640px) {
+  /*
+   * The header carries only the mark at this width, so it also gets tighter
+   * padding and gap to leave the call to action room to sit fully on screen.
+   */
+  .site-header {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+  .site-header .logo-link img {
+    height: 38px;
+  }
+  .header-cta {
+    padding: 11px 16px;
+  }
+}
+
 @media (max-width: 900px) {
   .site-nav {
     display: none;
