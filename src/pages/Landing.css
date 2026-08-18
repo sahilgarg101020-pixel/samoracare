@@ -478,16 +478,22 @@
   margin-bottom: 22px;
 }
 .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+/*
+ * These illustrate the options the screener offers; none of them do anything.
+ * Filled pills read as buttons and invited taps, so they are outlined labels
+ * instead, with the example answer marked by its outline rather than a fill.
+ */
 .chip {
   font-size: 15px;
-  padding: 11px 18px;
+  padding: 10px 17px;
   border-radius: 999px;
-  background: var(--tint-4);
+  background: transparent;
+  border: 1px solid var(--border-light);
   color: var(--text-muted-2);
 }
 .chip--selected {
-  background: var(--chip-selected);
-  color: var(--text-primary);
+  border-color: var(--primary);
+  color: var(--primary-text);
 }
 .card-hint {
   display: flex;

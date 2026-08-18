@@ -351,25 +351,39 @@
   color: inherit;
   font-weight: 600;
 }
-.phone-grid {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 20px;
-}
-.phone-prefix {
+/*
+ * The country code used to sit in its own bordered box with a caret, which
+ * read as a dropdown people could open. It never was one — every number is
+ * +1 — so it is now a plain prefix inside the number field itself.
+ */
+.phone-field {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background: var(--white);
   border: 1px solid var(--input-border);
   border-radius: 12px;
-  padding: 17px 18px;
+  padding: 0 20px;
+  gap: 10px;
+}
+.phone-field:focus-within {
+  border-color: var(--primary);
+}
+.phone-prefix {
+  flex: none;
+  font-size: 16px;
+  color: var(--text-muted-2);
+}
+.phone-field input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 17px 0;
   font-size: 16px;
   color: var(--text-primary);
 }
-.phone-prefix .caret {
-  font-size: 12px;
-  color: var(--text-placeholder);
+.phone-field input:focus {
+  outline: none;
 }
 .contact-helper {
   font-size: 15px;
@@ -428,10 +442,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* Without this the two controls can touch once Next grows on narrow screens. */
+  gap: 16px;
 }
 .back-btn {
   display: flex;
   align-items: center;
+  /*
+   * Next takes flex: 1 on mobile. Without flex: none here, Back is compressed
+   * below the width of its own label and the text runs underneath Next.
+   */
+  flex: none;
   gap: 10px;
   font-size: 16px;
   color: #3F3550;
@@ -493,8 +514,7 @@
   .option-row {
     padding: 18px 20px;
   }
-  .contact-name-grid,
-  .phone-grid {
+  .contact-name-grid {
     grid-template-columns: 1fr;
   }
   .screener-footer {

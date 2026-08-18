@@ -130,13 +130,8 @@ export default function Connect() {
 
             <div className="contact-field">
               <label htmlFor="connect-phone">Phone number</label>
-              <div className="phone-grid">
-                <div className="phone-prefix">
-                  <span>+1</span>
-                  <span className="caret" aria-hidden="true">
-                    ▾
-                  </span>
-                </div>
+              <div className="phone-field">
+                <span className="phone-prefix">+1</span>
                 <input
                   id="connect-phone"
                   type="tel"
