@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Connect from './pages/Connect';
+import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import './index.css';
@@ -18,6 +19,13 @@ export const ROUTES = [
     description:
       'Contact SamoraCare and optionally consent to receive text messages about your disability benefits inquiry.',
     element: <Connect />,
+  },
+  {
+    path: '/talk-to-someone',
+    title: 'Talk to someone — SamoraCare',
+    description:
+      'Book a 15-minute call with a SamoraCare benefits advocate, or call us on (253) 766-5260.',
+    element: <TalkToSomeone />,
   },
   {
     path: '/privacy-policy',

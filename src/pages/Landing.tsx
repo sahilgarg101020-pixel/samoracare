@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { trackSchedule } from '../lib/analytics';
 import './Landing.css';
-
-/** Cal.com booking page used by both "Talk to someone" CTAs. */
-const BOOKING_URL = 'https://cal.com/kartiksawhney/quick-chat-benefits';
 
 const FAQS = [
   {
@@ -133,15 +129,9 @@ export default function Landing() {
               <Link to="/get-started" className="btn-primary">
                 See if you qualify <span aria-hidden="true">→</span>
               </Link>
-              <a
-                href={BOOKING_URL}
-                className="btn-secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={trackSchedule}
-              >
+              <Link to="/talk-to-someone" className="btn-secondary">
                 Talk to someone
-              </a>
+              </Link>
             </div>
             <span className="hero-caption">2-minute check. Free, no obligation.</span>
           </div>
@@ -386,15 +376,9 @@ export default function Landing() {
             <Link to="/get-started" className="cta-primary">
               Check your eligibility <span aria-hidden="true">→</span>
             </Link>
-            <a
-              href={BOOKING_URL}
-              className="cta-ghost"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={trackSchedule}
-            >
+            <Link to="/talk-to-someone" className="cta-ghost">
               Talk to someone
-            </a>
+            </Link>
           </div>
         </div>
       </section>

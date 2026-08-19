@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Landing from './pages/Landing';
 import GetStarted from './pages/GetStarted';
 import Connect from './pages/Connect';
+import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import { trackPageView } from './lib/analytics';
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/connect" element={<Connect />} />
+        <Route path="/talk-to-someone" element={<TalkToSomeone />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>

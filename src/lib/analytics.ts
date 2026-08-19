@@ -63,8 +63,18 @@ export function trackLeadConfirmed() {
   gtag('event', 'generate_lead_confirmed');
 }
 
-/** A click through to the Cal.com booking page. */
+/**
+ * A click through to the Cal.com booking page. Fired from the Talk to someone
+ * page rather than the landing CTA, which now only opens that page — counting
+ * it there would have reported intent to book from a click that just navigated.
+ */
 export function trackSchedule() {
   fbq('track', 'Schedule');
   gtag('event', 'schedule');
+}
+
+/** A tap on the phone number. Contact is Meta's standard event for this. */
+export function trackCall() {
+  fbq('track', 'Contact');
+  gtag('event', 'contact');
 }
