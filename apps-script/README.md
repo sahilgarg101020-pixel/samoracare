@@ -8,19 +8,33 @@ editor, so the deployed script and the repo do not drift.
 
 ## Deploy
 
-1. Open the leads Google Sheet → **Extensions → Apps Script**
-2. Replace everything in `Code.gs` with this file's contents → save
-3. Run `selfTest` once. It will ask for permission to use the sheet and to send
-   mail as you — that prompt is expected, and is why step 5 must run as *Me*
-4. Check a row appeared and the email arrived
-5. **Deploy → New deployment → Web app**
+Do this on an account the team actually controls. The original script and sheet
+were deployed from an account no one here can sign into, which is why this
+exists.
+
+1. Create a new Google Sheet to hold the leads. Copy its id from the URL:
+   `docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit`
+2. **Extensions → Apps Script** from inside that sheet. Doing it this way binds
+   the script to the sheet and step 4 becomes optional
+3. Replace everything in `Code.gs` with this file's contents → save
+4. **Project Settings → Script properties → Add**: `SPREADSHEET_ID` = the id
+   from step 1. Required if the script is standalone rather than bound; harmless
+   if it is bound, and it removes any doubt about which sheet is written
+5. Run `selfTest` from the editor. It asks for permission to use the sheet and to
+   send mail as you — that prompt is expected, and is why step 7 runs as *Me*
+6. Check a row appeared and the email arrived
+7. **Deploy → New deployment → Web app**
    - Description: `lead intake`
    - Execute as: **Me**
    - Who has access: **Anyone**
-6. Copy the `/exec` URL
+8. Copy the `/exec` URL
 
 "Anyone" is required because Cloudflare calls this without a Google identity.
 Set a shared token so public does not also mean open.
+
+### If selfTest fails with "Cannot read properties of null (reading 'getSheetByName')"
+
+The script is standalone, so there is no active spreadsheet. Do step 4.
 
 ## Point the site at it
 
@@ -61,3 +75,11 @@ stays the same. Editing the code alone changes nothing that is live.
 - **Failures are safe.** A non-ok response makes the Worker retry, and the lead
   stays flagged `delivered: false` in the `LEADS` KV namespace either way, so
   nothing is lost even if this script is broken.
+- **Leads already taken are recoverable.** Every submission is written to KV
+  before the sheet is ever contacted, so anything that went to the old
+  inaccessible sheet still exists:
+
+  ```
+  npx wrangler kv key list --namespace-id c879fa3a5a32405093ae64d1ead422e3
+  npx wrangler kv key get "<key>" --namespace-id c879fa3a5a32405093ae64d1ead422e3
+  ```

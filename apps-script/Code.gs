@@ -122,8 +122,33 @@ function doGet() {
 // Sheet
 // ---------------------------------------------------------------------------
 
+/**
+ * Returns the spreadsheet to write to.
+ *
+ * getActiveSpreadsheet() only works when the script is bound to a sheet, i.e.
+ * created from Extensions > Apps Script inside it. A standalone project has no
+ * active spreadsheet and returns null, so an explicit id is supported and
+ * preferred — it works in both cases.
+ */
+function getBook_() {
+  var id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+  if (id) {
+    return SpreadsheetApp.openById(id);
+  }
+  var active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) {
+    return active;
+  }
+  throw new Error(
+    'No spreadsheet found. This script is not bound to one, so add a script ' +
+      'property named SPREADSHEET_ID (Project Settings > Script properties) ' +
+      'set to the id in the sheet URL: ' +
+      'docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit'
+  );
+}
+
 function getSheet_(config) {
-  var book = SpreadsheetApp.getActiveSpreadsheet();
+  var book = getBook_();
   var sheet = book.getSheetByName(config.tab);
   if (!sheet) {
     sheet = book.insertSheet(config.tab);
