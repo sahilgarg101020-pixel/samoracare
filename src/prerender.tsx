@@ -1,5 +1,7 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
+import Landing from './pages/Landing';
+import GetStarted from './pages/GetStarted';
 import Connect from './pages/Connect';
 import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -13,6 +15,20 @@ import './index.css';
  * build time. The client bundle still boots and takes over as normal.
  */
 export const ROUTES = [
+  {
+    path: '/',
+    title: 'Disability Benefits Help: SSDI, SSI & VA | SamoraCare',
+    description:
+      'SamoraCare helps you claim the SSDI, SSI, Workers\u2019 Comp and VA disability benefits you have already earned. Disability owned and led. Free 2-minute check.',
+    element: <Landing />,
+  },
+  {
+    path: '/get-started',
+    title: 'Free Disability Benefits Eligibility Check | SamoraCare',
+    description:
+      'Answer a few short questions to see which disability benefits you may qualify for. Free, no obligation, and it takes about two minutes.',
+    element: <GetStarted />,
+  },
   {
     path: '/connect',
     title: 'Connect with SamoraCare',
