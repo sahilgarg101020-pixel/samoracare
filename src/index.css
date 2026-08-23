@@ -59,10 +59,12 @@
   /* Brand Ink. */
   --text-primary: #141019;
   --text-secondary: #5B4A6B;
-  --text-muted-1: #857C90;
+  /* 4.56:1 on the lightest background we use; was #857C90 at 3.62:1. */
+  --text-muted-1: #746C7E;
   --text-muted-2: #7A6E88;
   --text-muted-3: #6C6377;
-  --text-placeholder: #9A93A6;
+  /* 4.56:1 on the lightest background we use; was #9A93A6 at 2.69:1. */
+  --text-placeholder: #726D7B;
   --text-disabled: #C4BDD0;
   --on-dark-body-1: #CBBBDE;
   --on-dark-body-2: #A797BC;

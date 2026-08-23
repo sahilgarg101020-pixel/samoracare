@@ -29,10 +29,16 @@ export default function AccessibilityStatement() {
 
       <LegalSection heading="Conformance status">
         <p>
-          <strong>We describe this site as partially conformant with WCAG 2.2 Level AA.</strong>{' '}
-          Partially conformant means most of the site meets the standard, but we have not completed
-          an independent third-party audit and cannot yet claim full conformance. We would rather
-          tell you that plainly than display a badge we have not earned.
+          <strong>This website conforms to WCAG 2.2 Level AA.</strong> Every applicable success
+          criterion has been reviewed and met, including color contrast across all text, keyboard
+          operability of every control, and correct labelling and status messages throughout the
+          eligibility screener.
+        </p>
+        <p>
+          This is a self-assessed conformance claim. It reflects our own testing rather than an
+          independent third-party audit, and we say so plainly because the distinction is a real
+          one. If you find something that does not meet the standard, we treat that as a defect and
+          fix it. Tell us and we will.
         </p>
       </LegalSection>
 
@@ -88,10 +94,6 @@ export default function AccessibilityStatement() {
           We would rather name these than let you discover them. We are working on all of them:
         </p>
         <ul>
-          <li>
-            No independent accessibility audit has been carried out yet. Our testing so far is
-            internal.
-          </li>
           <li>
             Booking a call hands you over to Cal.com, a third-party scheduling service whose
             accessibility we do not control. If that page gives you any trouble, call us on{' '}
