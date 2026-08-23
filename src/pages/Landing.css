@@ -73,12 +73,23 @@
    * space left under the header keeps them visible; on tall screens the 880px
    * still wins, so nothing changes there. 88px is the header's height.
    */
-  min-height: min(880px, calc(100svh - 88px));
+  --hero-min-h: min(880px, calc(100svh - 88px));
+  min-height: var(--hero-min-h);
+}
+/*
+ * <picture> is the grid item, not the <img> inside it, so it has to carry the
+ * image's box or the hero collapses. Both read the same custom property so the
+ * two can never drift apart.
+ */
+.hero-picture {
+  display: block;
+  height: 100%;
+  min-height: var(--hero-min-h);
 }
 .hero-image {
   width: 100%;
   height: 100%;
-  min-height: min(880px, calc(100svh - 88px));
+  min-height: var(--hero-min-h);
   object-fit: cover;
   object-position: 52% 32%;
   display: block;
@@ -203,6 +214,10 @@
   color: var(--text-secondary);
   line-height: 1.6;
 }
+.trust-card picture {
+  display: block;
+  align-self: flex-start;
+}
 .trust-card img {
   height: 62px;
   width: auto;
@@ -265,6 +280,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.story-right picture {
+  display: block;
+  width: 100%;
 }
 .story-img {
   height: 440px;
@@ -852,6 +871,7 @@
   .hero {
     grid-template-columns: 1fr;
   }
+  .hero-picture,
   .hero-image {
     min-height: 52vh;
     height: 52vh;

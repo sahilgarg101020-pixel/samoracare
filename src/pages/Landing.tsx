@@ -115,11 +115,23 @@ export default function Landing() {
 
       <main id="main">
       <section className="hero">
-        <img
-          className="hero-image"
-          src="/assets/hero-portrait-2.jpg"
-          alt="A SamoraCare community member"
-        />
+        <picture className="hero-picture">
+          <source
+            type="image/webp"
+            srcSet="/assets/hero-portrait-2-750.webp 750w, /assets/hero-portrait-2-1400.webp 1400w"
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
+          <img
+            className="hero-image"
+            src="/assets/hero-portrait-2-1400.jpg"
+            srcSet="/assets/hero-portrait-2-750.jpg 750w, /assets/hero-portrait-2-1400.jpg 1400w"
+            sizes="(max-width: 900px) 100vw, 50vw"
+            width={1400}
+            height={976}
+            fetchPriority="high"
+            alt="A SamoraCare community member"
+          />
+        </picture>
         <div className="hero-content">
           <span className="eyebrow-badge">Disability owned and led</span>
           <h1 className="hero-h1">Access benefits that you deserve.</h1>
@@ -148,10 +160,16 @@ export default function Landing() {
           <span className="trust-desc">people with disabilities in our community</span>
         </div>
         <div className="trust-card trust-card--logo">
-          <img
-            src="/assets/DSB_logo-figma.png"
-            alt="Washington State Department of Services for the Blind"
-          />
+          <picture>
+            <source type="image/webp" srcSet="/assets/DSB_logo-figma-124.webp" />
+            <img
+              src="/assets/DSB_logo-figma-124.png"
+              width={508}
+              height={124}
+              loading="lazy"
+              alt="Washington State Department of Services for the Blind"
+            />
+          </picture>
           <span className="trust-desc">
             A proud partner of the Washington State Department of Services for the Blind
           </span>
@@ -176,7 +194,17 @@ export default function Landing() {
           <p className="pull-quote">For people with disabilities, by people with disabilities.</p>
         </div>
         <div className="story-right">
-          <img className="story-img" src="/assets/kartik-portrait.jpg" alt="Kartik Sawhney, founder" />
+          <picture>
+            <source type="image/webp" srcSet="/assets/kartik-portrait.webp" />
+            <img
+              className="story-img"
+              src="/assets/kartik-portrait.jpg"
+              width={1000}
+              height={803}
+              loading="lazy"
+              alt="Kartik Sawhney, founder"
+            />
+          </picture>
           <span className="story-caption">Kartik Sawhney, founder</span>
         </div>
       </section>

@@ -1,0 +1,20 @@
+# Vite gives JS and CSS content-hashed filenames, and every image here is
+# versioned in its name, so a month of caching cannot serve stale content —
+# a changed file arrives under a new name.
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+# Self-hosted fonts, stable filenames, replaced by renaming rather than
+# overwriting.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Icons are referenced by fixed names, so they get a shorter life.
+/favicon.svg
+  Cache-Control: public, max-age=604800
+/favicon-32.png
+  Cache-Control: public, max-age=604800
+/favicon-192.png
+  Cache-Control: public, max-age=604800
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
