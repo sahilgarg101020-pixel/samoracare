@@ -37,6 +37,8 @@ export default function TalkToSomeone() {
             <img
               className="talk-avatar"
               src="/assets/maya-portrait.jpg"
+                width={240}
+                height={204}
               alt="Maya, benefits advocate"
             />
             <div className="talk-bubble">

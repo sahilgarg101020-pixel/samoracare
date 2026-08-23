@@ -99,7 +99,7 @@ export default function Landing() {
           */}
           <picture>
             <source media="(max-width: 640px)" srcSet="/assets/samora-mark.svg" />
-            <img src="/assets/samora-logo.svg" alt="Samora Care" />
+            <img src="/assets/samora-logo.svg" width={1382} height={247} alt="Samora Care" />
           </picture>
         </Link>
         <nav className="site-nav" aria-label="Primary">
@@ -275,7 +275,7 @@ export default function Landing() {
         <div className="step-visual step-visual--tint-b">
           <div className="step-card card-chat">
             <div className="chat-header">
-              <img src="/assets/maya-portrait.jpg" alt="Maya, benefits advocate" />
+              <img src="/assets/maya-portrait.jpg" width={240} height={204} loading="lazy" alt="Maya, benefits advocate" />
               <div>
                 <div className="chat-name">Maya · benefits advocate</div>
                 <div className="chat-meta">Will call you in 00:41s</div>
@@ -419,7 +419,7 @@ export default function Landing() {
 
       <footer className="site-footer">
         <div className="footer-row">
-          <img src="/assets/samora-logo.svg" alt="Samora" />
+          <img src="/assets/samora-logo.svg" width={1382} height={247} loading="lazy" alt="Samora" />
         </div>
         <nav className="footer-legal">
           <Link to="/privacy-policy">Privacy Policy</Link>

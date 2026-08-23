@@ -307,6 +307,8 @@ export default function GetStarted() {
               <img
                 className="intro-avatar"
                 src="/assets/maya-portrait.jpg"
+                width={240}
+                height={204}
                 alt="Maya, benefits advocate"
               />
               <div className="intro-bubble">
