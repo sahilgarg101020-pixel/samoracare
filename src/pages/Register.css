@@ -1,0 +1,290 @@
+/*
+ * Two columns on desktop: a fixed panel that carries the pitch and the trust
+ * marks, and a scrolling form beside it. The panel uses brand Cream, which the
+ * guidelines list but the rest of the site does not currently use — this page is
+ * the one place the split layout calls for a warm field.
+ */
+.reg {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  background: var(--white);
+  color: var(--text-primary);
+}
+.reg a {
+  color: var(--primary-text);
+}
+
+.reg-aside {
+  background: #F7F4EF;
+  padding: 40px 56px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* Stays put while the form scrolls, so the pitch does not slide away. */
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+.reg-logo img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+.reg-aside-body {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.reg-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+.reg-lede {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 34em;
+}
+.reg-trust {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reg-trust li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.reg-trust li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.reg-main {
+  padding: 56px 56px 88px;
+  display: flex;
+  justify-content: center;
+}
+.reg-form,
+.reg-done {
+  width: 100%;
+  max-width: 620px;
+}
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.reg-section {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.reg-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 0;
+}
+.reg-section-lede {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: -12px 0 0;
+}
+
+.reg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.reg-label {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  padding: 0;
+}
+.reg-optional {
+  color: var(--text-muted-1);
+  font-size: 14px;
+}
+.reg-help {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-muted-1);
+  margin: 0;
+}
+
+.reg-field input,
+.reg-field select {
+  background: var(--white);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 16px;
+  color: var(--text-primary);
+  width: 100%;
+}
+.reg-field select {
+  /* Keep the native control but give the arrow room. */
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted-1) 50%),
+    linear-gradient(135deg, var(--text-muted-1) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 22px, calc(100% - 16px) 22px;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 44px;
+}
+.reg-field input[aria-invalid='true'],
+.reg-field select[aria-invalid='true'] {
+  border-color: #D64545;
+}
+
+.reg-yesno {
+  display: flex;
+  gap: 12px;
+}
+.reg-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 104px;
+}
+.reg-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.reg-radio--on {
+  border-color: var(--primary);
+}
+
+.reg-error {
+  font-size: 14.5px;
+  color: #D64545;
+}
+.reg-submit-error {
+  margin: 0;
+  padding: 16px 20px;
+  border: 1px solid #D64545;
+  border-radius: 12px;
+  background: rgba(214, 69, 69, 0.06);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #D64545;
+}
+.reg-submit-error a {
+  color: inherit;
+  font-weight: 600;
+}
+
+.reg-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  align-self: flex-start;
+  background: linear-gradient(100deg, var(--gradient-start) 0%, var(--primary) 100%);
+  color: var(--white);
+  font-size: 17px;
+  font-weight: 600;
+  padding: 17px 38px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(151, 63, 251, 0.28);
+}
+.reg-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.reg-fineprint {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted-1);
+  margin: 0;
+}
+
+.reg-done {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.reg-done-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.12;
+  margin: 0;
+}
+.reg-done p {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .reg {
+    grid-template-columns: 1fr;
+  }
+  /* The panel stops being a column and becomes a header, so it must not stick. */
+  .reg-aside {
+    position: static;
+    height: auto;
+    padding: 24px 20px 32px;
+    gap: 26px;
+  }
+  .reg-aside-body {
+    margin-top: 0;
+  }
+  .reg-h1 {
+    font-size: 34px;
+    max-width: none;
+  }
+  .reg-trust {
+    margin: 0;
+  }
+  .reg-main {
+    padding: 32px 20px 64px;
+  }
+  .reg-h2 {
+    font-size: 25px;
+  }
+  .reg-submit {
+    align-self: stretch;
+  }
+}

@@ -37,8 +37,9 @@ export default function TermsAndConditions() {
           <div>
             <dt>How to join</dt>
             <dd>
-              By checking the consent box on the eligibility screener at{' '}
-              <Link to="/get-started">samoracare.com/get-started</Link> and giving us your mobile
+              By checking the consent box on either the eligibility screener at{' '}
+              <Link to="/get-started">samoracare.com/get-started</Link> or the pre-qualification
+              form at <Link to="/register">samoracare.com/register</Link>, and giving us your mobile
               number. Consent is not a condition of any purchase, and you do not have to agree to
               texts in order to use the screener or receive help from us.
             </dd>

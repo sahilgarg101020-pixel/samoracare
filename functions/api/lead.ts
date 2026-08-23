@@ -22,8 +22,16 @@ interface Env {
 const UPSTREAM_TIMEOUT_MS = 10_000;
 const MAX_ATTEMPTS = 3;
 
+/**
+ * Two shapes reach this endpoint. The screener sends the original one; the
+ * register page sends the second. `type` is the discriminator the Sheet and the
+ * n8n workflow route on, so a register lead can get its own email template
+ * without the screener's contract changing at all.
+ */
+type SheetPayload = ScreenerPayload | RegisterPayload;
+
 /** Field names the existing Sheet columns and n8n workflow expect. */
-interface SheetPayload {
+interface ScreenerPayload {
   type: 'get_started';
   fullName: string;
   email: string;
@@ -41,6 +49,22 @@ interface SheetPayload {
   sms_consent: string;
 }
 
+/** The register form at /register. */
+interface RegisterPayload {
+  type: 'register';
+  fullName: string;
+  email: string;
+  phone: string;
+  countryCode: string;
+  inquiring_for: string;
+  state: string;
+  date_of_birth: string;
+  receiving_benefits: string;
+  owes_overpayment: string;
+  health_conditions: string;
+  sms_consent: string;
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Matches the old form's sentinel so the Sheet stays consistent. */
@@ -50,7 +74,35 @@ function str(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
+function buildRegister(body: Record<string, unknown>): RegisterPayload | null {
+  const fullName = str(body.fullName, 200);
+  const email = str(body.email, 200);
+  // Same rule as the screener: the client can be bypassed, and a lead we cannot
+  // follow up on is worse than no lead.
+  if (!fullName || !EMAIL_RE.test(email)) return null;
+
+  return {
+    type: 'register',
+    fullName,
+    email,
+    phone: str(body.phone, 40),
+    countryCode: str(body.countryCode, 8) || '+1',
+    inquiring_for: str(body.inquiringFor, 40),
+    state: str(body.state, 60),
+    date_of_birth: str(body.dob, 12),
+    receiving_benefits: str(body.receivingBenefits, 4),
+    owes_overpayment: str(body.owesOverpayment, 4),
+    health_conditions: str(body.healthConditions, 4),
+    sms_consent: body.smsConsent === 'yes' ? 'yes' : 'no',
+  };
+}
+
 function build(body: Record<string, unknown>): SheetPayload | null {
+  if (body.form === 'register') return buildRegister(body);
+  return buildScreener(body);
+}
+
+function buildScreener(body: Record<string, unknown>): ScreenerPayload | null {
   const firstName = str(body.firstName, 100);
   const lastName = str(body.lastName, 100);
   const email = str(body.email, 200);

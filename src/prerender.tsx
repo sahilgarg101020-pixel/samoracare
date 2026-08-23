@@ -3,6 +3,7 @@ import { StaticRouter } from 'react-router';
 import Landing from './pages/Landing';
 import GetStarted from './pages/GetStarted';
 import Connect from './pages/Connect';
+import Register from './pages/Register';
 import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
@@ -29,6 +30,13 @@ export const ROUTES = [
     description:
       'Answer a few short questions to see which disability benefits you may qualify for. Free, no obligation, and it takes about two minutes.',
     element: <GetStarted />,
+  },
+  {
+    path: '/register',
+    title: 'See If You Pre-Qualify for Disability Benefits | SamoraCare',
+    description:
+      'One short form to check whether you pre-qualify for SSDI, SSI or other disability benefits. Free, no obligation, and a real advocate follows up the same day.',
+    element: <Register />,
   },
   {
     path: '/connect',

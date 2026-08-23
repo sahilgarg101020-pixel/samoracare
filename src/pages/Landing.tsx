@@ -422,6 +422,7 @@ export default function Landing() {
           <img src="/assets/samora-logo.svg" width={1382} height={247} loading="lazy" alt="Samora" />
         </div>
         <nav className="footer-legal">
+          <Link to="/register">Check if you pre-qualify</Link>
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
           <Link to="/accessibility-statement">Accessibility</Link>

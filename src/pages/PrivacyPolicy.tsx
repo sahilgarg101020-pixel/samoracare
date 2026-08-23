@@ -30,6 +30,11 @@ export default function PrivacyPolicy() {
           <li>Your first and last name</li>
           <li>Your email address</li>
           <li>Your phone number, if you provide one</li>
+          <li>Your date of birth, which affects which benefits you qualify for</li>
+          <li>The state you live in</li>
+          <li>Whether you are asking for yourself or on behalf of someone else</li>
+          <li>Whether you already receive a Social Security benefit</li>
+          <li>Whether you owe Social Security money for an overpayment</li>
           <li>Whether you have applied for Social Security Disability before</li>
           <li>The health conditions you are dealing with, described in your own words</li>
           <li>Whether you are currently seeing doctors for those conditions</li>
