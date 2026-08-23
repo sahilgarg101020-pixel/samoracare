@@ -35,12 +35,15 @@ export default function Connect() {
   if (submitted) {
     return (
       <div className="screener">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
         <header className="screener-header connect-header">
           <Link to="/" className="logo-link">
             <img src="/assets/samora-logo.svg" alt="Samora AI" />
           </Link>
         </header>
-        <main className="screener-main">
+        <main id="main" className="screener-main">
           <div className="screener-content">
             <h1 className="screener-h1">Thanks for connecting.</h1>
             <p className="screener-sub">
@@ -54,13 +57,16 @@ export default function Connect() {
 
   return (
     <div className="screener">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <header className="screener-header connect-header">
         <Link to="/" className="logo-link">
           <img src="/assets/samora-logo.svg" alt="Samora AI" />
         </Link>
       </header>
 
-      <main className="screener-main">
+      <main id="main" className="screener-main">
         <form id="connect-form" className="screener-content" onSubmit={handleSubmit}>
           <h1 className="screener-h1">Let&apos;s connect.</h1>
           <p className="screener-sub">

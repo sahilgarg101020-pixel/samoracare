@@ -26,6 +26,9 @@ export default function LegalPage({ title, intro, effectiveDate, children }: Leg
 
   return (
     <div className="legal">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <header className="legal-header">
         <Link to="/" className="legal-logo">
           <img src="/assets/samora-logo.svg" alt="Samora" />
@@ -35,7 +38,7 @@ export default function LegalPage({ title, intro, effectiveDate, children }: Leg
         </Link>
       </header>
 
-      <main className="legal-main">
+      <main id="main" className="legal-main">
         <article className="legal-article">
           <h1 className="legal-h1">{title}</h1>
           <p className="legal-intro">{intro}</p>
@@ -51,6 +54,7 @@ export default function LegalPage({ title, intro, effectiveDate, children }: Leg
         <nav className="legal-footer-links">
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
+          <Link to="/accessibility-statement">Accessibility</Link>
         </nav>
         <p className="legal-copyright">© 2026 Samora AI, Inc. All rights reserved.</p>
       </footer>

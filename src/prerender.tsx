@@ -6,6 +6,7 @@ import Connect from './pages/Connect';
 import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
+import AccessibilityStatement from './pages/AccessibilityStatement';
 import './index.css';
 
 /**
@@ -56,6 +57,13 @@ export const ROUTES = [
     description:
       'Terms for using samoracare.com and the SamoraCare Benefits Updates text messaging program, including message frequency, rates, and how to opt out.',
     element: <TermsAndConditions />,
+  },
+  {
+    path: '/accessibility-statement',
+    title: 'Accessibility Statement — SamoraCare',
+    description:
+      'How samoracare.com works with assistive technology, what still needs work, and how to reach a person if any part of the site blocks you.',
+    element: <AccessibilityStatement />,
   },
 ];
 

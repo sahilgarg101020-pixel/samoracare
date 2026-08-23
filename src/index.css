@@ -80,6 +80,27 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { text-decoration: none; }
+
+/*
+ * Off screen until focused, then it lands in the top-left. Gives keyboard and
+ * switch users a way past the header instead of tabbing through every nav item
+ * on every page.
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  color: var(--primary-text);
+  font-weight: 600;
+  padding: 14px 20px;
+  border: 2px solid var(--primary);
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  left: 0;
+}
 input, textarea, button { font-family: inherit; }
 input::placeholder, textarea::placeholder { color: var(--text-placeholder); }
 

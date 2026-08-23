@@ -252,6 +252,9 @@ export default function GetStarted() {
   if (submitted) {
     return (
       <div className="screener">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
         <header className="screener-header">
           <Link to="/" className="logo-link">
             <img src="/assets/samora-logo.svg" alt="Samora AI" />
@@ -260,7 +263,7 @@ export default function GetStarted() {
             <div className="progress-fill" style={{ width: '100%' }} />
           </div>
         </header>
-        <main className="screener-main">
+        <main id="main" className="screener-main">
           <div className="screener-content">
             <h1 className="screener-h1">An advocate will reach out today.</h1>
             <p className="screener-sub">
@@ -275,6 +278,9 @@ export default function GetStarted() {
 
   return (
     <div className="screener">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <header className="screener-header">
         <Link to="/" className="logo-link">
           <img src="/assets/samora-logo.svg" alt="Samora AI" />
@@ -294,7 +300,7 @@ export default function GetStarted() {
         </span>
       </header>
 
-      <main className="screener-main">
+      <main id="main" className="screener-main">
         <form className="screener-content" onSubmit={handleFormSubmit}>
           {step.type === 'intro' && (
             <div className="intro-greeting">

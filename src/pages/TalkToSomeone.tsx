@@ -19,6 +19,9 @@ export default function TalkToSomeone() {
 
   return (
     <div className="talk">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <header className="talk-header">
         <Link to="/" className="talk-logo">
           <img src="/assets/samora-logo.svg" alt="Samora Care" />
@@ -28,7 +31,7 @@ export default function TalkToSomeone() {
         </Link>
       </header>
 
-      <main className="talk-main">
+      <main id="main" className="talk-main">
         <div className="talk-inner">
           <div className="talk-greeting">
             <img

@@ -88,6 +88,9 @@ function FaqAccordion() {
 export default function Landing() {
   return (
     <div className="landing">
+      <a className="skip-link" href="#main">
+        Skip to main content
+      </a>
       <header className="site-header">
         <Link to="/" className="logo-link">
           {/*
@@ -110,6 +113,7 @@ export default function Landing() {
         </Link>
       </header>
 
+      <main id="main">
       <section className="hero">
         <img
           className="hero-image"
@@ -383,6 +387,8 @@ export default function Landing() {
         </div>
       </section>
 
+      </main>
+
       <footer className="site-footer">
         <div className="footer-row">
           <img src="/assets/samora-logo.svg" alt="Samora" />
@@ -390,6 +396,7 @@ export default function Landing() {
         <nav className="footer-legal">
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
+          <Link to="/accessibility-statement">Accessibility</Link>
         </nav>
         <div className="footer-copyright">© 2026 Samora AI, Inc. All rights reserved.</div>
         <p className="footer-disclaimer">
