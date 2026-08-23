@@ -11,6 +11,14 @@
 interface Env {
   LEAD_ENDPOINT: string;
   LEADS: KVNamespace;
+  /**
+   * Optional shared secret for the Apps Script endpoint. That endpoint has to be
+   * world-reachable — Cloudflare calls it without a Google identity — so this is
+   * what stops anyone who learns the URL posting fake leads. Absent, nothing is
+   * sent and the script accepts unauthenticated posts, so the two can be rolled
+   * out in either order.
+   */
+  LEAD_TOKEN?: string;
 }
 
 /**
@@ -33,6 +41,8 @@ type SheetPayload = ScreenerPayload | RegisterPayload;
 /** Field names the existing Sheet columns and n8n workflow expect. */
 interface ScreenerPayload {
   type: 'get_started';
+  /** Stable id for this submission, so a retry cannot create a second row. */
+  lead_id: string;
   fullName: string;
   email: string;
   phone: string;
@@ -52,6 +62,8 @@ interface ScreenerPayload {
 /** The register form at /register. */
 interface RegisterPayload {
   type: 'register';
+  /** Stable id for this submission, so a retry cannot create a second row. */
+  lead_id: string;
   fullName: string;
   email: string;
   phone: string;
@@ -74,7 +86,7 @@ function str(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
-function buildRegister(body: Record<string, unknown>): RegisterPayload | null {
+function buildRegister(body: Record<string, unknown>, leadId: string): RegisterPayload | null {
   const fullName = str(body.fullName, 200);
   const email = str(body.email, 200);
   // Same rule as the screener: the client can be bypassed, and a lead we cannot
@@ -83,6 +95,7 @@ function buildRegister(body: Record<string, unknown>): RegisterPayload | null {
 
   return {
     type: 'register',
+    lead_id: leadId,
     fullName,
     email,
     phone: str(body.phone, 40),
@@ -97,12 +110,12 @@ function buildRegister(body: Record<string, unknown>): RegisterPayload | null {
   };
 }
 
-function build(body: Record<string, unknown>): SheetPayload | null {
-  if (body.form === 'register') return buildRegister(body);
-  return buildScreener(body);
+function build(body: Record<string, unknown>, leadId: string): SheetPayload | null {
+  if (body.form === 'register') return buildRegister(body, leadId);
+  return buildScreener(body, leadId);
 }
 
-function buildScreener(body: Record<string, unknown>): ScreenerPayload | null {
+function buildScreener(body: Record<string, unknown>, leadId: string): ScreenerPayload | null {
   const firstName = str(body.firstName, 100);
   const lastName = str(body.lastName, 100);
   const email = str(body.email, 200);
@@ -115,6 +128,7 @@ function buildScreener(body: Record<string, unknown>): ScreenerPayload | null {
 
   return {
     type: 'get_started',
+    lead_id: leadId,
     fullName: `${firstName} ${lastName}`,
     email,
     phone: str(body.phone, 40),
@@ -128,13 +142,17 @@ function buildScreener(body: Record<string, unknown>): ScreenerPayload | null {
   };
 }
 
-async function forward(endpoint: string, payload: SheetPayload): Promise<boolean> {
+async function forward(
+  endpoint: string,
+  payload: SheetPayload,
+  token?: string,
+): Promise<boolean> {
   // Apps Script reads the raw body via e.postData.contents and parses it
   // itself, so the content type stays text/plain as it was originally.
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(token ? { ...payload, token } : payload),
     // Without this a hung upstream holds the request open indefinitely.
     signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
@@ -148,7 +166,7 @@ async function forward(endpoint: string, payload: SheetPayload): Promise<boolean
 async function deliver(env: Env, key: string, payload: SheetPayload): Promise<void> {
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      if (await forward(env.LEAD_ENDPOINT, payload)) {
+      if (await forward(env.LEAD_ENDPOINT, payload, env.LEAD_TOKEN)) {
         try {
           await env.LEADS.put(key, JSON.stringify({ ...payload, delivered: true }));
         } catch (err) {
@@ -180,13 +198,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
     return Response.json({ ok: false, error: 'bad_json' }, { status: 400 });
   }
 
-  const payload = build(body);
+  const leadId = crypto.randomUUID();
+  const payload = build(body, leadId);
   if (!payload) {
     return Response.json({ ok: false, error: 'invalid' }, { status: 400 });
   }
 
-  // Timestamp first so the key sorts chronologically when listing pending leads.
-  const key = `lead:${new Date().toISOString()}:${crypto.randomUUID()}`;
+  // Timestamp first so the key sorts chronologically when listing pending leads,
+  // and it ends with the same id the Sheet row carries.
+  const key = `lead:${new Date().toISOString()}:${leadId}`;
 
   try {
     await env.LEADS.put(key, JSON.stringify({ ...payload, delivered: false }));
@@ -194,7 +214,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUnti
     // KV is the thing that makes an early confirmation honest. Without it,
     // fall back to forwarding inline rather than claiming a lead was captured.
     console.error('lead: KV write failed, forwarding inline instead', err);
-    const ok = await forward(env.LEAD_ENDPOINT, payload).catch(() => false);
+    const ok = await forward(env.LEAD_ENDPOINT, payload, env.LEAD_TOKEN).catch(
+      () => false,
+    );
     return ok
       ? Response.json({ ok: true })
       : Response.json({ ok: false, error: 'upstream' }, { status: 502 });
