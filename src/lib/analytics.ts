@@ -73,6 +73,37 @@ export function trackSchedule() {
   gtag('event', 'schedule');
 }
 
+/**
+ * One event per screener step, so the funnel shows where people leave.
+ *
+ * Google only — deliberately. The pixel is for ad optimisation and flooding it
+ * with nine custom events per session would make the signal worse, not better.
+ *
+ * `step_key` is the question's identifier, never the answer. Answers include
+ * health conditions and must not reach an analytics provider.
+ */
+export function trackScreenerStep(stepNumber: number, stepKey: string, totalSteps: number) {
+  gtag('event', 'screener_step', {
+    step_number: stepNumber,
+    step_key: stepKey,
+    step_total: totalSteps,
+  });
+}
+
+/** Validation blocked a step. Shows which question people get stuck on. */
+export function trackScreenerError(stepNumber: number, stepKey: string, field: string) {
+  gtag('event', 'screener_error', {
+    step_number: stepNumber,
+    step_key: stepKey,
+    error_field: field,
+  });
+}
+
+/** Back pressed. A step with a lot of these is a step that reads badly. */
+export function trackScreenerBack(stepNumber: number, stepKey: string) {
+  gtag('event', 'screener_back', { step_number: stepNumber, step_key: stepKey });
+}
+
 /** A tap on the phone number. Contact is Meta's standard event for this. */
 export function trackCall() {
   fbq('track', 'Contact');

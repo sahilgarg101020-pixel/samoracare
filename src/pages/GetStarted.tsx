@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { trackLead, trackLeadConfirmed } from '../lib/analytics';
+import {
+  trackLead,
+  trackLeadConfirmed,
+  trackScreenerBack,
+  trackScreenerError,
+  trackScreenerStep,
+} from '../lib/analytics';
 import './GetStarted.css';
 
 type Step =
@@ -159,6 +165,12 @@ export default function GetStarted() {
   const stepCount = STEPS.length - 1;
   const progress = isIntro ? 0 : Math.round((stepIndex / stepCount) * 100);
 
+  useEffect(() => {
+    trackScreenerStep(stepIndex, step.key, STEPS.length - 1);
+    // step.key is derived from stepIndex, so the index alone is the dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepIndex]);
+
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
     if (step.type === 'choice' && !answers[step.key]) {
@@ -221,6 +233,9 @@ export default function GetStarted() {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      Object.keys(validationErrors).forEach((field) =>
+        trackScreenerError(stepIndex, step.key, field),
+      );
       return;
     }
     setErrors({});
@@ -238,6 +253,7 @@ export default function GetStarted() {
 
   function goBack() {
     if (stepIndex === 0) return;
+    trackScreenerBack(stepIndex, step.key);
     setErrors({});
     setStepIndex((i) => Math.max(0, i - 1));
     setHelpOpen(false);
