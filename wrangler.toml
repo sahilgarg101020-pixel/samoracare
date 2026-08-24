@@ -5,7 +5,7 @@ compatibility_date = "2026-06-21"
 # Consumed by functions/api/lead.ts. Declared here rather than in the dashboard
 # because a project with a wrangler.toml ignores dashboard-defined vars.
 [vars]
-LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyd5_57aKonbA2z7YV_BRMr76acyVFBWTKtTwJDlAD6dxv3lofUZ3GWEvO30uTe2vd5/exec"
+LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzfLPVR_VHKA_NcuCDckmngr4oPQ5cIJ5M9b8F0Yu5laUeM1PbaTQmI7Gw1ZaYJ-nEu/exec"
 
 # Durable landing spot for a submission, written before the visitor is told the
 # form went through. Forwarding to Apps Script then happens after the response,
