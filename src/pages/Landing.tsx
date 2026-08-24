@@ -200,7 +200,8 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="founders" aria-label="The people behind SamoraCare">
+      <section className="founders dots-section" aria-label="The people behind SamoraCare">
+        <div className="dots-overlay dots-overlay--founders" aria-hidden="true" />
         <div className="founder-grid">
           <article className="founder-card">
             <picture>

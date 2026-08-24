@@ -797,9 +797,16 @@
   padding: 104px 48px;
 }
 
+/*
+ * Masked the other way round from the first attempt, which put the densest
+ * dots directly behind the type and made it hard to read. The centre is now
+ * clear and the texture only appears out at the edges, and the dots themselves
+ * are dimmer than on the light sections since they sit on near-black.
+ */
 .dots-overlay--creed {
-  -webkit-mask-image: radial-gradient(115% 115% at 50% 42%, #000 22%, transparent 72%);
-  mask-image: radial-gradient(115% 115% at 50% 42%, #000 22%, transparent 72%);
+  background-image: radial-gradient(rgba(202, 66, 255, 0.3) 1px, transparent 1.3px);
+  -webkit-mask-image: radial-gradient(78% 88% at 50% 46%, transparent 34%, #000 88%);
+  mask-image: radial-gradient(78% 88% at 50% 46%, transparent 34%, #000 88%);
 }
 
 .creed-inner {
@@ -836,12 +843,28 @@
   margin: 0;
 }
 
+/*
+ * Flat landing-bg left this section looking like a gap between two designed
+ * ones. A bloom carrying the banner's purple down over the top edge, plus a
+ * dot grid that fades out before the cards, gives it a floor to sit on.
+ */
 .founders {
+  position: relative;
   padding: 96px 48px;
-  background: var(--landing-bg);
+  background:
+    radial-gradient(130% 90% at 50% -12%, rgba(151, 63, 251, 0.13) 0%, transparent 62%),
+    var(--landing-bg);
+}
+
+.dots-overlay--founders {
+  background-image: radial-gradient(rgba(151, 63, 251, 0.2) 1px, transparent 1.3px);
+  background-size: 12px 12px;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 52%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 52%);
 }
 
 .founder-grid {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
