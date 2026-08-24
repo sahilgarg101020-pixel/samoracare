@@ -91,7 +91,7 @@ export default function Register() {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Check if you pre-qualify — SamoraCare';
+    document.title = 'Check if you pre qualify for Social Security';
     return () => {
       document.title = previous;
     };

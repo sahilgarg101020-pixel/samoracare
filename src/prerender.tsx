@@ -33,7 +33,7 @@ export const ROUTES = [
   },
   {
     path: '/register',
-    title: 'See If You Pre-Qualify for Disability Benefits | SamoraCare',
+    title: 'Check if you pre qualify for Social Security',
     description:
       'One short form to check whether you pre-qualify for SSDI, SSI or other disability benefits. Free, no obligation, and a real advocate follows up the same day.',
     element: <Register />,
