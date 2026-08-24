@@ -23,7 +23,7 @@
 // ---------------------------------------------------------------------------
 
 /** Where team notifications go. Comma-separate for several recipients. */
-var NOTIFY_EMAIL = 'team@samoracare.com';
+var NOTIFY_EMAIL = 'kartik@samora.ai';
 
 /** Shown as the sender name on notifications. */
 var SENDER_NAME = 'SamoraCare website';
