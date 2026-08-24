@@ -917,6 +917,14 @@
  */
 .founder-img {
   width: 100%;
+  /*
+   * height:auto is load-bearing. The img carries width/height attributes so the
+   * browser can reserve space before it loads, and those act as a presentational
+   * hint equivalent to height:803px. aspect-ratio only supplies a *missing*
+   * dimension, so without this it loses to the attribute and the box renders at
+   * the image's full pixel height.
+   */
+  height: auto;
   aspect-ratio: 5 / 4;
   object-fit: cover;
   object-position: center 20%;
