@@ -5,9 +5,11 @@
  * privacy browsers, and offline dev environments routinely stop from loading,
  * and a missing global must never take a page down with it.
  *
- * Nothing here ever passes an event parameter. The screener collects health
- * conditions and contact details, and none of that may reach an advertising
- * network — the events say only that something happened, never who or what.
+ * Event parameters here only ever describe the interface: which question was on
+ * screen, which button was pressed, which field failed validation. The screener
+ * collects health conditions and contact details, and none of that may reach an
+ * advertising network — the events say that something happened, never who did it
+ * or what they told us.
  */
 
 declare global {
@@ -43,14 +45,21 @@ export function trackPageView() {
 }
 
 /**
+ * Which form a lead came from. Both forms fire the same standard event, because
+ * that is the one ad platforms optimise against — this is what keeps them
+ * separable in a report afterwards.
+ */
+export type FormName = 'get_started' | 'register';
+
+/**
  * Submit pressed on the last step, with validation passed. This is the standard
  * event ad platforms expect on the button, so it is what campaigns optimise
  * against. It counts intent: a submission that fails on the way to the server
  * still counts here.
  */
-export function trackLead() {
+export function trackLead(formName: FormName) {
   fbq('track', 'Lead');
-  gtag('event', 'generate_lead');
+  gtag('event', 'generate_lead', { form_name: formName });
 }
 
 /**
@@ -58,9 +67,9 @@ export function trackLead() {
  * from Lead: firing both under one name would count every completed submission
  * twice. Compare the two to see how many submissions are being lost in transit.
  */
-export function trackLeadConfirmed() {
+export function trackLeadConfirmed(formName: FormName) {
   fbq('trackCustom', 'LeadConfirmed');
-  gtag('event', 'generate_lead_confirmed');
+  gtag('event', 'generate_lead_confirmed', { form_name: formName });
 }
 
 /**
@@ -108,4 +117,33 @@ export function trackScreenerBack(stepNumber: number, stepKey: string) {
 export function trackCall() {
   fbq('track', 'Contact');
   gtag('event', 'contact');
+}
+
+/**
+ * Which call to action someone pressed, and where on the page it was.
+ *
+ * Every landing CTA points at one of two destinations, so the destination alone
+ * cannot say whether the hero or the closing block is doing the work.
+ * `cta_location` is what separates them.
+ *
+ * Google only. The pixel optimises against leads, and a click on a link that
+ * merely navigates somewhere else is not one.
+ */
+export function trackCta(label: string, location: string) {
+  gtag('event', 'cta_click', { cta_label: label, cta_location: location });
+}
+
+/**
+ * First interaction with a form. The register page is one long page rather than
+ * a sequence of steps, so it has no per-step event to fall back on: without
+ * this, someone who fills three fields and leaves looks exactly like someone
+ * who never touched it.
+ */
+export function trackFormStart(formName: FormName) {
+  gtag('event', 'form_start', { form_name: formName });
+}
+
+/** Validation blocked a submit. Shows which field people get stuck on. */
+export function trackFormError(formName: FormName, field: string) {
+  gtag('event', 'form_error', { form_name: formName, error_field: field });
 }

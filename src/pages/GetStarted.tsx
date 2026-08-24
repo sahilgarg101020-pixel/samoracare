@@ -217,7 +217,7 @@ export default function GetStarted() {
       if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
       // Separate from the Lead fired on the button, so a completed submission
       // is not counted twice under one name.
-      trackLeadConfirmed();
+      trackLeadConfirmed('get_started');
       setSubmitted(true);
     } catch {
       // Surface the failure instead of showing a confirmation for a lead that
@@ -242,7 +242,7 @@ export default function GetStarted() {
     if (isLast) {
       // On the button, once validation has passed. Firing on a click that only
       // surfaced "First name is required" would report a lead that never was.
-      trackLead();
+      trackLead('get_started');
       void submit();
       return;
     }

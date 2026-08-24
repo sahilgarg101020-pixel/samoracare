@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { trackCta } from '../lib/analytics';
 import './Landing.css';
 
 const FAQS = [
@@ -108,7 +109,11 @@ export default function Landing() {
           <a href="#story">Why we started</a>
           <a href="#faq">Questions</a>
         </nav>
-        <Link to="/get-started" className="header-cta">
+        <Link
+          to="/get-started"
+          className="header-cta"
+          onClick={() => trackCta('get_started', 'header')}
+        >
           See if you qualify <span aria-hidden="true">→</span>
         </Link>
       </header>
@@ -142,10 +147,18 @@ export default function Landing() {
           </p>
           <div className="btn-stack">
             <div className="btn-row">
-              <Link to="/get-started" className="btn-primary">
+              <Link
+                to="/get-started"
+                className="btn-primary"
+                onClick={() => trackCta('get_started', 'hero')}
+              >
                 See if you qualify <span aria-hidden="true">→</span>
               </Link>
-              <Link to="/talk-to-someone" className="btn-secondary">
+              <Link
+                to="/talk-to-someone"
+                className="btn-secondary"
+                onClick={() => trackCta('talk_to_someone', 'hero')}
+              >
                 Talk to someone
               </Link>
             </div>
@@ -366,7 +379,11 @@ export default function Landing() {
             We handle the filings, hearings, and appeals. You stay informed the whole way, and you
             only pay if you win.
           </p>
-          <Link to="/get-started" className="step-outline-btn">
+          <Link
+            to="/get-started"
+            className="step-outline-btn"
+            onClick={() => trackCta('get_started', 'how_it_works')}
+          >
             Start your free check <span aria-hidden="true">→</span>
           </Link>
         </div>
@@ -405,10 +422,18 @@ export default function Landing() {
             <span className="cta-sub">Free eligibility check. No obligation.</span>
           </div>
           <div className="cta-right">
-            <Link to="/get-started" className="cta-primary">
+            <Link
+              to="/get-started"
+              className="cta-primary"
+              onClick={() => trackCta('get_started', 'closing')}
+            >
               Check your eligibility <span aria-hidden="true">→</span>
             </Link>
-            <Link to="/talk-to-someone" className="cta-ghost">
+            <Link
+              to="/talk-to-someone"
+              className="cta-ghost"
+              onClick={() => trackCta('talk_to_someone', 'closing')}
+            >
               Talk to someone
             </Link>
           </div>
@@ -422,7 +447,9 @@ export default function Landing() {
           <img src="/assets/samora-logo.svg" width={1382} height={247} loading="lazy" alt="Samora" />
         </div>
         <nav className="footer-legal">
-          <Link to="/register">Check if you pre-qualify</Link>
+          <Link to="/register" onClick={() => trackCta('register', 'footer')}>
+            Check if you pre-qualify
+          </Link>
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
           <Link to="/accessibility-statement">Accessibility</Link>

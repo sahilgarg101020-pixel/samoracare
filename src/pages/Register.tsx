@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { trackLead, trackLeadConfirmed } from '../lib/analytics';
+import { trackFormError, trackFormStart, trackLead, trackLeadConfirmed } from '../lib/analytics';
 import { US_STATES } from '../data/usStates';
 import './Register.css';
 
@@ -97,8 +97,18 @@ export default function Register() {
     };
   }, []);
 
-  const set = <K extends keyof Form>(key: K, value: Form[K]) =>
+  // Fires once, on the first field anyone touches. Without it, an abandoned
+  // form leaves no trace at all — there are no per-step events here to fall
+  // back on the way the screener has.
+  const started = useRef(false);
+
+  const set = <K extends keyof Form>(key: K, value: Form[K]) => {
+    if (!started.current) {
+      started.current = true;
+      trackFormStart('register');
+    }
     setForm((f) => ({ ...f, [key]: value }));
+  };
 
   function validate(): Record<string, string> {
     const e: Record<string, string> = {};
@@ -122,13 +132,14 @@ export default function Register() {
     const found = validate();
     setErrors(found);
     if (Object.keys(found).length > 0) {
+      Object.keys(found).forEach((field) => trackFormError('register', field));
       // Send focus to the first problem so a screen reader lands on it.
       const first = document.querySelector<HTMLElement>('[aria-invalid="true"]');
       first?.focus();
       return;
     }
 
-    trackLead();
+    trackLead('register');
     setSubmitting(true);
     setSubmitFailed(false);
     try {
@@ -153,7 +164,7 @@ export default function Register() {
         }),
       });
       if (!res.ok) throw new Error(`lead endpoint returned ${res.status}`);
-      trackLeadConfirmed();
+      trackLeadConfirmed('register');
       setSubmitted(true);
     } catch {
       setSubmitFailed(true);
