@@ -28,7 +28,22 @@ interface Env {
  * recorded in KV first and forwarded after the response goes out.
  */
 const UPSTREAM_TIMEOUT_MS = 10_000;
-const MAX_ATTEMPTS = 3;
+
+/**
+ * Per-attempt timeouts, and the pauses between them.
+ *
+ * A freshly created Apps Script deployment can take longer than ten seconds to
+ * answer its very first request. With no pause between attempts, all three
+ * landed inside that same cold start, every one timed out, and the lead was
+ * left in KV marked undelivered. Later attempts get longer, and the pauses mean
+ * a retry actually samples a different moment rather than repeating the first
+ * one immediately. The whole sequence has to finish inside the time the runtime
+ * allows after the response has already gone out, which is what caps it here.
+ */
+const ATTEMPT_TIMEOUTS_MS = [6_000, 8_000, 8_000];
+const RETRY_PAUSES_MS = [1_000, 2_000];
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Two shapes reach this endpoint. The screener sends the original one; the
@@ -146,6 +161,7 @@ async function forward(
   endpoint: string,
   payload: SheetPayload,
   token?: string,
+  timeoutMs: number = UPSTREAM_TIMEOUT_MS,
 ): Promise<boolean> {
   // Apps Script reads the raw body via e.postData.contents and parses it
   // itself, so the content type stays text/plain as it was originally.
@@ -154,7 +170,7 @@ async function forward(
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(token ? { ...payload, token } : payload),
     // Without this a hung upstream holds the request open indefinitely.
-    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   return res.ok;
 }
@@ -164,9 +180,13 @@ async function forward(
  * anything still flagged pending in KV is a lead that needs chasing by hand.
  */
 async function deliver(env: Env, key: string, payload: SheetPayload): Promise<void> {
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+  for (let attempt = 1; attempt <= ATTEMPT_TIMEOUTS_MS.length; attempt++) {
+    // Pause before every attempt after the first, so a cold or briefly
+    // overloaded upstream gets a chance to become ready.
+    if (attempt > 1) await sleep(RETRY_PAUSES_MS[attempt - 2]);
     try {
-      if (await forward(env.LEAD_ENDPOINT, payload, env.LEAD_TOKEN)) {
+      const timeout = ATTEMPT_TIMEOUTS_MS[attempt - 1];
+      if (await forward(env.LEAD_ENDPOINT, payload, env.LEAD_TOKEN, timeout)) {
         try {
           await env.LEADS.put(key, JSON.stringify({ ...payload, delivered: true }));
         } catch (err) {
@@ -177,9 +197,9 @@ async function deliver(env: Env, key: string, payload: SheetPayload): Promise<vo
         return;
       }
       // Never log the payload itself — it is health and contact information.
-      console.error(`lead: upstream rejected ${key} (attempt ${attempt}/${MAX_ATTEMPTS})`);
+      console.error(`lead: upstream rejected ${key} (attempt ${attempt}/${ATTEMPT_TIMEOUTS_MS.length})`);
     } catch (err) {
-      console.error(`lead: upstream failed for ${key} (attempt ${attempt}/${MAX_ATTEMPTS})`, err);
+      console.error(`lead: upstream failed for ${key} (attempt ${attempt}/${ATTEMPT_TIMEOUTS_MS.length})`, err);
     }
   }
   console.error(`lead: giving up on ${key}; it stays pending in KV for recovery`);
