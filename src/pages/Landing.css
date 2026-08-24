@@ -228,73 +228,11 @@
   gap: 16px;
 }
 
-/* Founder story */
-.story {
-  padding: 104px 48px;
-  background: var(--landing-bg);
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 72px;
-  align-items: start;
-}
-.story-left {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 .eyebrow-mono {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-muted-1);
-}
-.story-h2 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 50px;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin: 0;
-  text-wrap: pretty;
-}
-.story-p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin: 0;
-  max-width: 36em;
-  text-wrap: pretty;
-}
-.pull-quote {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--near-black);
-  margin: 12px 0 0;
-  letter-spacing: -0.01em;
-  border-left: 2px solid var(--near-black);
-  padding-left: 20px;
-}
-.story-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.story-right picture {
-  display: block;
-  width: 100%;
-}
-.story-img {
-  height: 440px;
-  width: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-  border-radius: 14px;
-  display: block;
-}
-.story-caption {
-  font-size: 14.5px;
   color: var(--text-muted-1);
 }
 
@@ -847,6 +785,116 @@
 }
 
 /* ============ Responsive ============ */
+/*
+ * Statement banner. Deliberately the same dark-purple-and-dots treatment as
+ * the pace section rather than a new colour: the page should have one dark
+ * voice, not two competing ones.
+ */
+.creed {
+  position: relative;
+  background: linear-gradient(135deg, var(--purple-950) 0%, var(--purple-700) 55%, var(--purple-950) 100%);
+  color: var(--landing-bg);
+  padding: 104px 48px;
+}
+
+.dots-overlay--creed {
+  -webkit-mask-image: radial-gradient(115% 115% at 50% 42%, #000 22%, transparent 72%);
+  mask-image: radial-gradient(115% 115% at 50% 42%, #000 22%, transparent 72%);
+}
+
+.creed-inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  text-align: center;
+}
+
+/* The eyebrow's default colour is tuned for the light sections. */
+.eyebrow-mono--on-dark {
+  color: var(--on-dark-body-2);
+}
+
+.creed-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.creed-line {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 25px;
+  color: var(--on-dark-accent);
+  margin: 0;
+}
+
+.founders {
+  padding: 96px 48px;
+  background: var(--landing-bg);
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.founder-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Without this the picture element becomes the flex item and collapses. */
+.founder-card picture {
+  display: block;
+}
+
+/*
+ * The two source photos are within a hair of the same aspect ratio, so a fixed
+ * height keeps the pair level without either one cropping oddly.
+ */
+.founder-img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 10px;
+  display: block;
+}
+
+.founder-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.founder-bio {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+}
+
 @media (max-width: 640px) {
   /*
    * The header carries only the mark at this width, so it also gets tighter
@@ -893,15 +941,29 @@
     justify-content: center;
   }
   .trust-band,
-  .story,
+  .founder-grid,
   .pace-points,
   .programs-grid,
   .faq {
     grid-template-columns: 1fr;
   }
-  .story {
+  .creed {
     padding: 64px 24px;
-    gap: 40px;
+  }
+  .creed-h2 {
+    font-size: 32px;
+  }
+  .creed-line {
+    font-size: 20px;
+  }
+  .founders {
+    padding: 64px 24px;
+  }
+  .founder-grid {
+    gap: 24px;
+  }
+  .founder-img {
+    height: 260px;
   }
   .pace {
     padding: 64px 24px;

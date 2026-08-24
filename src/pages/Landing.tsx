@@ -141,9 +141,8 @@ export default function Landing() {
           <span className="eyebrow-badge">Disability owned and led</span>
           <h1 className="hero-h1">Access benefits that you deserve.</h1>
           <p className="hero-p">
-            You have been doubted, delayed, and denied. We know that feeling because we have
-            lived it. We help you claim the SSDI, SSI, Workers' Comp, and VA benefits you have
-            already earned as an American.
+            We help you apply for and claim the SSDI, SSI, Workers' Comp, and VA benefits
+            you're owed.
           </p>
           <div className="btn-stack">
             <div className="btn-row">
@@ -189,36 +188,53 @@ export default function Landing() {
         </div>
       </section>
 
-      <section id="story" className="story">
-        <div className="story-left">
-          <span className="eyebrow-mono">Why we started this</span>
-          <h2 className="story-h2">
-            Most exclusion is not cruelty. It is a door no one thought to open.
+      <section id="story" className="creed dots-section">
+        <div className="dots-overlay dots-overlay--creed" aria-hidden="true" />
+        <div className="creed-inner">
+          <span className="eyebrow-mono eyebrow-mono--on-dark">Why we started this</span>
+          <h2 className="creed-h2">
+            The application process isn't hard by accident. It's a maze of forms, deadlines, and
+            medical evidence rules. We built SamoraCare to make it simple.
           </h2>
-          <p className="story-p">
-            Our founder, Kartik Sawhney, spent much of his life being told the door was not open
-            to him, not for anything he could not do, but for what others could not picture him
-            doing. So he stopped waiting to be let in and started building the way in.
-          </p>
-          <p className="story-p">
-            SamoraCare is that idea applied to disability benefits: a system designed to wear you
-            down, made navigable by people who have been shut out too.
-          </p>
-          <p className="pull-quote">For people with disabilities, by people with disabilities.</p>
+          <p className="creed-line">For people with disabilities, by people with disabilities.</p>
         </div>
-        <div className="story-right">
-          <picture>
-            <source type="image/webp" srcSet="/assets/kartik-portrait.webp" />
+      </section>
+
+      <section className="founders" aria-label="The people behind SamoraCare">
+        <div className="founder-grid">
+          <article className="founder-card">
+            <picture>
+              <source type="image/webp" srcSet="/assets/kartik-portrait.webp" />
+              <img
+                className="founder-img"
+                src="/assets/kartik-portrait.jpg"
+                width={1000}
+                height={803}
+                loading="lazy"
+                alt="Kartik Sawhney"
+              />
+            </picture>
+            <h3 className="founder-name">Kartik Sawhney</h3>
+            <p className="founder-bio">
+              Blind since birth. Stanford Computer Science; built accessibility technology at
+              Microsoft.
+            </p>
+          </article>
+          <article className="founder-card">
             <img
-              className="story-img"
-              src="/assets/kartik-portrait.jpg"
-              width={1000}
-              height={803}
+              className="founder-img"
+              src="/assets/gretchen-portrait.jpg"
+              width={900}
+              height={720}
               loading="lazy"
-              alt="Kartik Sawhney, founder"
+              alt="Gretchen Johnson"
             />
-          </picture>
-          <span className="story-caption">Kartik Sawhney, founder</span>
+            <h3 className="founder-name">Gretchen Johnson, J.D., LL.M.</h3>
+            <p className="founder-bio">
+              11 years inside the Social Security Administration. Supported 1,600+ legal
+              professionals, including the judges who decide disability claims.
+            </p>
+          </article>
         </div>
       </section>
 
