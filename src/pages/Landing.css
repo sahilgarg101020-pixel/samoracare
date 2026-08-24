@@ -863,13 +863,35 @@
   mask-image: linear-gradient(180deg, #000 0%, transparent 52%);
 }
 
-.founder-grid {
+/*
+ * Heading in its own left column, cards offset to the right of it. The section
+ * previously had no heading at all, which left the eye nothing to start on.
+ */
+.founders-inner {
   position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(190px, 260px) 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.founders-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.founder-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  max-width: 1040px;
-  margin: 0 auto;
+  gap: 32px;
 }
 
 .founder-card {
@@ -888,12 +910,14 @@
 }
 
 /*
- * The two source photos are within a hair of the same aspect ratio, so a fixed
- * height keeps the pair level without either one cropping oddly.
+ * Both source photos are almost exactly 5:4, so matching that ratio keeps the
+ * pair level while cropping virtually nothing. A fixed height did keep them
+ * level, but as the cards narrowed it turned two landscape portraits into tall
+ * slots and started cutting heads off.
  */
 .founder-img {
   width: 100%;
-  height: 320px;
+  aspect-ratio: 5 / 4;
   object-fit: cover;
   object-position: center 20%;
   border-radius: 10px;
@@ -916,6 +940,17 @@
   color: var(--text-secondary);
   margin: 0;
   text-wrap: pretty;
+}
+
+/*
+ * The side-by-side heading only earns its keep while the cards still have room.
+ * Below this the heading goes back above them so they can use the full width.
+ */
+@media (max-width: 1080px) {
+  .founders-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -942,14 +977,20 @@
   .hero {
     grid-template-columns: 1fr;
   }
+  /*
+   * svh rather than vh. On mobile browsers vh measures the viewport as if the
+   * URL bar were collapsed, so 52vh rendered taller than the space actually
+   * visible on arrival — which, together with the padding below, pushed the
+   * headline under the fold. svh measures what the visitor can really see.
+   */
   .hero-picture,
   .hero-image {
-    min-height: 52vh;
-    height: 52vh;
+    min-height: 0;
+    height: clamp(170px, 34svh, 290px);
   }
   .hero-content {
-    padding: 56px 24px;
-    gap: 32px;
+    padding: 24px 24px 44px;
+    gap: 20px;
   }
   .hero-h1 {
     font-size: 38px;
@@ -964,6 +1005,7 @@
     justify-content: center;
   }
   .trust-band,
+  .founders-inner,
   .founder-grid,
   .pace-points,
   .programs-grid,
@@ -982,11 +1024,14 @@
   .founders {
     padding: 64px 24px;
   }
+  .founders-inner {
+    gap: 32px;
+  }
+  .founders-h2 {
+    font-size: 32px;
+  }
   .founder-grid {
     gap: 24px;
-  }
-  .founder-img {
-    height: 260px;
   }
   .pace {
     padding: 64px 24px;

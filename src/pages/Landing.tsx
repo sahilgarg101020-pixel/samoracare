@@ -200,42 +200,45 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="founders dots-section" aria-label="The people behind SamoraCare">
+      <section className="founders dots-section">
         <div className="dots-overlay dots-overlay--founders" aria-hidden="true" />
-        <div className="founder-grid">
-          <article className="founder-card">
-            <picture>
-              <source type="image/webp" srcSet="/assets/kartik-portrait.webp" />
+        <div className="founders-inner">
+          <h2 className="founders-h2">The people building it</h2>
+          <div className="founder-grid">
+            <article className="founder-card">
+              <picture>
+                <source type="image/webp" srcSet="/assets/kartik-portrait.webp" />
+                <img
+                  className="founder-img"
+                  src="/assets/kartik-portrait.jpg"
+                  width={1000}
+                  height={803}
+                  loading="lazy"
+                  alt="Kartik Sawhney"
+                />
+              </picture>
+              <h3 className="founder-name">Kartik Sawhney</h3>
+              <p className="founder-bio">
+                Blind since birth. Stanford Computer Science; built accessibility technology at
+                Microsoft.
+              </p>
+            </article>
+            <article className="founder-card">
               <img
                 className="founder-img"
-                src="/assets/kartik-portrait.jpg"
-                width={1000}
-                height={803}
+                src="/assets/gretchen-portrait.jpg"
+                width={900}
+                height={720}
                 loading="lazy"
-                alt="Kartik Sawhney"
+                alt="Gretchen Johnson"
               />
-            </picture>
-            <h3 className="founder-name">Kartik Sawhney</h3>
-            <p className="founder-bio">
-              Blind since birth. Stanford Computer Science; built accessibility technology at
-              Microsoft.
-            </p>
-          </article>
-          <article className="founder-card">
-            <img
-              className="founder-img"
-              src="/assets/gretchen-portrait.jpg"
-              width={900}
-              height={720}
-              loading="lazy"
-              alt="Gretchen Johnson"
-            />
-            <h3 className="founder-name">Gretchen Johnson, J.D., LL.M.</h3>
-            <p className="founder-bio">
-              11 years inside the Social Security Administration. Supported 1,600+ legal
-              professionals, including the judges who decide disability claims.
-            </p>
-          </article>
+              <h3 className="founder-name">Gretchen Johnson, J.D., LL.M.</h3>
+              <p className="founder-bio">
+                11 years inside the Social Security Administration. Supported 1,600+ legal
+                professionals, including the judges who decide disability claims.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
