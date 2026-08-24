@@ -134,6 +134,19 @@ export function trackCta(label: string, location: string) {
 }
 
 /**
+ * The form was reached, fired on mount.
+ *
+ * Not the same thing as a page_view: GA4 only reports one of those for a route
+ * change if enhanced measurement's history-events option is on, and this is a
+ * prerendered single-page app, so anyone arriving by an in-app link can be
+ * missed. Funnels anchored on this event do not depend on that setting. The
+ * screener gets the same guarantee from its `intro` step event.
+ */
+export function trackFormView(formName: FormName) {
+  gtag('event', 'form_view', { form_name: formName });
+}
+
+/**
  * First interaction with a form. The register page is one long page rather than
  * a sequence of steps, so it has no per-step event to fall back on: without
  * this, someone who fills three fields and leaves looks exactly like someone

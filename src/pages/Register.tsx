@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { trackFormError, trackFormStart, trackLead, trackLeadConfirmed } from '../lib/analytics';
+import {
+  trackFormError,
+  trackFormStart,
+  trackFormView,
+  trackLead,
+  trackLeadConfirmed,
+} from '../lib/analytics';
 import { US_STATES } from '../data/usStates';
 import './Register.css';
 
@@ -88,6 +94,12 @@ export default function Register() {
   const [submitFailed, setSubmitFailed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [smsConsent, setSmsConsent] = useState(false);
+
+  // Once per mount, so the funnel has a reliable first step that does not
+  // depend on how the visitor got here.
+  useEffect(() => {
+    trackFormView('register');
+  }, []);
 
   useEffect(() => {
     const previous = document.title;
