@@ -6,6 +6,16 @@ and emails the team. Replaces the n8n step.
 `Code.gs` is the source of truth. Edit it here, then paste into the Apps Script
 editor, so the deployed script and the repo do not drift.
 
+## Check it before deploying
+
+```
+node apps-script/test-local.mjs
+```
+
+Runs `Code.gs` under Node with the Google globals stubbed, so both form shapes
+go through the real routing, column mapping, duplicate check and email builder
+without a sheet or an inbox. Faster than deploying to find a typo.
+
 ## Deploy
 
 Do this on an account the team actually controls. The original script and sheet

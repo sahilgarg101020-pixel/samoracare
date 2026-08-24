@@ -204,6 +204,35 @@ var LABELS = {
   sms_consent: 'Agreed to texts',
 };
 
+/**
+ * Slug to prose, for the email only. The sheet keeps the raw slugs, because
+ * anything reading it later should match on a stable value rather than on
+ * wording that might get reworded.
+ */
+var VALUE_LABELS = {
+  first_time: 'No, first time applying',
+  denied: 'Yes, and was denied',
+  appealing: 'Yes, appealing right now',
+  not_sure: 'Not sure',
+  regularly: 'Yes, regularly',
+  sometimes: 'Sometimes, when they can',
+  not_easy: 'Not right now, care has been hard to get',
+  still_working: 'Still working, but struggling',
+  within_6mo: 'Within the last 6 months',
+  '6mo_to_1yr': '6 months to a year ago',
+  over_1yr: 'More than a year ago',
+  never: 'Has never been able to work',
+  myself: 'Themselves',
+  family_or_friend: 'A family member or friend',
+  client: 'A patient or client',
+  yes: 'Yes',
+  no: 'No',
+};
+
+function label_(value) {
+  return VALUE_LABELS[value] || value;
+}
+
 function notifyTeam_(body) {
   var config = SHEETS[body.type];
   var source = body.type === 'register' ? 'register form' : 'screener';
@@ -219,7 +248,9 @@ function notifyTeam_(body) {
     }
     var value = body[name];
     if (value === undefined || value === null || value === '') return;
-    lines.push((LABELS[name] || name) + ': ' + value);
+    // 'conditions' is free text the claimant wrote; never rewrite it.
+    var shown = name === 'conditions' ? value : label_(value);
+    lines.push((LABELS[name] || name) + ': ' + shown);
   });
 
   var subject = 'New lead: ' + (body.fullName || 'unnamed') + ' (' + source + ')';
