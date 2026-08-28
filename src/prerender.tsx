@@ -8,6 +8,9 @@ import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import AccessibilityStatement from './pages/AccessibilityStatement';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import { BLOG_POSTS } from './data/blogPosts';
 import './index.css';
 
 /**
@@ -66,6 +69,24 @@ export const ROUTES = [
       'Terms for using samoracare.com and the SamoraCare Benefits Updates text messaging program, including message frequency, rates, and how to opt out.',
     element: <TermsAndConditions />,
   },
+  {
+    path: '/blog',
+    title: 'Guides to Disability Benefits | SamoraCare',
+    description:
+      'Twenty plain-language guides to SSDI, SSI, VA disability and workers\u2019 comp: who qualifies, what happens after you apply, appeals, hearings and timelines.',
+    element: <Blog />,
+  },
+  /*
+   * One entry per article, so each gets a real HTML file with its own title and
+   * description, and turns up in the sitemap and llms.txt without a second list
+   * to keep in step.
+   */
+  ...BLOG_POSTS.map((post) => ({
+    path: `/blog/${post.slug}`,
+    title: `${post.title} | SamoraCare`,
+    description: post.description,
+    element: <BlogPost slug={post.slug} />,
+  })),
   {
     path: '/accessibility-statement',
     title: 'Accessibility Statement — SamoraCare',

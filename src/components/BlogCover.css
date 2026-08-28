@@ -1,0 +1,112 @@
+.cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--purple-950) 0%, var(--purple-700) 58%, var(--purple-950) 100%);
+  color: var(--landing-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cover--card {
+  aspect-ratio: 8 / 5;
+  padding: 20px 22px;
+}
+
+.cover--banner {
+  aspect-ratio: 16 / 5;
+  padding: 28px 32px;
+  border-radius: 14px;
+}
+
+/*
+ * Every pattern is one repeating gradient over the same gradient base, masked
+ * so it thins out towards the bottom left and never competes with the label.
+ */
+.cover-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(215deg, #000 10%, transparent 78%);
+  mask-image: linear-gradient(215deg, #000 10%, transparent 78%);
+}
+
+[data-pattern='dots'] .cover-texture {
+  background-image: radial-gradient(rgba(202, 66, 255, 0.55) 1px, transparent 1.4px);
+  background-size: 10px 10px;
+}
+
+[data-pattern='grid'] .cover-texture {
+  background-image:
+    linear-gradient(rgba(202, 66, 255, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(202, 66, 255, 0.3) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+[data-pattern='diagonal'] .cover-texture {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(202, 66, 255, 0.34) 0 1.5px,
+    transparent 1.5px 13px
+  );
+}
+
+[data-pattern='rings'] .cover-texture {
+  background-image: repeating-radial-gradient(
+    circle at 82% 18%,
+    rgba(202, 66, 255, 0.32) 0 1.5px,
+    transparent 1.5px 20px
+  );
+}
+
+[data-pattern='weave'] .cover-texture {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(202, 66, 255, 0.26) 0 1.5px, transparent 1.5px 15px),
+    repeating-linear-gradient(-45deg, rgba(202, 66, 255, 0.26) 0 1.5px, transparent 1.5px 15px);
+}
+
+[data-pattern='ticks'] .cover-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(202, 66, 255, 0.4) 0 1.5px,
+    transparent 1.5px 14px
+  );
+  background-size: 100% 46%;
+  background-repeat: repeat-x;
+}
+
+.cover-number {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 54px;
+  line-height: 1;
+  color: rgba(246, 243, 250, 0.32);
+}
+
+.cover--banner .cover-number {
+  font-size: 76px;
+}
+
+.cover-category {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-accent);
+}
+
+.cover--banner .cover-category {
+  font-size: 12.5px;
+}
+
+@media (max-width: 640px) {
+  .cover--banner {
+    aspect-ratio: 3 / 2;
+    padding: 22px;
+  }
+  .cover--banner .cover-number {
+    font-size: 56px;
+  }
+}

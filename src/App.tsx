@@ -8,6 +8,9 @@ import TalkToSomeone from './pages/TalkToSomeone';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import AccessibilityStatement from './pages/AccessibilityStatement';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import NotFound from './pages/NotFound';
 import { trackPageView } from './lib/analytics';
 
 /**
@@ -41,6 +44,9 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

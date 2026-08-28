@@ -53,6 +53,7 @@ export default function LegalPage({ title, intro, effectiveDate, children }: Leg
       <footer className="legal-footer">
         <nav className="legal-footer-links">
           <Link to="/register">Check if you pre-qualify</Link>
+          <Link to="/blog">Guides</Link>
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
           <Link to="/accessibility-statement">Accessibility</Link>

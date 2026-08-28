@@ -1,0 +1,372 @@
+.blog {
+  background: var(--landing-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 48px;
+  background: var(--white);
+  border-bottom: 1px solid rgba(54, 35, 58, 0.1);
+}
+
+.blog-logo picture {
+  display: block;
+}
+
+.blog-logo img {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.blog-header-cta {
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.blog-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 72px 48px 96px;
+}
+
+.blog-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 30em;
+  margin-bottom: 56px;
+}
+
+.blog-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.blog-lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.blog-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 14px;
+  text-decoration: none;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.07);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.12);
+}
+
+.blog-card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 4px 0 0;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.blog-card-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+  /* Keeps every card's text block the same depth so the grid stays level. */
+  flex: 1;
+}
+
+.blog-card-more {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.blog-cta {
+  margin-top: 72px;
+  padding: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--purple-950) 0%, var(--purple-700) 60%, var(--purple-950) 100%);
+  color: var(--landing-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.blog-cta-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.blog-cta-p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--on-dark-body-1);
+  margin: 0;
+  max-width: 40em;
+}
+
+.blog-cta-btn,
+.post-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-top: 6px;
+}
+
+/* Article ------------------------------------------------------------- */
+
+.post {
+  max-width: 43em;
+  margin: 0 auto;
+}
+
+.post-back {
+  display: inline-block;
+  font-size: 15px;
+  color: var(--text-muted-1);
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.post-back:hover {
+  color: var(--primary-text);
+}
+
+.post-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 32px 0 24px;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.post-p {
+  font-size: 17.5px;
+  line-height: 1.68;
+  color: var(--text-secondary);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+
+.post-list {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/*
+ * The source articles mark each point with a four-pointed star. Drawn as a
+ * marker rather than typed into the text so screen readers announce a list
+ * rather than reading the glyph out on every item.
+ */
+.post-list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 17.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.post-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--primary);
+}
+
+.post-list strong,
+.post-p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.post-cta {
+  margin-top: 40px;
+  padding: 28px 30px;
+  border-radius: 14px;
+  background: var(--white);
+  border: 1px solid rgba(54, 35, 58, 0.12);
+}
+
+.post-cta-p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.post-nav {
+  max-width: 43em;
+  margin: 56px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.post-nav-link--next {
+  text-align: right;
+}
+
+.post-nav-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted-1);
+}
+
+.post-nav-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.blog-footer {
+  padding: 40px 48px;
+  background: var(--white);
+  border-top: 1px solid rgba(54, 35, 58, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.blog-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.blog-footer-links a {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.blog-footer-links a:hover {
+  color: var(--primary-text);
+}
+
+.blog-copyright {
+  font-size: 14px;
+  color: var(--text-muted-1);
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-header,
+  .blog-footer {
+    padding: 14px 20px;
+  }
+  .blog-logo img {
+    height: 34px;
+  }
+  .blog-header-cta {
+    font-size: 14px;
+    padding: 11px 16px;
+  }
+  .blog-main {
+    padding: 40px 20px 64px;
+  }
+  .blog-h1 {
+    font-size: 34px;
+  }
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .post-h1 {
+    font-size: 30px;
+  }
+  .post-p,
+  .post-list li {
+    font-size: 16.5px;
+  }
+  .blog-cta {
+    padding: 32px 24px;
+  }
+  .post-nav {
+    grid-template-columns: 1fr;
+  }
+  .post-nav-link--next {
+    text-align: left;
+  }
+}

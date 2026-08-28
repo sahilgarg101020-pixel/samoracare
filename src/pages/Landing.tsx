@@ -108,6 +108,7 @@ export default function Landing() {
           <a href="#how">How it works</a>
           <a href="#story">Why we started</a>
           <a href="#faq">Questions</a>
+          <Link to="/blog">Guides</Link>
         </nav>
         <Link
           to="/get-started"
@@ -469,6 +470,9 @@ export default function Landing() {
         <nav className="footer-legal">
           <Link to="/register" onClick={() => trackCta('register', 'footer')}>
             Check if you pre-qualify
+          </Link>
+          <Link to="/blog" onClick={() => trackCta('blog', 'footer')}>
+            Guides
           </Link>
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms-and-conditions">Terms and Conditions</Link>
