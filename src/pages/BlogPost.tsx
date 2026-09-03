@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import BlogCover from '../components/BlogCover';
 import { BLOG_POSTS, getPost } from '../data/blogPosts';
-import { trackViewContent } from '../lib/analytics';
 import NotFound from './NotFound';
 import './Blog.css';
 
@@ -33,13 +32,6 @@ function RichText({ text }: { text: string }) {
 export default function BlogPost({ slug: slugFromProps }: { slug?: string }) {
   const params = useParams();
   const post = getPost(slugFromProps ?? params.slug);
-
-  // Keyed on the slug so moving between articles reports each one, and guarded
-  // so a mistyped URL is not counted as a read.
-  useEffect(() => {
-    if (!post) return;
-    trackViewContent();
-  }, [post?.slug]);
 
   useEffect(() => {
     const previous = document.title;

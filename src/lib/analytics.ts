@@ -73,13 +73,12 @@ export function trackLeadConfirmed(formName: FormName) {
 }
 
 /**
- * A guide article was opened. Meta's standard event for viewing a specific
- * piece of content, which is what lets you build a retargeting audience of
- * people who have actually read something.
+ * Reported on every page, alongside PageView.
  *
- * Only on the articles, not on every route: the base snippet already reports
- * PageView everywhere, so firing ViewContent site-wide would duplicate that
- * rather than tell Meta anything it does not already know.
+ * Meta's standard event for viewing a specific piece of content, so the usual
+ * use is content pages only. Site-wide by request: the base snippet fires it on
+ * load and the route tracker fires it on every navigation after that, so it will
+ * shadow PageView almost one for one.
  */
 export function trackViewContent() {
   fbq('track', 'ViewContent');
