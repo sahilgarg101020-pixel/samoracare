@@ -73,6 +73,19 @@ export function trackLeadConfirmed(formName: FormName) {
 }
 
 /**
+ * A guide article was opened. Meta's standard event for viewing a specific
+ * piece of content, which is what lets you build a retargeting audience of
+ * people who have actually read something.
+ *
+ * Only on the articles, not on every route: the base snippet already reports
+ * PageView everywhere, so firing ViewContent site-wide would duplicate that
+ * rather than tell Meta anything it does not already know.
+ */
+export function trackViewContent() {
+  fbq('track', 'ViewContent');
+}
+
+/**
  * A click through to the Cal.com booking page. Fired from the Talk to someone
  * page rather than the landing CTA, which now only opens that page — counting
  * it there would have reported intent to book from a click that just navigated.
