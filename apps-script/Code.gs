@@ -29,7 +29,7 @@
  * is a separate step from saving the editor, and twice now the old code was
  * still serving while the new code sat saved but undeployed.
  */
-var VERSION = '2026-09-10-attorney-flag';
+var VERSION = '2026-09-10-attorney-flag-2';
 
 /** Where team notifications go. Comma-separate for several recipients. */
 var NOTIFY_EMAIL = 'kartik@samora.ai';
@@ -63,7 +63,7 @@ var SHEETS = {
     columns: [
       'received_at', 'lead_id', 'fullName', 'email', 'countryCode', 'phone',
       'first_time_applying', 'conditions', 'seeing_doctors',
-      'last_able_to_work', 'job_title', 'has_attorney', 'sms_consent',
+      'last_able_to_work', 'job_title', 'sms_consent', 'has_attorney',
     ],
   },
   register: {
@@ -71,7 +71,7 @@ var SHEETS = {
     columns: [
       'received_at', 'lead_id', 'fullName', 'email', 'countryCode', 'phone',
       'inquiring_for', 'state', 'date_of_birth', 'receiving_benefits',
-      'owes_overpayment', 'health_conditions', 'has_attorney', 'sms_consent',
+      'owes_overpayment', 'health_conditions', 'sms_consent', 'has_attorney',
     ],
   },
 };
@@ -170,16 +170,24 @@ function getSheet_(config) {
     return sheet;
   }
   /*
-   * A tab created before a column was added still carries the old header row.
-   * Rows are written in config.columns order, so without this the new values
-   * would land in a column with no title above them.
+   * A tab created before a column was added still carries the old header row,
+   * and rows are written in config.columns order, so the titles have to match
+   * or the values sit under the wrong ones.
+   *
+   * Compares the whole row rather than just its width. An earlier version of
+   * this only appended what was missing from the end, which silently produced a
+   * duplicate title when a column had been inserted rather than appended — the
+   * reason columns get appended and never reordered.
    */
-  var width = sheet.getLastColumn();
-  if (width < config.columns.length) {
-    var missing = config.columns.slice(width);
+  var width = Math.max(sheet.getLastColumn(), config.columns.length);
+  var header = sheet.getRange(1, 1, 1, width).getValues()[0];
+  var matches = config.columns.every(function (name, i) {
+    return header[i] === name;
+  });
+  if (!matches) {
     sheet
-      .getRange(1, width + 1, 1, missing.length)
-      .setValues([missing])
+      .getRange(1, 1, 1, config.columns.length)
+      .setValues([config.columns])
       .setFontWeight('bold');
   }
   return sheet;

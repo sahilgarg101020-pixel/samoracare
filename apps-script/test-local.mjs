@@ -67,6 +67,22 @@ new Function(src + '\nglobalThis.doPost = doPost; globalThis.SHEETS = SHEETS;')(
 const post = (payload) =>
   JSON.parse(globalThis.doPost({ postData: { contents: JSON.stringify(payload) } }).getContent());
 
+/*
+ * Seeds the screener tab as it exists in production: the header from before
+ * has_attorney, plus a row written under it. Without this the suite only ever
+ * saw freshly created tabs, which is why an inserted-rather-than-appended
+ * column went unnoticed.
+ */
+const LEGACY_HEADER = [
+  'received_at', 'lead_id', 'fullName', 'email', 'countryCode', 'phone',
+  'first_time_applying', 'conditions', 'seeing_doctors',
+  'last_able_to_work', 'job_title', 'sms_consent',
+];
+const legacy = book.insertSheet('Screener leads');
+legacy.appendRow(LEGACY_HEADER);
+legacy.appendRow([new Date(), 'legacy-1', 'Old Row', 'old@example.com', '+1', '555 000 0000',
+  'first_time', 'old conditions', 'regularly', 'over_1yr', 'cook', 'yes']);
+
 // ---- Screener lead ---------------------------------------------------------
 const screener = {
   type: 'get_started', lead_id: 'id-screener-1',
@@ -120,6 +136,25 @@ const checks = [
       const before = emails.length;
       post({ ...screener, lead_id: 'id-blank', fullName: 'Dee Blank', has_attorney: undefined });
       return emails[before] && emails[before].subject.startsWith('CHECK FIRST');
+    })(),
+  ],
+  [
+    'legacy header is corrected, not duplicated',
+    (() => {
+      const header = sheets.get('Screener leads').rows[0];
+      return (
+        header.join(',') === globalThis.SHEETS.get_started.columns.join(',') &&
+        header.filter((h) => h === 'sms_consent').length === 1
+      );
+    })(),
+  ],
+  [
+    'sms_consent stays in the column legacy rows used',
+    (() => {
+      const rows = sheets.get('Screener leads').rows;
+      const col = LEGACY_HEADER.indexOf('sms_consent');
+      const ada = rows.find((r) => r[2] === 'Ada Screener');
+      return rows[1][col] === 'yes' && ada[col] === 'yes';
     })(),
   ],
   [
