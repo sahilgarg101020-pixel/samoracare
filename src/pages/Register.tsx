@@ -16,6 +16,9 @@ const DOB_RE = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])\/(19|20)\d{2}$/;
 
 type YesNo = '' | 'yes' | 'no';
 
+/** The attorney question needs a third answer that yes/no cannot express. */
+type Attorney = 'yes' | 'no' | 'not_sure' | '';
+
 interface Form {
   inquiringFor: string;
   fullName: string;
@@ -26,6 +29,7 @@ interface Form {
   receivingBenefits: YesNo;
   owesOverpayment: YesNo;
   healthConditions: YesNo;
+  hasAttorney: Attorney;
 }
 
 const EMPTY: Form = {
@@ -38,43 +42,59 @@ const EMPTY: Form = {
   receivingBenefits: '',
   owesOverpayment: '',
   healthConditions: '',
+  hasAttorney: '',
 };
 
 /**
  * Yes/No pair as real radios in a labelled group, so the question is announced
  * with its answers rather than as two loose controls.
  */
-function YesNoField({
+const YES_NO = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' },
+] as const;
+
+/**
+ * Radio pair by default. `choices` is only passed by the attorney question,
+ * which needs a third answer: forcing that one into yes/no would push anyone
+ * unsure into guessing, and a wrong "no" there is the answer that matters.
+ */
+function ChoiceField<T extends string>({
   name,
   legend,
   help,
   value,
   error,
   onChange,
+  choices = YES_NO,
 }: {
   name: string;
   legend: string;
   help?: string;
-  value: YesNo;
+  value: T | '';
   error?: string;
-  onChange: (v: YesNo) => void;
+  onChange: (v: T) => void;
+  choices?: readonly { value: string; label: string }[];
 }) {
   return (
     <fieldset className="reg-field reg-field--yesno">
       <legend className="reg-label">{legend}</legend>
       {help && <p className="reg-help">{help}</p>}
       <div className="reg-yesno">
-        {(['yes', 'no'] as const).map((v) => (
-          <label key={v} className={`reg-radio${value === v ? ' reg-radio--on' : ''}`}>
+        {choices.map((choice) => (
+          <label
+            key={choice.value}
+            className={`reg-radio${value === choice.value ? ' reg-radio--on' : ''}`}
+          >
             <input
               type="radio"
               name={name}
-              value={v}
-              checked={value === v}
-              onChange={() => onChange(v)}
+              value={choice.value}
+              checked={value === choice.value}
+              onChange={() => onChange(choice.value as T)}
               aria-invalid={Boolean(error)}
             />
-            <span>{v === 'yes' ? 'Yes' : 'No'}</span>
+            <span>{choice.label}</span>
           </label>
         ))}
       </div>
@@ -134,6 +154,7 @@ export default function Register() {
     if (!form.receivingBenefits) e.receivingBenefits = 'Please choose Yes or No.';
     if (!form.owesOverpayment) e.owesOverpayment = 'Please choose Yes or No.';
     if (!form.healthConditions) e.healthConditions = 'Please choose Yes or No.';
+    if (!form.hasAttorney) e.hasAttorney = 'Please choose one.';
     return e;
   }
 
@@ -172,6 +193,7 @@ export default function Register() {
           receivingBenefits: form.receivingBenefits,
           owesOverpayment: form.owesOverpayment,
           healthConditions: form.healthConditions,
+          hasAttorney: form.hasAttorney,
           smsConsent: smsConsent ? 'yes' : 'no',
         }),
       });
@@ -361,7 +383,7 @@ export default function Register() {
                 )}
               </div>
 
-              <YesNoField
+              <ChoiceField
                 name="receivingBenefits"
                 legend="Are you currently receiving any type of Social Security benefit?"
                 help="That includes SSDI, SSI, early retirement, or survivor benefits."
@@ -370,7 +392,7 @@ export default function Register() {
                 onChange={(v) => set('receivingBenefits', v)}
               />
 
-              <YesNoField
+              <ChoiceField
                 name="owesOverpayment"
                 legend="Do you owe money to Social Security for an overpayment of disability benefits?"
                 help="If you do, it does not disqualify you. Contact SSA directly and they can set up a repayment plan or a review, and we can help you understand it."
@@ -379,13 +401,27 @@ export default function Register() {
                 onChange={(v) => set('owesOverpayment', v)}
               />
 
-              <YesNoField
+              <ChoiceField
                 name="healthConditions"
                 legend="Are there health conditions, disabilities, or mental health concerns that affect your daily life?"
                 help="Far more conditions qualify than people expect, including mental health and chronic pain."
                 value={form.healthConditions}
                 error={errors.healthConditions}
                 onChange={(v) => set('healthConditions', v)}
+              />
+
+              <ChoiceField
+                name="hasAttorney"
+                legend="Is a lawyer or representative already helping with this claim?"
+                help="We have to ask. If someone already represents you, we are not allowed to contact you about your claim."
+                value={form.hasAttorney}
+                error={errors.hasAttorney}
+                onChange={(v) => set('hasAttorney', v)}
+                choices={[
+                  { value: 'no', label: 'No' },
+                  { value: 'yes', label: 'Yes' },
+                  { value: 'not_sure', label: 'Not sure' },
+                ]}
               />
             </section>
 

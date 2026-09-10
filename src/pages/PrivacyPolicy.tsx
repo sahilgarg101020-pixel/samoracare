@@ -36,6 +36,10 @@ export default function PrivacyPolicy() {
           <li>Whether you already receive a Social Security benefit</li>
           <li>Whether you owe Social Security money for an overpayment</li>
           <li>Whether you have applied for Social Security Disability before</li>
+          <li>
+            Whether a lawyer or representative is already helping with your claim, which we have
+            to know before we may contact you
+          </li>
           <li>The health conditions you are dealing with, described in your own words</li>
           <li>Whether you are currently seeing doctors for those conditions</li>
           <li>When you were last able to work, and the kind of work you did</li>

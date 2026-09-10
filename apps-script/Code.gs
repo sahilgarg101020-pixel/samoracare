@@ -54,7 +54,7 @@ var SHEETS = {
     columns: [
       'received_at', 'lead_id', 'fullName', 'email', 'countryCode', 'phone',
       'first_time_applying', 'conditions', 'seeing_doctors',
-      'last_able_to_work', 'job_title', 'sms_consent',
+      'last_able_to_work', 'job_title', 'has_attorney', 'sms_consent',
     ],
   },
   register: {
@@ -62,7 +62,7 @@ var SHEETS = {
     columns: [
       'received_at', 'lead_id', 'fullName', 'email', 'countryCode', 'phone',
       'inquiring_for', 'state', 'date_of_birth', 'receiving_benefits',
-      'owes_overpayment', 'health_conditions', 'sms_consent',
+      'owes_overpayment', 'health_conditions', 'has_attorney', 'sms_consent',
     ],
   },
 };
@@ -158,6 +158,20 @@ function getSheet_(config) {
     sheet.appendRow(config.columns);
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, config.columns.length).setFontWeight('bold');
+    return sheet;
+  }
+  /*
+   * A tab created before a column was added still carries the old header row.
+   * Rows are written in config.columns order, so without this the new values
+   * would land in a column with no title above them.
+   */
+  var width = sheet.getLastColumn();
+  if (width < config.columns.length) {
+    var missing = config.columns.slice(width);
+    sheet
+      .getRange(1, width + 1, 1, missing.length)
+      .setValues([missing])
+      .setFontWeight('bold');
   }
   return sheet;
 }
@@ -201,6 +215,7 @@ var LABELS = {
   seeing_doctors: 'Seeing doctors',
   last_able_to_work: 'Last able to work',
   job_title: 'Kind of work',
+  has_attorney: 'Already represented',
   sms_consent: 'Agreed to texts',
 };
 
@@ -253,8 +268,28 @@ function notifyTeam_(body) {
     lines.push((LABELS[name] || name) + ': ' + shown);
   });
 
-  var subject = 'New lead: ' + (body.fullName || 'unnamed') + ' (' + source + ')';
+  /*
+   * Whether someone is already represented decides whether they can be called
+   * at all, so it goes in the subject line. Reading it in the body after
+   * dialling is too late.
+   */
+  var flag = '';
+  var warning = '';
+  if (body.has_attorney === 'yes') {
+    flag = 'DO NOT CALL - ';
+    warning =
+      '*** They say a lawyer or representative is ALREADY helping with this claim.\n' +
+      '*** Do not call them. Contacting someone who is already represented is not allowed.\n\n';
+  } else if (body.has_attorney === 'not_sure') {
+    flag = 'CHECK FIRST - ';
+    warning =
+      '*** They are not sure whether anyone already represents them.\n' +
+      '*** Confirm that before calling.\n\n';
+  }
+
+  var subject = flag + 'New lead: ' + (body.fullName || 'unnamed') + ' (' + source + ')';
   var text =
+    warning +
     'A new lead came in from the ' + source + '.\n\n' +
     lines.join('\n') + '\n\n' +
     'Reply to them directly at ' + (body.email || 'no email given') + '.\n' +

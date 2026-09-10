@@ -77,6 +77,17 @@ const STEPS: Step[] = [
     ],
   },
   {
+    key: 'attorney',
+    title: 'Is a lawyer or representative already helping with this claim?',
+    sub: 'We have to ask. If someone already represents you, we are not allowed to contact you about your claim.',
+    type: 'choice',
+    options: [
+      { label: 'No, nobody is representing me', value: 'no' },
+      { label: 'Yes, I already have someone', value: 'yes' },
+      { label: "I'm not sure", value: 'not_sure' },
+    ],
+  },
+  {
     key: 'conditions',
     title: 'What health conditions are you dealing with?',
     sub: 'Write it in your own words. Plain language is fine. You do not need the diagnosis code, and nothing you say here gets judged. Far more conditions qualify than people think, including mental health and chronic pain.',

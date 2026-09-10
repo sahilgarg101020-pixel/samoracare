@@ -68,6 +68,11 @@ interface ScreenerPayload {
   last_able_to_work: string;
   job_title: string;
   /**
+   * 'yes', 'no' or 'not_sure'. Contacting someone who already has
+   * representation is not allowed, so this has to travel with every lead.
+   */
+  has_attorney: string;
+  /**
    * 'yes' or 'no'. Kept for every submission, not just the opt-ins — carriers
    * and the TCPA care about being able to show what someone actually chose.
    */
@@ -89,6 +94,7 @@ interface RegisterPayload {
   receiving_benefits: string;
   owes_overpayment: string;
   health_conditions: string;
+  has_attorney: string;
   sms_consent: string;
 }
 
@@ -121,6 +127,7 @@ function buildRegister(body: Record<string, unknown>, leadId: string): RegisterP
     receiving_benefits: str(body.receivingBenefits, 4),
     owes_overpayment: str(body.owesOverpayment, 4),
     health_conditions: str(body.healthConditions, 4),
+    has_attorney: str(body.hasAttorney, 10),
     sms_consent: body.smsConsent === 'yes' ? 'yes' : 'no',
   };
 }
@@ -153,6 +160,7 @@ function buildScreener(body: Record<string, unknown>, leadId: string): ScreenerP
     seeing_doctors: str(body.doctors, 40),
     last_able_to_work: lastAbleToWork,
     job_title: job || (lastAbleToWork === 'never' ? NEVER_WORKED_JOB : ''),
+    has_attorney: str(body.attorney, 10),
     sms_consent: body.smsConsent === 'yes' ? 'yes' : 'no',
   };
 }

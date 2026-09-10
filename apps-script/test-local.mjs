@@ -13,16 +13,33 @@ import { readFileSync } from 'node:fs';
 const sheets = new Map();
 function makeSheet(name) {
   const rows = [];
+  // Range setters return the range in Apps Script, so the stub has to as well
+  // or any chained call in Code.gs throws here but works in production.
+  const makeRange = (row, col, numRows, numCols) => {
+    const range = {
+      setFontWeight: () => range,
+      setValues: (values) => {
+        values.forEach((line, i) => {
+          const target = (rows[row - 1 + i] ||= []);
+          line.forEach((value, j) => {
+            target[col - 1 + j] = value;
+          });
+        });
+        return range;
+      },
+      getValues: () =>
+        rows.slice(row - 1, row - 1 + numRows).map((r) => (r || []).slice(col - 1, col - 1 + numCols)),
+    };
+    return range;
+  };
   return {
     name,
     rows,
     getLastRow: () => rows.length,
+    getLastColumn: () => rows.reduce((widest, r) => Math.max(widest, r.length), 0),
     appendRow: (r) => rows.push(r),
     setFrozenRows: () => {},
-    getRange: (row, col, numRows, numCols) => ({
-      setFontWeight: () => {},
-      getValues: () => rows.slice(row - 1, row - 1 + numRows).map(r => r.slice(col - 1, col - 1 + numCols)),
-    }),
+    getRange: makeRange,
   };
 }
 const book = {
@@ -39,7 +56,7 @@ globalThis.ContentService = {
   MimeType: { JSON: 'json' },
   createTextOutput: (t) => ({ setMimeType: () => ({ getContent: () => t }) }),
 };
-globalThis.Logger = { log: () => {} };
+globalThis.Logger = { log: (m) => console.error('  [Logger]', m) };
 
 props.set('SPREADSHEET_ID', 'fake-sheet-id');   // standalone path
 
@@ -56,7 +73,7 @@ const screener = {
   fullName: 'Ada Screener', email: 'ada@example.com', phone: '555 111 2222', countryCode: '+1',
   first_time_applying: 'denied', conditions: 'back injury and depression',
   seeing_doctors: 'regularly', last_able_to_work: 'over_1yr', job_title: 'warehouse worker',
-  sms_consent: 'yes',
+  has_attorney: 'no', sms_consent: 'yes',
 };
 // ---- Register lead ---------------------------------------------------------
 const register = {
@@ -64,7 +81,7 @@ const register = {
   fullName: 'Bo Register', email: 'bo@example.com', phone: '555 333 4444', countryCode: '+1',
   inquiring_for: 'family_or_friend', state: 'Washington', date_of_birth: '04/09/1971',
   receiving_benefits: 'no', owes_overpayment: 'no', health_conditions: 'yes',
-  sms_consent: 'no',
+  has_attorney: 'yes', sms_consent: 'no',
 };
 
 console.log('screener ->', post(screener));
@@ -80,9 +97,46 @@ for (const [name, s] of sheets) {
     console.log('  row   :', r.map(v => (v instanceof Date ? 'DATE' : String(v))).join(' | ')));
 }
 
+// ---- Representation flag --------------------------------------------------
+// Whether someone is already represented decides whether they can be called at
+// all, so each answer is checked rather than eyeballed.
+console.log('unsure ->', post({ ...screener, lead_id: 'id-unsure', fullName: 'Cy Unsure', has_attorney: 'not_sure' }));
+
+const bySubject = (needle) => emails.filter((e) => e.subject.includes(needle));
+const checks = [
+  ['represented lead is flagged DO NOT CALL', bySubject('DO NOT CALL').length === 1],
+  ['unsure lead is flagged CHECK FIRST', bySubject('CHECK FIRST').length === 1],
+  [
+    'unrepresented lead carries no flag',
+    emails.some((e) => e.subject === 'New lead: Ada Screener (screener)'),
+  ],
+  [
+    'the warning is in the body, not only the subject',
+    bySubject('DO NOT CALL')[0].body.startsWith('*** They say a lawyer'),
+  ],
+  [
+    'has_attorney reaches both sheets',
+    ['Screener leads', 'Register leads'].every((tab) =>
+      sheets.get(tab).rows[0].includes('has_attorney'),
+    ),
+  ],
+];
+
+console.log('\n=== representation checks ===');
+let failed = 0;
+for (const [name, ok] of checks) {
+  console.log(`  ${ok ? 'PASS' : 'FAIL'}  ${name}`);
+  if (!ok) failed++;
+}
+
 console.log('\n=== emails sent ===', emails.length);
 emails.forEach(e => {
   console.log('\n  to:', e.to, '| replyTo:', e.replyTo);
   console.log('  subject:', e.subject);
   console.log('  body:\n' + e.body.split('\n').map(l => '    ' + l).join('\n'));
 });
+
+if (failed > 0) {
+  console.error(`\n${failed} check(s) failed`);
+  process.exit(1);
+}
