@@ -115,6 +115,14 @@ const checks = [
     bySubject('DO NOT CALL')[0].body.startsWith('*** They say a lawyer'),
   ],
   [
+    'an unanswered lead is flagged CHECK FIRST',
+    (() => {
+      const before = emails.length;
+      post({ ...screener, lead_id: 'id-blank', fullName: 'Dee Blank', has_attorney: undefined });
+      return emails[before] && emails[before].subject.startsWith('CHECK FIRST');
+    })(),
+  ],
+  [
     'has_attorney reaches both sheets',
     ['Screener leads', 'Register leads'].every((tab) =>
       sheets.get(tab).rows[0].includes('has_attorney'),

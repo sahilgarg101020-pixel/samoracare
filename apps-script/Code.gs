@@ -22,6 +22,15 @@
 // Settings
 // ---------------------------------------------------------------------------
 
+/**
+ * Bumped whenever this file changes in a way worth confirming reached the
+ * deployment. doGet reports it, so `curl <exec url>` answers "is my change
+ * live?" without needing to check a sheet or an inbox. Deploying a new version
+ * is a separate step from saving the editor, and twice now the old code was
+ * still serving while the new code sat saved but undeployed.
+ */
+var VERSION = '2026-09-10-attorney-flag';
+
 /** Where team notifications go. Comma-separate for several recipients. */
 var NOTIFY_EMAIL = 'kartik@samora.ai';
 
@@ -115,7 +124,7 @@ function doPost(e) {
 
 /** Lets you confirm the deployment is reachable in a browser. */
 function doGet() {
-  return json_({ ok: true, service: 'samoracare-lead-intake' });
+  return json_({ ok: true, service: 'samoracare-lead-intake', version: VERSION });
 }
 
 // ---------------------------------------------------------------------------
@@ -284,6 +293,17 @@ function notifyTeam_(body) {
     flag = 'CHECK FIRST - ';
     warning =
       '*** They are not sure whether anyone already represents them.\n' +
+      '*** Confirm that before calling.\n\n';
+  } else if (!body.has_attorney) {
+    /*
+     * No answer at all, which happens if a visitor submits from a cached copy
+     * of the form served before the question existed. Treated as unverified
+     * rather than as a 'no': an unanswered question must not look the same as
+     * someone confirming they are unrepresented.
+     */
+    flag = 'CHECK FIRST - ';
+    warning =
+      '*** This lead did not answer whether anyone already represents them.\n' +
       '*** Confirm that before calling.\n\n';
   }
 
